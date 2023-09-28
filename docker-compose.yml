@@ -1,6 +1,47 @@
-version: '3.3'
+version: '3.8'
+volumes:
+  pgdata:
+
 services:
   web:
     image: tubes-1:latest
     ports:
-      - 8008:80
+      - 80:80
+    hostname: web-tubes-1
+    env_file:
+      - ./env
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - postgres
+    # command: ["./public/init.sh", "", "apache2-foreground"]
+    networks:
+      app-env:
+  
+  postgres:
+    image: postgres:9.6
+    restart: always
+    container_name: postgres 
+    env_file:
+      - ./env
+    hostname: db-tubes-1
+    volumes:
+      # - ./dbinit/CreateTable.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      app-env:
+      interface:
+
+  pgadmin:
+    image: fenglc/pgadmin4
+    container_name: pgadmin4
+    env_file:
+      - ./env
+    ports:
+      - "5050:5050"
+    networks:
+      interface:
+
+networks:
+  app-env:
+  interface:
