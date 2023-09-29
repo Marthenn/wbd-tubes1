@@ -1,0 +1,154 @@
+.navbar-user {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+}
+
+.navbar-titles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0px 15px;
+    padding: 5px 15px;
+}
+
+.logo {
+    width: 35px;
+}
+
+.audio-books-page {
+    margin: 50px 10%;
+}
+
+.book-card {
+    width: 235px;
+    height: 380px;
+}
+
+.book-card .cover-img {
+    border-radius: 35px;
+    width: 235px;
+    height: 300px;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.book-card .details {
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 140px 80px;
+    padding: 5px;
+    font-weight: normal;
+}
+
+.book-card .details .title {
+    font-weight: bold;
+    text-align: left;
+}
+
+.book-card .details .author {
+    font-size: 14px;
+    text-align: left;
+}
+
+.book-card .details .rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.book-card .details .duration {
+    text-align: right;
+    font-size: 14px;
+}
+
+.rating-star {
+    width: 20px;
+    height: 20px;
+    margin: 0 2px;
+}
+
+.book-card-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0px;
+    align-items: center;
+}
+
+.search-bar {
+    background-color: #F2F2F2;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 25px;
+    margin: 10px 10px 5px 0px;
+    width: 20%;
+}
+
+.search-input {
+    background-color: #F2F2F2;
+    border: none;
+    margin: 0 10px;
+    width: 85%;
+}
+
+.search-button {
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(135deg, #00BC71, #3DD598);
+    border: none;
+    padding: 5px 15px;
+    border-radius: 25px;
+}
+
+.search-input:focus, .filter-dropdown:focus {
+    background-color: #F2F2F2;
+    outline: none;
+}
+
+.filter-sort {
+    padding: 5px 10px 5px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 25px;
+    margin: 10px 10px 10px 0px;
+}
+
+.filter-dropdown, .sort-dropdown{
+    background-color: #F2F2F2;
+    padding: 5px 10px;
+    border-radius: 25px;
+    border: none;
+    margin: 5px 10px 10px 0px;
+    width: 15%;
+}
+
+.filter-button, .sort-button{
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 25px;
+    border: none;
+    margin: 5px 10px 10px 0px;
+}
+
+.filter-button{
+    background: linear-gradient(135deg, #0B07F7, #AB68FE);
+    padding: 5px 10px;
+}
+
+.sort-button {
+    background: linear-gradient(135deg, #F6A604, #FBDF32);
+    padding: 5px 20px;
+}

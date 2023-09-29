@@ -4,5 +4,6 @@
     <meta charset="UTF-8">
     <title> <?=$data['title'];?> </title>
     <link rel="stylesheet" href="<?= BASEURL;?>/css/style.css">
+    <link rel="stylesheet" href="<?= BASEURL;?>/css/audio_books.css">
 </head>
 <body>

@@ -35,7 +35,7 @@
     <!-- card list -->
     <div class="book-card-list">
         <!-- placeholder -->
-        <button class="book-card">
+        <a href="" class="book-card">
             <div class="cover">
                 <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
             </div>
@@ -48,8 +48,8 @@
                 <p class="author">Author</p>
                 <p class="duration">45 min</p>
             </div>
-        </button>
-        <button class="book-card">
+        </a>
+        <a href="" class="book-card">
             <div class="cover">
                 <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
             </div>
@@ -62,8 +62,8 @@
                 <p class="author">Author</p>
                 <p class="duration">45 min</p>
             </div>
-        </button>
-        <button class="book-card">
+        </a>
+        <a href="" class="book-card">
             <div class="cover">
                 <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
             </div>
@@ -76,8 +76,8 @@
                 <p class="author">Author</p>
                 <p class="duration">45 min</p>
             </div>
-        </button>
-        <button class="book-card">
+        </a>
+        <a href="" class="book-card">
             <div class="cover">
                 <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
             </div>
@@ -90,8 +90,8 @@
                 <p class="author">Author</p>
                 <p class="duration">45 min</p>
             </div>
-        </button>
-        <button class="book-card">
+        </a>
+        <a href="" class="book-card">
             <div class="cover">
                 <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
             </div>
@@ -104,6 +104,6 @@
                 <p class="author">Author</p>
                 <p class="duration">45 min</p>
             </div>
-        </button>
+        </a>
     </div>    
 </div>
