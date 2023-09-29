@@ -1,12 +1,12 @@
 <?php
 
-class Home extends Controller{
+class AudioBooks extends Controller{
     public function index()
     {
-        $data['title'] = 'Home';
+        $data['title'] = 'Audio Books';
         $this->view('templates/header', $data);
         $this->view('templates/navbar_user');
-        $this->view('home/index');
+        $this->view('audio_books/index');
         $this->view('templates/footer');
     }
 }
