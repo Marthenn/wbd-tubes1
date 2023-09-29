@@ -10,11 +10,27 @@
     z-index: 10;
 }
 
-.navbar-titles {
+.navbar-contents {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     margin: 0px 15px;
     padding: 5px 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.user-photo-img {
+    border-radius: 30px;
+    width: 25px;
+    height: 25px;
+}
+
+.username {
+    margin: 0 10px;
+    text-align: right;
 }
