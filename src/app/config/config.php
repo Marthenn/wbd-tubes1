@@ -1,4 +1,8 @@
 <?php
+$env = parse_ini_file('../../.env');
+foreach ($env as $key => $value) {
+    putenv("$key=$value");
+}
 
 define('BASEURL', getenv('BASE_URL')); // path to public folder
 
