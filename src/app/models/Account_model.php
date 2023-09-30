@@ -29,4 +29,11 @@ class Account_model{
         $this->database->bind(":joined_date", $date);
         $this->database->execute();
     }
+
+    public function getUserPage($page){
+        $offset = ($page - 1) * 5;
+        $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account ORDER BY uid ASC LIMIT 5 OFFSET :offset");
+        $this->database->bind(":offset", $offset);
+        return $this->database->resultSet();
+    }
 }
