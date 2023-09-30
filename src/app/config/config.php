@@ -1,6 +1,6 @@
 <?php
 
-define('BASEURL', 'http://localhost/tugas-besar-1/src/public'); // path to public folder
+define('BASEURL', getenv('BASE_URL')); // path to public folder
 
 // DB
 define('DB_HOST', getenv('DB_HOST'));
