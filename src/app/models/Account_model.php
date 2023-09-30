@@ -32,10 +32,10 @@ class Account_model{
 
     public function getUserPage($page, $filter = null){
         $offset = ($page - 1) * 5;
-        if (filter == null) {
+        if ($filter == null) {
             $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account ORDER BY uid ASC LIMIT 5 OFFSET :offset");
         }
-        if (filter != null) { // different query to optimize the filter
+        if ($filter != null) { // different query to optimize the filter
             $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username LIKE :filter or email LIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
             $filter = "%".$filter."%";
             $this->database->bind(":filter", $filter);
