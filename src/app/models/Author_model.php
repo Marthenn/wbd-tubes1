@@ -22,4 +22,25 @@ class Author_model {
 
         return $author_list;
     }
+
+    public function addAuthor($name, $description){
+        $this->database->query("INSERT INTO author (name, description) VALUES (:name, :description)");
+        $this->database->bind(":name", $name);
+        $this->database->bind(":description", $description);
+        $this->database->execute();
+    }
+
+    public function deleteAuthor($aid){
+        $this->database->query("DELETE FROM author WHERE aid = :aid");
+        $this->database->bind(":aid", $aid);
+        $this->database->execute();
+    }
+
+    public function updateAuthor($aid, $name, $description){
+        $this->database->query("UPDATE author SET name = :name, description = :description WHERE aid = :aid");
+        $this->database->bind(":aid", $aid);
+        $this->database->bind(":name", $name);
+        $this->database->bind(":description", $description);
+        $this->database->execute();
+    }
 }
