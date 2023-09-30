@@ -9,7 +9,7 @@ services:
       - 80:80
     hostname: web-tubes-1
     env_file:
-      - ./env
+      - ./.env
     volumes:
       - ./src:/var/www/html
     depends_on:
@@ -23,7 +23,7 @@ services:
     restart: always
     container_name: postgres 
     env_file:
-      - ./env
+      - ./.env
     hostname: db-tubes-1
     volumes:
       # - ./dbinit/CreateTable.sql:/docker-entrypoint-initdb.d/init.sql
@@ -36,7 +36,7 @@ services:
     image: fenglc/pgadmin4
     container_name: pgadmin4
     env_file:
-      - ./env
+      - ./.env
     ports:
       - "5050:5050"
     networks:
