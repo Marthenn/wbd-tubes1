@@ -9,5 +9,6 @@
     <link rel="stylesheet" href="<?= BASEURL;?>/css/navbar.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/signing.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/book_details.css">
+    <link rel="stylesheet" href="<?= BASEURL;?>/css/not_found.css">
 </head>
 <body>

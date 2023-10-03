@@ -15,6 +15,8 @@ class App {
             $url[0] = explode('.', $url[0])[0];
             $this->controller = $url[0];
             unset($url[0]);
+        } else {
+            $this->controller = 'NotFound';
         }
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
