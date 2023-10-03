@@ -1,4 +1,4 @@
-.navbar-user, .navbar-admin {
+.navbar-user{
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -8,6 +8,10 @@
     top: 0;
     width: 100%;
     z-index: 10;
+}
+
+.navbar-contents .titles .navbar-title {
+    margin: 0px 15px;
 }
 
 .navbar-contents {
