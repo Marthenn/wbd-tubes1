@@ -4,7 +4,7 @@
     <div class="search">
         <div class="search-bar">
             <input class="search-input" type="text" id="search" name="search" placeholder="Search..">
-            <img class="search-logo"src="<?= BASEURL;?>/img/search.svg" alt="">
+            <img class="search-logo"src="<?= BASEURL;?>/img/search.svg" alt="search">
         </div>
         <button class="search-button" type="submit">Search</button>
     </div>
@@ -42,7 +42,7 @@
             <div class="details">
                 <p class="title">Book Title</p>
                 <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="">
+                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
                     <p class="rating-num">5.0</p>
                 </div>
                 <p class="author">Author</p>
@@ -56,7 +56,7 @@
             <div class="details">
                 <p class="title">Book Title</p>
                 <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="">
+                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
                     <p class="rating-num">5.0</p>
                 </div>
                 <p class="author">Author</p>

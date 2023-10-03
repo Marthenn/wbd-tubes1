@@ -10,5 +10,6 @@
     <link rel="stylesheet" href="<?= BASEURL;?>/css/signing.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/book_details.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/not_found.css">
+    <link rel="stylesheet" href="<?= BASEURL;?>/css/list.css">
 </head>
 <body>
