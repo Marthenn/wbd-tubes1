@@ -29,6 +29,7 @@ a {
     font-weight: bold;
     font-style: normal;
     text-decoration: none;
+    font-size: 14px;
     color: #1f1f1f;
 }
 a:hover, button:hover{
@@ -43,4 +44,5 @@ button {
     background-color: #ffffff;
     border: none;
     cursor: pointer;
+    font-size: 14px;
 }

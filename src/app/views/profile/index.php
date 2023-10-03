@@ -7,7 +7,11 @@
             </a>
         </div>
         <form class="profile" action="" method="post">
-            <img class="profile-img" src="<?= BASEURL;?>/img/user-placeholder.svg" alt="profile">
+            <div class="image-field">
+                <img class="profile-img" src="<?= BASEURL;?>/img/user-placeholder.svg" alt="profile">
+                <input class="profile-img-edit" accept="image/png, image/jpeg" type="file" id="profile-img-edit" name="profile-img-edit" name="edit-button"/>
+                <label for="profile-img-edit" class="custom-file-label">Choose Image</label>
+            </div>
             <div class="input-field">
                 <label for="email">Email</label>
                 <div class="inside-input-field">

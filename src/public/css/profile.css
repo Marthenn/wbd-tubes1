@@ -35,8 +35,34 @@
     margin: 0 10px;
 }
 
+.profile .image-field {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    width: 100%;
+    align-items: center;
+}
+
+.profile .image-field .profile-img-edit {
+    display: none;
+}
+
+.custom-file-label {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.custom-file-label:hover {
+    opacity: 50%;
+}
+
 .profile .input-field label {
-    margin: 0 10px;
+    margin: 0px 10px;
 }
 
 
@@ -72,7 +98,6 @@
     border: none;
     border-radius: 25px;
     color: #ffffff;
-    font-weight: bold;
     padding: 10px;
     margin-left: auto;
 }
@@ -82,7 +107,6 @@
     border: none;
     border-radius: 25px;
     color: #ffffff;
-    font-weight: bold;
     padding: 10px;
     width: 100%;
     margin: 10px 0px;
