@@ -8,5 +8,6 @@
     <link rel="stylesheet" href="<?= BASEURL;?>/css/profile.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/navbar.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/signing.css">
+    <link rel="stylesheet" href="<?= BASEURL;?>/css/book_details.css">
 </head>
 <body>
