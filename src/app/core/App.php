@@ -9,8 +9,11 @@ class App {
     public function __construct()
     {
         $url = $this->parseURL();
-        if(file_exists("../app/controllers/" . $url[0] . '.php')) {
-            $this->controller = $url[0]; 
+
+        if($this->fileCaseInsensitive('../app/controllers', $url[0] . '.php')) {
+            $url[0] = $this->fileCaseInsensitive('../app/controllers', $url[0] . '.php');
+            $url[0] = explode('.', $url[0])[0];
+            $this->controller = $url[0];
             unset($url[0]);
         }
         require_once '../app/controllers/' . $this->controller . '.php';
@@ -41,5 +44,15 @@ class App {
             $url[0] = $this->controller;
         }
         return $url;
+    }
+
+    private function fileCaseInsensitive($dir, $file) {
+        $files = scandir($dir);
+        $lowercase_files = array_map('strtolower', $files);
+        $index = array_search(strtolower($file), $lowercase_files);
+        if ($index !== false) {
+            return $files[$index];
+        }
+        return false;
     }
 }
