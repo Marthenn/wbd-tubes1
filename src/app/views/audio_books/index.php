@@ -35,7 +35,7 @@
     <!-- card list -->
     <div class="book-card-list">
         <!-- placeholder -->
-        <a href="" class="book-card">
+        <a href="<?= BASEURL;?>/bookdetails" class="book-card">
             <div class="cover">
                 <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
             </div>

@@ -25,6 +25,7 @@
                     <button type="submit" name="submit">Sign Up</button>
                 </div>
             </form>
+            <p>Already have an account? <a href="<?= BASEURL;?>/signin">Sign In</a></p>
         </div>
     </div>
 </div>

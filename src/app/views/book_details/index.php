@@ -1,5 +1,5 @@
 <div class="books-details-page">
-    <a href="">
+    <a href="<?= BASEURL;?>/audiobooks">
        <img class="back-arrow" src="<?= BASEURL;?>/img/back-arrow.svg" alt="back">
     </a>
     <div class="books-details-content">

@@ -2,7 +2,7 @@
     <img class="logo" src="<?= BASEURL;?>/img/Logo.svg" alt="logo" >
     <div class="navbar-contents">
         <div class="titles">
-            <a href="" class="navbar-title">Audio Books</a>
+            <a href="<?= BASEURL;?>/audiobooks" class="navbar-title">Audio Books</a>
         </div>
         <div class="user-info">
             <a href="" class="user-photo">
