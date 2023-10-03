@@ -1,0 +1,28 @@
+.not-found-page {
+    background-image: url(../img/bg-wave.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    height: 100vh;
+}
+
+.not-found-contents {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#text-wrapper-404 {
+    margin-top: 20vh;
+}
+
+#text-404 {
+    font-size: 120px;
+}
+
+#text-not-found {
+    font-size: 30px;
+}
