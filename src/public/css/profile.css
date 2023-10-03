@@ -4,7 +4,7 @@
 }
 
 .profile-contents {
-    margin: 100px 10%;
+    margin: 100px 10% 0px 10%;
 }
 
 .profile-header {
@@ -79,6 +79,7 @@
     background-position: center center;
     margin: 0;
     height:100vh;
+    margin-top: 75px;
     width: 100vh;
 }
 
