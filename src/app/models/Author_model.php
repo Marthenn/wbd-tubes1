@@ -49,4 +49,8 @@ class Author_model {
         $this->database->bind(":description", $description);
         $this->database->execute();
     }
+
+    public function editAuthor(/* params as needed */) {
+        // TODO: @HanifMZ this too as well please
+    }
 }
