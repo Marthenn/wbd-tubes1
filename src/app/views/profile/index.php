@@ -14,17 +14,11 @@
             </div>
             <div class="input-field">
                 <label for="email">Email</label>
-                <div class="inside-input-field">
-                    <input type="email" name="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" autocomplete="email" required readonly="readonly">
-                    <button class="edit-button" type="button" name="edit-button">Edit</button>
-                </div>
+                <input type="email" name="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" autocomplete="email" required>
             </div>
             <div class="input-field">
                 <label for="username">Username</label>
-                <div class="inside-input-field">
-                    <input type="text" name="username" id="username" autocomplete="username" required readonly="readonly">
-                    <button class="edit-button" type="button" name="edit-button">Edit</button>
-                </div>
+                <input type="text" name="username" id="username" autocomplete="username">
             </div>
             <button class="save-changes" type="submit" name="save-changes">Save Changes</button>
             <button class="sign-out" type="button" name="sign-out">Sign Out</button>
