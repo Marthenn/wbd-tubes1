@@ -1,0 +1,94 @@
+.profile-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.profile-contents {
+    margin: 100px 10%;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.close-link {
+    margin-left: auto;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+}
+
+.profile .input-field {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    width: 100%;
+}
+
+.profile .input-field .inside-input-field input {
+    width: 100%;
+    margin: 0 10px;
+}
+
+.profile .input-field label {
+    margin: 0 10px;
+}
+
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.profile-decor {
+    background-image: url(../img/side-wave.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    height:100vh;
+    width: 100vh;
+}
+
+.save-changes {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.edit-button {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    margin-left: auto;
+}
+
+.delete-account, .sign-out {
+    background: linear-gradient(90deg, #FF0000 0%, #FF0000 100%);
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.inside-input-field {
+    display: flex;
+    flex-direction: row;
+}

@@ -17,7 +17,7 @@
                     <button type="submit" name="submit">Sign In</button>
                 </div>
             </form>
-            <p>Don't have an account? <a href="<?= BASEURL;?>/sign_up">Sign Up</a></p>
+            <p>Don't have an account? <a href="<?= BASEURL;?>/signup">Sign Up</a></p>
         </div>
     </div>
 </div>
