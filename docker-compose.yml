@@ -1,6 +1,6 @@
 version: '3.8'
 volumes:
-  pgdata:
+  data_16:
 
 services:
   web:
@@ -13,30 +13,34 @@ services:
     volumes:
       - ./src:/var/www/html
     depends_on:
-      - postgres
-    # command: ["./public/init.sh", "", "apache2-foreground"]
+      - db
     networks:
       app-env:
   
-  postgres:
-    image: postgres:9.6
+  db:
+    image: postgres:16
     restart: always
     container_name: postgres 
-    env_file:
-      - ./.env
+    environment:
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=postgres
     hostname: db-tubes-1
+    ports:
+      - "5432:5432"
     volumes:
-      # - ./dbinit/CreateTable.sql:/docker-entrypoint-initdb.d/init.sql
-      - pgdata:/var/lib/postgresql/data
+      - data_16:/var/lib/postgresql/data
     networks:
       app-env:
       interface:
 
   pgadmin:
-    image: fenglc/pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: pgadmin4
-    env_file:
-      - ./.env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
     ports:
       - "5050:5050"
     networks:
