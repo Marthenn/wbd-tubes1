@@ -50,12 +50,30 @@ class Author_model {
         $this->database->execute();
     }
 
-    public function getAllAuthors(){
-        $this->database->query("SELECT DISTINCT name FROM author");
-        return $this->database->resultSet();
-    }
-
-    public function editAuthor(/* params as needed */) {
+    public function editAuthor($data) {
+        /**
+         * $data will be key-value pair with keys:
+         * 0. aid (author id)
+         * 1. Author Name
+         * 2. Description (nullable)
+         */
         // TODO: @HanifMZ this too as well please
+
+        $query = "UPDATE author SET author = :author"
+        
+        // Check nullity of description data input 
+        if ($data['description'] != null) {
+            $query = $query . ", description = :description"
+        } else {
+            $query = $query . ", description = NULL"
+        }
+        
+        $this->database->query($query);
+        $this->database->bind(':author', $data['author']);
+        if ($data['description'] != null) {
+            $this->database->bind(':description', $data['description']);
+        }
+
+        $this->database->execute();
     }
 }
