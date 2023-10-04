@@ -89,7 +89,7 @@ class Book_model {
         return $this->db->resultSet();
     }
 
-    public function getBookPageAdmin($page, $filter = null){
+    public function getBookPageAdmin($page, $filter = null){   
         // TODO: @Putinabillaa implement mirip atas tapi untuk admin (filter kategori masih belum kebayang soalnya)
     }
 
@@ -153,6 +153,8 @@ class Book_model {
     }
 
     public function deleteBook($bid) {
-        // TODO: @HanifMZ implement delete book
+        $this->db->query("DELETE FROM book WHERE bid = :bid");
+        $this->db->bind(":bid", $bid);
+        $this->db->execute();
     }
 }
