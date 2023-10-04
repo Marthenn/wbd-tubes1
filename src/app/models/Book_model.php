@@ -91,6 +91,56 @@ class Book_model {
 
     public function getBookPageAdmin($page, $filter = null){   
         // TODO: @Putinabillaa implement mirip atas tapi untuk admin (filter kategori masih belum kebayang soalnya)
+        $offset = ($page - 1) * 5;
+        $filtered = false;
+        $query = "SELECT title, author.name as author, rating, category.name as category FROM book JOIN author ON book.aid = author.aid JOIN category ON book.category_id = category.cid";
+        if (isset($filter['category'])){
+            $query = $query . " WHERE category.name = :category";
+            $filtered = true;
+        }
+        if (isset($filter['duration'])){
+            if ($filtered){
+                $query = $query . " AND duration BETWEEN :duration_min AND :duration_max";
+            } else {
+                $query = $query . " WHERE duration BETWEEN :duration_min AND :duration_max";
+            }
+            $filtered = true;
+        }
+        if (isset($filter['search'])){
+            if ($filtered){
+                $query = $query . " AND (title LIKE :search OR author.name LIKE :search)";
+            } else {
+                $query = $query . " WHERE (title LIKE :search OR author.name LIKE :search)";
+            }
+            $filtered = true;
+        }
+        if (isset($filter['sort'])){
+            if ($filter['sort'] == 'duration_asc'){
+                $query = $query . " ORDER BY duration ASC";
+            } else if ($filter['sort'] == 'duration_desc'){
+                $query = $query . " ORDER BY duration DESC";
+            } else if ($filter['sort'] == 'title_asc'){
+                $query = $query . " ORDER BY title ASC";
+            } else if ($filter['sort'] == 'title_desc'){
+                $query = $query . " ORDER BY title DESC";
+            }
+        }
+
+        $query = $query . " LIMIT 5 OFFSET :offset";
+
+        $this->db->query($query);
+        if (isset($filter['category'])){
+            $this->db->bind('category', $filter['category']);
+        }
+        if (isset($filter['duration'])){
+            $this->db->bind('duration_min', $filter['duration'][0]);
+            $this->db->bind('duration_max', $filter['duration'][1]);
+        }
+        if (isset($filter['search'])){
+            $this->db->bind('search', '%' . $filter['search'] . '%');
+        }
+        $this->db->bind('offset', $offset);
+        return $this->db->resultSet();
     }
 
     public function editBook($data) {
