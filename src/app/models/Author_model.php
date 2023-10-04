@@ -50,6 +50,11 @@ class Author_model {
         $this->database->execute();
     }
 
+    public function getAllAuthors(){
+        $this->database->query("SELECT DISTINCT name FROM author");
+        return $this->database->resultSet();
+    }
+
     public function editAuthor(/* params as needed */) {
         // TODO: @HanifMZ this too as well please
     }
