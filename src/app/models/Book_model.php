@@ -207,4 +207,12 @@ class Book_model {
         $this->db->bind(":bid", $bid);
         $this->db->execute();
     }
+
+    public function getBookByID($bid) {
+        // TODO: check this query (I trust in copilot bismillah)
+        $query = "SELECT bid, title, author.name as author, rating, book.description, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.category_id = category.cid WHERE bid = :bid";
+        $this->db->query($query);
+        $this->db->bind('bid', $bid);
+        return $this->db->single();
+    }
 }
