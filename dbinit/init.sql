@@ -27,6 +27,6 @@ CREATE TABLE book (
     duration time without time zone NOT NULL,
     cover_image_directory text,
     audio_directory text NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES author(author_id),
-    FOREIGN KEY (category_id) REFERENCES category(category_id)
+    FOREIGN KEY (author_id) REFERENCES author(author_id) ON UPDATE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES category(category_id) ON UPDATE CASCADE
 );
