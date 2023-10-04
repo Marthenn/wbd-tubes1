@@ -1,0 +1,18 @@
+.list-page {
+    margin: 100px 10%;
+}
+
+.data-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 25px;
+    margin: 25px 0px;
+    border-radius: 10px;
+    background-color: #F2F2F2;
+}
+
+.edit {
+    margin-right: auto;
+}

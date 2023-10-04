@@ -19,7 +19,7 @@
                 <p class="description-text">45 min</p>
                 <p class="description-title">Rating</p>
                 <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="">
+                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
                     <p class="description-text">5.0</p>
                 </div> 
             </div>
