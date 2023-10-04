@@ -41,7 +41,7 @@
             <p>Duration: 00:45:00</p>
             <p>Rating: 5</p>
         </div>
-        <a href="path_to_edit_books">
+        <a href="<?= BASEURL;?>/editbook">
             <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
         </a>
     </div>
@@ -55,7 +55,7 @@
             <p>Duration: 00:45:00</p>
             <p>Rating: 5</p>
         </div>
-        <a href="path_to_edit_books">
+        <a href="<?= BASEURL;?>/editbook">
             <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
         </a>
     </div>

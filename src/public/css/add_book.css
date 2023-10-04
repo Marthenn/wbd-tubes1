@@ -1,6 +1,7 @@
 .add-book-page {
     display: grid;
     /* grid-template-columns: 2fr 2fr; */
+    margin-bottom: 100px;
 }
 
 .add-book-contents {
@@ -9,7 +10,7 @@
 
 #add-book {
     color: #1F1F1F;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    /* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     font-size: 44px;
     font-style: normal;
     font-weight: 700;
