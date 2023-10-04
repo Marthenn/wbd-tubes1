@@ -5,7 +5,7 @@ class AdminList extends Controller{
     {
         $data['title'] = 'Audio Books List';
         $this->view('templates/header', $data);
-        $this->view('templates/navbar_user');
+        $this->view('templates/navbar_admin');
         $this->view('admin_list/audiobooks');
         $this->view('templates/footer');
     }
@@ -13,7 +13,7 @@ class AdminList extends Controller{
     {
         $data['title'] = 'Author List';
         $this->view('templates/header', $data);
-        $this->view('templates/navbar_user');
+        $this->view('templates/navbar_admin');
         $this->view('admin_list/author');
         $this->view('templates/footer');
     }
@@ -21,7 +21,7 @@ class AdminList extends Controller{
     {
         $data['title'] = 'User List';
         $this->view('templates/header', $data);
-        $this->view('templates/navbar_user');
+        $this->view('templates/navbar_admin');
         $this->view('admin_list/user');
         $this->view('templates/footer');
     }
