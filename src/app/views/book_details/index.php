@@ -28,7 +28,7 @@
     <div class="progress-bar-container">
         <audio id="audio-player" src="<?= BASEURL;?>/audio/<?= $data['title'] ?>.mp3"></audio> 
         <button id="play-pause-button" type="button" name="play-pause-button">
-            <img id="play-pause-img" src="<?= BASEURL;?>/img/play-button.svg" alt="play">
+            <img id="play-pause-img" src="<?= BASEURL;?>/img/play-button.svg" alt="play"  data-play-src="<?= BASEURL;?>/img/play-button.svg" data-pause-src="<?= BASEURL;?>/img/pause-button.svg" width="50">
         </button>
         <p id="curr-duration">0:00</p>
         <input class="progress-bar" type="range" name="progress-bar" id="progress-bar" step="0.01" value="0">

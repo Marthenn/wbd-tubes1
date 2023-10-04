@@ -1,7 +1,7 @@
 <?php
 
 class AdminList extends Controller{
-    public function audiobooks()
+    public function index()
     {
         $data['title'] = 'Audio Books List';
         $this->view('templates/header', $data);
