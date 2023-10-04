@@ -213,6 +213,20 @@ class Book_model {
         $query = "SELECT bid, title, author.name as author, rating, book.description, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.category_id = category.cid WHERE bid = :bid";
         $this->db->query($query);
         $this->db->bind('bid', $bid);
-        return $this->db->single();
+        $data = $this->db->single();
+
+        $query = "SELECT curr_duration FROM history WHERE bid = :bid AND uid = :uid";
+        $this->db->query($query);
+        $this->db->bind('bid', $bid);
+        $this->db->bind('uid', $_SESSION['uid']); // TODO: make the session for log in (TOP PRIORITY AFTER THIS PLEASE)
+        $curr_duration = $this->db->single()->curr_duration;
+
+        // check if no history, then curr_duration = 0
+        if ($curr_duration == null){
+            $curr_duration = 0;
+        }
+        $data->curr_duration = $curr_duration;
+
+        return $data;
     }
 }
