@@ -25,12 +25,13 @@ services:
     environment:
       - POSTGRES_USER=dev
       - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=audiobookdb
     hostname: db-tubes-1
     ports:
       - "5432:5432"
     volumes:
       - data_16:/var/lib/postgresql/data
+      - ./dbinit/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       app-env:
       interface:
