@@ -9,7 +9,7 @@ const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
 let emailIsValid = false;
 let usernameIsValid = false;
 
-emailInput.addEventListener(
+emailInput && emailInput.addEventListener(
     "keyup",
     debounce(() => {
         const email = emailInput.value;
@@ -23,7 +23,7 @@ emailInput.addEventListener(
     })
 )
 
-usernameInput.addEventListener(
+usernameInput && usernameInput.addEventListener(
     'keyup',
     debounce(() => {
         const username = usernameInput.value;
