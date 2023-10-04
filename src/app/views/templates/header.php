@@ -12,5 +12,6 @@
     <link rel="stylesheet" href="<?= BASEURL;?>/css/not_found.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/list.css">
     <link rel="stylesheet" href="<?= BASEURL;?>/css/pagination.css">
+    <link rel="stylesheet" href="<?= BASEURL;?>/css/edit_book.css">
 </head>
 <body>
