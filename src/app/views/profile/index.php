@@ -24,7 +24,7 @@
             <div class="input-field">
                 <label for="username">Username</label>
                 <div class="inside-input-field">
-                    <input type="text" name="username" id="username" autocomplete="username" required>
+                    <input type="text" name="username" id="username" autocomplete="username" pattern=[a-zA-Z0-9_]{3,16} required>
                 </div>
                 <div class="error-msg">
                     <span id="username-error-msg"></span>
