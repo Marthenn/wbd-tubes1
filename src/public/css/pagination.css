@@ -1,0 +1,16 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 40%;
+    width: max-content;
+    padding-bottom: 35px;
+    position: absolute;
+    top: auto;
+}
+
+.page-input {
+    width: 5%;
+    margin: 0 10px;
+}
