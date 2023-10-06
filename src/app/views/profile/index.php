@@ -15,7 +15,7 @@
             <div class="input-field">
                 <label for="email">Email</label>
                 <div class="inside-input-field">
-                    <input type="email" name="email" id="email" autocomplete="email" required>
+                    <input type="email" name="email" id="email" autocomplete="email" pattern="^(?=.{1,256})(?=.{1,64}@.{1,255}$)(?=.{1,255}\..{1,255}$)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$" required>
                 </div>
                 <div class="error-msg">
                     <span id="email-error-msg"></span>
@@ -30,7 +30,7 @@
                     <span id="username-error-msg"></span>
                 </div>
             </div>
-            <button class="save-changes" type="submit" name="save-changes">Save Changes</button>
+            <button class="save-changes" type="submit" name="save-changes" id="save-button">Save Changes</button>
             <button class="sign-out" type="button" name="sign-out">Sign Out</button>
             <button class="delete-account" type="submit" name="delete-account">Delete Acccount</button>
         </form>

@@ -113,3 +113,12 @@
     margin-left: 10px;
     margin-top: 3px;
 }
+
+@media (max-width: 850px) {
+    .profile-page {
+        grid-template-columns: 1fr;
+    }
+    .profile-decor {
+        display: none;
+    }
+}

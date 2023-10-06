@@ -22,7 +22,7 @@
             </div>
             <div class="input-field-description">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" value="data from db" required></textarea>
+                <textarea name="description" id="description" required>data from db</textarea>
             </div>
             <div class="file-field">
                 <div>

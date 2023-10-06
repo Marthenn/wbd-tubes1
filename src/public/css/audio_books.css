@@ -135,3 +135,20 @@
     background: linear-gradient(135deg, #F6A604, #FBDF32);
     padding: 5px 20px;
 }
+@media (max-width: 850px){
+    .audio-books-page .book-card-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .search-bar {
+        width: 50%;
+    }
+    .filter-sort {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .filter-dropdown, .sort-dropdown{
+        width: 50%;
+    }
+}
