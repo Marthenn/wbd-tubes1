@@ -30,7 +30,7 @@ class App {
 
             // check if logged in and try to access admin page (for user)
             else if(isset($_COOKIE['uid']) && isset($_COOKIE['privilege'])) {
-                if (!in_array($this->controller, $this->user_pages) && $_COOKIE['privilege'] == Privilege::User){ // check if not in array of user allowed
+                if (!in_array($this->controller, $this->user_pages) && !$_COOKIE['privilege']){ // check if not in array of user allowed
                     $this->controller = 'Forbidden';
                 }
             }

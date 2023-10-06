@@ -25,9 +25,9 @@ class Account_model{
             setcookie("uid", $user['uid'], time() + 3600, "/");
             setcookie("username", $user['username'], time() + 3600, "/");
             if ($user['is_admin']){
-                setcookie("privilege", Privilege::Admin, time() + 3600, "/");
+                setcookie("privilege", true, time() + 3600, "/");
             } else {
-                setcookie("privilege", Privilege::User, time() + 3600, "/");
+                setcookie("privilege", false, time() + 3600, "/");
             }
             return true;
         } else {

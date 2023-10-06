@@ -5,7 +5,11 @@ class Profile extends Controller{
     {
         $data['title'] = 'Profile';
         $this->view('templates/header', $data);
-        $this->view('templates/navbar_user');
+        if($_COOKIE['privilege']){
+            $this->view('templates/navbar_admin');
+        } else {
+            $this->view('templates/navbar_user');
+        }
         $this->view('profile/index');
         $this->view('templates/footer');
     }
