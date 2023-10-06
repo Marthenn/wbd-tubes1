@@ -59,7 +59,7 @@ class Author_model {
          */
         // TODO: @HanifMZ this too as well please
 
-        $query = "UPDATE author SET author = :author"
+        $query = "UPDATE author SET name = :author"
         
         // Check nullity of description data input 
         if ($data['description'] != null) {

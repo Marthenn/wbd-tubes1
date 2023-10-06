@@ -38,7 +38,7 @@ class Book_model {
         $filtered = false;
 
         // base select
-        $query = "SELECT title, author.name as author, rating, category.name as category, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.category_id = category.cid";
+        $query = "SELECT title, author.name as author, rating, category.name as category, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
 
         if (isset($filter['category'])){
             $query = $query . " WHERE category.name = :category";
@@ -93,7 +93,7 @@ class Book_model {
         // TODO: @Putinabillaa implement mirip atas tapi untuk admin (filter kategori masih belum kebayang soalnya)
         $offset = ($page - 1) * 5;
         $filtered = false;
-        $query = "SELECT title, author.name as author, rating, category.name as category FROM book JOIN author ON book.aid = author.aid JOIN category ON book.category_id = category.cid";
+        $query = "SELECT title, author.name as author, rating, category.name as category FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
         if (isset($filter['category'])){
             $query = $query . " WHERE category.name = :category";
             $filtered = true;
@@ -170,7 +170,7 @@ class Book_model {
         $cid = $this->db->single()->cid;
 
         // updating the book
-        $query = "UPDATE book SET title = :title, aid = :aid, rating = :rating, category_id = :cid, description = :description";
+        $query = "UPDATE book SET title = :title, aid = :aid, rating = :rating, cid = :cid, description = :description";
         if ($data['cover_image_directory'] != null){
             if ($data['cover_image_directory'] == 'delete_please'){
                 $query = $query . ", cover_image_directory = NULL";
@@ -210,7 +210,7 @@ class Book_model {
 
     public function getBookByID($bid) {
         // TODO: check this query (I trust in copilot bismillah)
-        $query = "SELECT bid, title, author.name as author, rating, book.description, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.category_id = category.cid WHERE bid = :bid";
+        $query = "SELECT bid, title, author.name as author, rating, book.description, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid WHERE bid = :bid";
         $this->db->query($query);
         $this->db->bind('bid', $bid);
         $data = $this->db->single();
