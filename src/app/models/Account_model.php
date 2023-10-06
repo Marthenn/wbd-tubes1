@@ -16,7 +16,18 @@ class Account_model{
         $user = $this->database->single();
 
         if ($user){
+            session_start();
+            $_SESSION['uid'] = $user['uid'];
+            if ($user['is_admin']){
+                $_SESSION['privilege'] = Privilege::Admin;
+            } else {
+                $_SESSION['privilege'] = Privilege::User;
+            }
 
+            var_dump($_SESSION);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -46,6 +57,10 @@ class Account_model{
     }
 
     public function logout(){
+        session_unset();
+        if (session_status() == PHP_SESSION_ACTIVE){
+            session_destroy();
+        }
         session_start();
     }
 }
