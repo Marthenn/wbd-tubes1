@@ -17,8 +17,8 @@ class App {
             $url[0] = explode('.', $url[0])[0];
 
 //            Change this for testing purpose
-//            $_SESSION['uid'] = 1;
-//            $_SESSION['privilege'] = Privilige::User;
+           $_SESSION['uid'] = 1;
+           $_SESSION['privilege'] = Privilige::Admin;
 
             $this->controller = $url[0];
 
