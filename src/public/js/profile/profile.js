@@ -1,19 +1,24 @@
 const emailInput = document.getElementById('email');
 const emailError = document.getElementById('email-error-msg');
-const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+const emailRegex = /^(?=.{1,256})(?=.{1,64}@.{1,255}$)(?=.{1,255}\..{1,255}$)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
 const usernameInput = document.getElementById('username');
 const usernameError = document.getElementById('username-error-msg');
 const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
 
+const formInput = document.querySelector('.profile');
+
 let emailIsValid = false;
 let usernameIsValid = false;
+
+
 
 emailInput && emailInput.addEventListener(
     "keyup",
     debounce(() => {
         const email = emailInput.value;
-        if (emailRegex.test(email)) {
+        emailIsValid = emailRegex.test(email);
+        if (emailIsValid) {
             emailError.innerHTML = "";
             emailIsValid = true;
         } else {
@@ -27,8 +32,8 @@ usernameInput && usernameInput.addEventListener(
     'keyup',
     debounce(() => {
         const username = usernameInput.value;
-
-        if (usernameRegex.test(username)) {
+        usernameIsValid = usernameRegex.test(username);
+        if (usernameIsValid) {
             usernameError.innerHTML = "";
             usernameIsValid = true;
         } else {
@@ -37,3 +42,11 @@ usernameInput && usernameInput.addEventListener(
         }
     })
 )
+
+// formInput && formInput.addEventListener(
+//     'submit', async (e) => {
+//         e.preventDefault();
+
+
+//     }
+// )
