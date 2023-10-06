@@ -4,7 +4,7 @@
     </button>
     <p>Page </p>
     <input class="page-input" type="text" id="page" name="page" placeholder="1">
-    <p> of 1</p>
+    <p> of <span> <?= $data['pages'];?> </span> </p>
     <button class="pagination-button" id="next">
         <img src="<?= BASEURL;?>/img/right-arrow.svg" alt=">">
     </button>

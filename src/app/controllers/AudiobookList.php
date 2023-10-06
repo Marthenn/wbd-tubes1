@@ -10,7 +10,7 @@ class AudiobookList extends Controller {
         $data['books'] = $bookModel->getBookPageAdmin($page);
         $data['pages'] = $bookModel->countPageAdmin();
         $this->view('admin_list/audiobooks', $data);
-        $this->view('templates/pagination');
+        $this->view('templates/pagination', $data);
         $this->view('templates/footer');
     }
     
