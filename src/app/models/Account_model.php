@@ -1,23 +1,19 @@
 <?php
 
 class Account_model{
-    private $database;
 
-    public function __construct(){
-        $this->database = new Database;
-    }
-
-    public function login($username, $password){
+    public static function login($username, $password){
         $password = md5($password);
-        $this->database->query("SELECT * FROM account WHERE username = :username AND password = :password");
-        $this->database->bind(":username", $username);
-        $this->database->bind(":password", $password);
+        Database::query("SELECT * FROM account WHERE username = :username AND password = :password");
+        Database::bind(":username", $username);
+        Database::bind(":password", $password);
 
-        $user = $this->database->single();
+        $user = Database::single();
 
         if ($user){
             session_start();
             $_SESSION['uid'] = $user['uid'];
+            $_SESSION['username'] = $user['username'];
             if ($user['is_admin']){
                 $_SESSION['privilege'] = Privilege::Admin;
             } else {
@@ -31,32 +27,46 @@ class Account_model{
         }
     }
 
-    public function register($username, $email, $password){
-        $date = date("Y-m-d");
-        $is_admin = false;
-        $this->database->query("INSERT INTO account (username, email, password, is_admin, joined_date) VALUES (:username, :email, :password, :is_admin, :joined_date)");
-        $this->database->bind(":username", $username);
-        $this->database->bind(":email", $email);
-        $this->database->bind(":password", $password);
-        $this->database->bind(":is_admin", $is_admin);
-        $this->database->bind(":joined_date", $date);
-        $this->database->execute();
+    private static function isUsernameExist($username){
+        Database::query("SELECT * FROM account WHERE username = :username");
+        Database::bind(":username", $username);
+        $user = Database::single();
+        return $user != null;
     }
 
-    public function getUserPage($page, $filter = null){
+    public static function register($username, $email, $password){
+        $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+        $date = $date->format('Y-m-d');
+
+        if (Account_model::isUsernameExist($username)){
+            return false;
+        }
+
+        Database::query("INSERT INTO account (username, email, password, is_admin, joined_date) VALUES (:username, :email, :password, :is_admin, :joined_date)");
+        Database::bind(":username", $username);
+        Database::bind(":email", $email);
+        Database::bind(":password", $password);
+        Database::bind(":is_admin", false);
+        Database::bind(":joined_date", $date);
+        Database::execute();
+
+        return true;
+    }
+
+    public static function getUserPage($page, $filter = null){
         $offset = ($page - 1) * 5;
         if ($filter == null) {
-            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account ORDER BY uid ASC LIMIT 5 OFFSET :offset");
+            Database::query("SELECT uid, username, email, joined_date, is_admin FROM account ORDER BY uid ASC LIMIT 5 OFFSET :offset");
         } else { // different query to optimize the filter
-            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username LIKE :filter or email LIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
+            Database::query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username LIKE :filter or email LIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
             $filter = "%".$filter."%";
-            $this->database->bind(":filter", $filter);
+            Database::bind(":filter", $filter);
         }
-        $this->database->bind(":offset", $offset);
-        return $this->database->resultSet();
+        Database::bind(":offset", $offset);
+        return Database::resultSet();
     }
 
-    public function logout(){
+    public static function logout(){
         session_unset();
         if (session_status() == PHP_SESSION_ACTIVE){
             session_destroy();

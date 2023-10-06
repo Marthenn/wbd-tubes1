@@ -1,20 +1,14 @@
 <?php
 
 class Book_model {
-    private $table = "book";
-    private $db;
 
-    public function __construct(){
-        $this->db = new Database;
-    }
-
-    public function getAllCategories() {
-        $this->db->query("SELECT DISTINCT name FROM category");
-        return $this->db->resultSet();
+    public static function getAllCategories() {
+        Database::query("SELECT DISTINCT name FROM category");
+        return Database::resultSet();
     }
 
     // user version for getBookPage
-    public function getBookPage($page, $filter = null){
+    public static function getBookPage($page, $filter = null){
         $offset = ($page - 1) * 8;
 
         /**
@@ -74,23 +68,22 @@ class Book_model {
 
         $query = $query . " LIMIT 8 OFFSET :offset";
 
-        $this->db->query($query);
+        Database::query($query);
         if (isset($filter['category'])){
-            $this->db->bind('category', $filter['category']);
+            Database::bind('category', $filter['category']);
         }
         if (isset($filter['duration'])){
-            $this->db->bind('duration_min', $filter['duration'][0]);
-            $this->db->bind('duration_max', $filter['duration'][1]);
+            Database::bind('duration_min', $filter['duration'][0]);
+            Database::bind('duration_max', $filter['duration'][1]);
         }
         if (isset($filter['search'])){
-            $this->db->bind('search', '%' . $filter['search'] . '%');
+            Database::bind('search', '%' . $filter['search'] . '%');
         }
-        $this->db->bind('offset', $offset);
-        return $this->db->resultSet();
+        Database::bind('offset', $offset);
+        return Database::resultSet();
     }
 
-    public function getBookPageAdmin($page, $filter = null){   
-        // TODO: @Putinabillaa implement mirip atas tapi untuk admin (filter kategori masih belum kebayang soalnya)
+    public static function getBookPageAdmin($page, $filter = null){
         $offset = ($page - 1) * 5;
         $filtered = false;
         $query = "SELECT bid, title, book.description, author.name as author, rating, category.name as category, book.duration FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
@@ -128,22 +121,22 @@ class Book_model {
 
         $query = $query . " LIMIT 5 OFFSET :offset";
 
-        $this->db->query($query);
+        Database::query($query);
         if (isset($filter['category'])){
-            $this->db->bind('category', $filter['category']);
+            Database::bind('category', $filter['category']);
         }
         if (isset($filter['duration'])){
-            $this->db->bind('duration_min', $filter['duration'][0]);
-            $this->db->bind('duration_max', $filter['duration'][1]);
+            Database::bind('duration_min', $filter['duration'][0]);
+            Database::bind('duration_max', $filter['duration'][1]);
         }
         if (isset($filter['search'])){
-            $this->db->bind('search', '%' . $filter['search'] . '%');
+            Database::bind('search', '%' . $filter['search'] . '%');
         }
-        $this->db->bind('offset', $offset);
-        return $this->db->resultSet();
+        Database::bind('offset', $offset);
+        return Database::resultSet();
     }
 
-    public function editBook($data) {
+    public static function editBook($data) {
         /**
          * $data will be key-value pair with keys:
          * 0. bid (book id)
@@ -160,14 +153,14 @@ class Book_model {
          */
 
         // finding the aid of the author
-        $this->db->query("SELECT aid FROM author WHERE name = :author");
-        $this->db->bind('author', $data['author']);
-        $aid = $this->db->single()->aid;
+        Database::query("SELECT aid FROM author WHERE name = :author");
+        Database::bind('author', $data['author']);
+        $aid = Database::single()['aid'];
 
         // finding the cid of the category
-        $this->db->query("SELECT cid FROM category WHERE name = :category");
-        $this->db->bind('category', $data['category']);
-        $cid = $this->db->single()->cid;
+        Database::query("SELECT cid FROM category WHERE name = :category");
+        Database::bind('category', $data['category']);
+        $cid = Database::single()['cid'];
 
         // updating the book
         $query = "UPDATE book SET title = :title, aid = :aid, rating = :rating, cid = :cid, description = :description";
@@ -183,43 +176,42 @@ class Book_model {
         }
         $query = $query . " WHERE bid = :bid";
 
-        $this->db->query($query);
-        $this->db->bind('title', $data['title']);
-        $this->db->bind('aid', $aid);
-        $this->db->bind('rating', $data['rating']);
-        $this->db->bind('cid', $cid);
-        $this->db->bind('description', $data['description']);
+        Database::query($query);
+        Database::bind('title', $data['title']);
+        Database::bind('aid', $aid);
+        Database::bind('rating', $data['rating']);
+        Database::bind('cid', $cid);
+        Database::bind('description', $data['description']);
         if ($data['cover_image_directory'] != null){
             if ($data['cover_image_directory'] != 'delete_please'){
-                $this->db->bind('cover_image_directory', $data['cover_image_directory']);
+                Database::bind('cover_image_directory', $data['cover_image_directory']);
             }
         }
         if ($data['audio_directory'] != null){
-            $this->db->bind('audio_directory', $data['audio_directory']);
+            Database::bind('audio_directory', $data['audio_directory']);
         }
-        $this->db->bind('bid', $data['bid']);
+        Database::bind('bid', $data['bid']);
 
-        $this->db->execute();
+        Database::execute();
     }
 
-    public function deleteBook($bid) {
-        $this->db->query("DELETE FROM book WHERE bid = :bid");
-        $this->db->bind(":bid", $bid);
-        $this->db->execute();
+    public static function deleteBook($bid) {
+        Database::query("DELETE FROM book WHERE bid = :bid");
+        Database::bind(":bid", $bid);
+        Database::execute();
     }
 
-    public function getBookByID($bid) {
-        // TODO: check this query (I trust in copilot bismillah)
+    public static function getBookByID($bid) {
         $query = "SELECT bid, title, author.name as author, rating, book.description, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid WHERE bid = :bid";
-        $this->db->query($query);
-        $this->db->bind('bid', $bid);
-        $data = $this->db->single();
+        Database::query($query);
+        Database::bind('bid', $bid);
+        $data = Database::single();
 
         $query = "SELECT curr_duration FROM history WHERE bid = :bid AND uid = :uid";
-        $this->db->query($query);
-        $this->db->bind('bid', $bid);
-        $this->db->bind('uid', $_SESSION['uid']); // TODO: make the session for log in (TOP PRIORITY AFTER THIS PLEASE)
-        $curr_duration = $this->db->single()->curr_duration;
+        Database::query($query);
+        Database::bind('bid', $bid);
+        Database::bind('uid', $_SESSION['uid']);
+        $curr_duration = Database::single()['curr_duration'];
 
         // check if no history, then curr_duration = 0
         if ($curr_duration == null){
