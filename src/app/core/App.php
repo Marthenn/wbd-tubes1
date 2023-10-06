@@ -16,29 +16,24 @@ class App {
             $url[0] = $this->fileCaseInsensitive('../app/controllers', $url[0] . '.php');
             $url[0] = explode('.', $url[0])[0];
 
-//            Change this for testing purpose
-        //    $_SESSION['uid'] = 1;
-        //    $_SESSION['privilege'] = Privilege::Admin;
-
             $this->controller = $url[0];
 
             // check if not logged in and try to access other pages
-            if(!isset($_SESSION['uid']) && $this->controller != 'SignIn' && $this->controller != 'SignUp') {
+            if(!isset($_COOKIE['uid']) && $this->controller != 'SignIn' && $this->controller != 'SignUp') {
                 $this->controller = 'SignIn';
             }
 
             // check if logged in and try to access signin or signup page
-            else if(isset($_SESSION['uid']) && ($this->controller == 'SignIn' || $this->controller == 'SignUp')) {
+            else if(isset($_COOKIE['uid']) && ($this->controller == 'SignIn' || $this->controller == 'SignUp')) {
                 $this->controller = 'Profile';
             }
 
             // check if logged in and try to access admin page (for user)
-            else if(isset($_SESSION['uid']) && isset($_SESSION['privilege'])) {
-                if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] == Privilege::User){ // check if not in array of user allowed
+            else if(isset($_COOKIE['uid']) && isset($_COOKIE['privilege'])) {
+                if (!in_array($this->controller, $this->user_pages) && $_COOKIE['privilege'] == Privilege::User){ // check if not in array of user allowed
                     $this->controller = 'Forbidden';
                 }
             }
-
             unset($url[0]);
         } else {
             $this->controller = 'NotFound';

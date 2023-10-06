@@ -22,15 +22,13 @@ class Account_model{
         $user = $this->database->single();
 
         if ($user){
-            session_start();
-            $_SESSION['uid'] = $user['uid'];
+            setcookie("uid", $user['uid'], time() + 3600, "/");
+            setcookie("username", $user['username'], time() + 3600, "/");
             if ($user['is_admin']){
-                $_SESSION['privilege'] = Privilege::Admin;
+                setcookie("privilege", Privilege::Admin, time() + 3600, "/");
             } else {
-                $_SESSION['privilege'] = Privilege::User;
+                setcookie("privilege", Privilege::User, time() + 3600, "/");
             }
-
-            var_dump($_SESSION);
             return true;
         } else {
             return false;
@@ -78,10 +76,10 @@ class Account_model{
     }
 
     public function logout(){
-        session_unset();
-        if (session_status() == PHP_SESSION_ACTIVE){
-            session_destroy();
+        if (isset($_COOKIE['uid'])){
+            setcookie("uid", "", time() - 3600, "/");
+            setcookie("username", "", time() - 3600, "/");
+            setcookie("privilege", "", time() - 3600, "/");
         }
-        session_start();
     }
 }

@@ -11,7 +11,7 @@
             <a href="<?= BASEURL;?>/profile" class="user-photo">
                 <img src="<?= BASEURL;?>/img/user-placeholder.svg" class="user-photo-img" alt="User photo"/>
             </a>
-            <a href="<?= BASEURL;?>/profile" class="username"> <?=$_SESSION['username']?> </a>
+            <a href="<?= BASEURL;?>/profile" class="username"> <?=$_COOKIE['username']?> </a>
         </div>
     </div>
 </div>
@@ -23,7 +23,7 @@
         <a href="<?= BASEURL;?>/profile" class="user-photo">
             <img src="<?= BASEURL;?>/img/user-placeholder.svg" class="user-photo-img" alt="User photo"/>
         </a>
-        <a href="<?= BASEURL;?>/profile" class="username"> <?=$_SESSION['username']?> </a>
+        <a href="<?= BASEURL;?>/profile" class="username"> <?=$_COOKIE['username']?> </a>
     </div>
     <div class="sidebar-titles">
         <a href="<?= BASEURL;?>/audiobooks" class="navbar-title">Audio Books</a>
