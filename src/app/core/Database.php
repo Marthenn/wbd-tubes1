@@ -11,7 +11,7 @@ class Database {
     private $stmt; // statement
 
     public function __construct(){
-        $dsn = 'pgsql:host=' . Database::$host . ';dbname=' . Database::$dbname;
+        $dsn = 'pgsql:host=' . $this->host . ';dbname=' . $this->dbname;
 
         // set PDO options
         $options = [
@@ -21,14 +21,14 @@ class Database {
 
         // create PDO instance
         try {
-            Database::$dbh = new PDO($dsn, Database::$user, Database::$pass, $options);
+            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch(PDOException $e) {
             die($e->getMessage());
         }
     }
 
     public function query($query){
-        Database::$stmt = Database::$dbh->prepare($query);
+        $this->stmt = $this->dbh->prepare($query);
     }
 
     public function bind($param, $value, $type = null){
@@ -48,26 +48,26 @@ class Database {
             }
         }
 
-        Database::$stmt->bindValue($param, $value, $type);
+        $this->stmt->bindValue($param, $value, $type);
     }
 
     public function execute(){
-        Database::$stmt->execute();
+        $this->stmt->execute();
     }
 
     /**
      * Return all data from the query
      **/
     public function resultSet(){
-        Database::execute();
-        return Database::$stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Return a single data from the query
      **/
     public function single(){
-        Database::execute();
-        return Database::$stmt->fetch(PDO::FETCH_ASSOC);
+        $this->execute();
+        return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
