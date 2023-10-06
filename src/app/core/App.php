@@ -16,6 +16,10 @@ class App {
             $url[0] = $this->fileCaseInsensitive('../app/controllers', $url[0] . '.php');
             $url[0] = explode('.', $url[0])[0];
 
+//            Change this for testing purpose
+//            $_SESSION['uid'] = 1;
+//            $_SESSION['privilege'] = Privilige::User;
+
             $this->controller = $url[0];
 
             // check if not logged in and try to access other pages
