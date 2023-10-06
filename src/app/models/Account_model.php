@@ -24,11 +24,8 @@ class Account_model{
         if ($user){
             setcookie("uid", $user['uid'], time() + 3600, "/");
             setcookie("username", $user['username'], time() + 3600, "/");
-            if ($user['is_admin']){
-                setcookie("privilege", true, time() + 3600, "/");
-            } else {
-                setcookie("privilege", false, time() + 3600, "/");
-            }
+            $is_admin = $user['is_admin'] ? 1 : 0;
+            setcookie("privilege", $is_admin, time() + 3600, "/");
             return true;
         } else {
             return false;
@@ -77,9 +74,9 @@ class Account_model{
 
     public function logout(){
         if (isset($_COOKIE['uid'])){
-            setcookie("uid", "", time() - 3600, "/");
-            setcookie("username", "", time() - 3600, "/");
-            setcookie("privilege", "", time() - 3600, "/");
+            unset($_COOKIE['uid']);
+            unset($_COOKIE['username']);
+            unset($_COOKIE['privilege']);
         }
     }
 

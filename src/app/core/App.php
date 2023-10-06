@@ -21,7 +21,7 @@ class App {
             // check if not logged in and try to access other pages
             if(!isset($_COOKIE['uid']) && $this->controller != 'SignIn' && $this->controller != 'SignUp') {
                 $this->controller = 'SignIn';
-            } else { // logged in
+            } else if (isset($_COOKIE['uid'])) { // logged in
                 if ($this->controller == 'SignIn' || $this->controller == 'SignUp') { // check if try to access signin or signup page
                     $this->controller = 'Profile';
                 } else if ($_COOKIE['privilege'] && $this->controller == 'AudioBooks') { // admin tried to access user version of book list
