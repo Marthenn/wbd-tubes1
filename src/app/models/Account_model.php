@@ -90,6 +90,7 @@ class Account_model{
         if (isset($res['password'])){ // remove password from result for security i guess
             unset($res['password']);
         }
+        unset($res['uid']);
         return $res;
     }
 }
