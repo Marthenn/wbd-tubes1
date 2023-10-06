@@ -15,7 +15,7 @@ class Book_model {
 
     // user version for getBookPage
     public function getBookPage($page, $filter = null){
-        $offset = ($page - 1) * 5;
+        $offset = ($page - 1) * 8;
 
         /**
          * Filter will be key-value pair with possible keys:
@@ -72,7 +72,7 @@ class Book_model {
             }
         }
 
-        $query = $query . " LIMIT 5 OFFSET :offset";
+        $query = $query . " LIMIT 8 OFFSET :offset";
 
         $this->db->query($query);
         if (isset($filter['category'])){

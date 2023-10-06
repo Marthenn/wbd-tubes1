@@ -10,9 +10,9 @@ class Author_model {
     public function getAuthorPage($page, $filter = null){
         $offset = ($page - 1) * 5;
         if ($filter == null){
-            $this->database->query("SELECT * FROM book INNER JOIN author ON book.aid = author.aid ORDER BY author.aid DESC LIMIT 5 OFFSET :offset");
+            $this->database->query("SELECT DISTINCT author.aid, author.name, author.description FROM author LEFT OUTER JOIN book ON book.aid = author.aid ORDER BY author.aid DESC LIMIT 5 OFFSET :offset");
         } else { // different query to optimize if there's no filter
-            $this->database->query("SELECT DISTINCT author.name, author.description FROM book INNER JOIN author ON book.aid = author.aid WHERE name LIKE :filter or book LIKE :filter ORDER BY aid DESC LIMIT 5 OFFSET :offset");
+            $this->database->query("SELECT DISTINCT author.aid, author.name, author.description FROM author LEFT OUTER JOIN book ON book.aid = author.aid WHERE name LIKE :filter or book LIKE :filter ORDER BY aid DESC LIMIT 5 OFFSET :offset");
             $filter = "%".$filter."%";
             $this->database->bind(":filter", $filter);
         }
@@ -59,13 +59,13 @@ class Author_model {
          */
         // TODO: @HanifMZ this too as well please
 
-        $query = "UPDATE author SET name = :author"
+        $query = "UPDATE author SET name = :author";
         
         // Check nullity of description data input 
         if ($data['description'] != null) {
-            $query = $query . ", description = :description"
+            $query = $query . ", description = :description";
         } else {
-            $query = $query . ", description = NULL"
+            $query = $query . ", description = NULL";
         }
         
         $this->database->query($query);
