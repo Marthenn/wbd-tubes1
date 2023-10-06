@@ -19,17 +19,17 @@ class App {
             $this->controller = $url[0];
 
             // check if not logged in and try to access other pages
-            if(!isset($_SESSION['uid']) && ($this->controller != 'signin' || $this->controller != 'signup')) {
+            if(!isset($_SESSION['uid']) && $this->controller != 'SignIn' && $this->controller != 'SignUp') {
                 $this->controller = 'SignIn';
             }
 
             // check if logged in and try to access signin or signup page
-            if(isset($_SESSION['uid']) && ($this->controller == 'signin' || $this->controller == 'signup')) {
+            else if(isset($_SESSION['uid']) && ($this->controller == 'SignIn' || $this->controller == 'SignUp')) {
                 $this->controller = 'Profile';
             }
 
             // check if logged in and try to access admin page (for user)
-            if(isset($_SESSION['uid']) && isset($_SESSION['privilege'])) {
+            else if(isset($_SESSION['uid']) && isset($_SESSION['privilege'])) {
                 if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] == Privilige::User){ // check if not in array of user allowed
                     $this->controller = 'Forbidden';
                 }
