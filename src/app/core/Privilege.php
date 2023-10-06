@@ -1,6 +1,6 @@
 <?php
 
-enum Privilige {
+enum Privilege {
     case None;
     case User;
     case Admin;
