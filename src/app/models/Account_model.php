@@ -15,7 +15,9 @@ class Account_model{
 
         $user = $this->database->single();
 
-        // TODO: made session if user is not null
+        if ($user){
+
+        }
     }
 
     public function register($username, $email, $password){
@@ -41,5 +43,9 @@ class Account_model{
         }
         $this->database->bind(":offset", $offset);
         return $this->database->resultSet();
+    }
+
+    public function logout(){
+        session_start();
     }
 }
