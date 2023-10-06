@@ -2,7 +2,13 @@
     <div class="profile-contents">
         <div class="profile-header">
             <h1>Profile</h1>
-            <a href="<?= BASEURL;?>/audiobooks" class="close-link">
+            <a href="<?= BASEURL;?>/<?php
+                if ($_COOKIE['privilege']) {
+                    echo 'audiobooklist';
+                } else {
+                    echo 'audiobooks';
+                }
+            ?>" class="close-link">
                 <img class="close-img" src="<?= BASEURL;?>/img/close.svg" alt="close">
             </a>
         </div>
