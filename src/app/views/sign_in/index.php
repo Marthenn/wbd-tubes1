@@ -4,6 +4,9 @@
         <div class="sign-in-form">
             <h2>Welcome!</h2>
             <h1>Sign in to WEBWBD</h1>
+            <div>
+                <?php Flasher::flash(); ?>
+            </div>
             <form action="" method="post">
                 <div class="input-field">
                     <label for="username">Username*</label>
@@ -21,3 +24,6 @@
         </div>
     </div>
 </div>
+
+<script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
+<script src="<?= BASEURL; ?>/js/sign_in.js" defer></script>
