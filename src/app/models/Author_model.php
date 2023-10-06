@@ -27,10 +27,10 @@ class Author_model {
         $author_list = $this->database->resultSet();
 
         // add authored books to each author
-        foreach($author_list as $author){
+        for ($i = 0; $i < count($author_list); $i++){
             $this->database->query("SELECT book.title FROM book INNER JOIN author ON book.aid = author.aid WHERE author.aid = :aid");
-            $this->database->bind(":aid", $author['aid']);
-            $author['books'] = $this->database->resultSet();
+            $this->database->bind(":aid", $author_list[$i]['aid']);
+            $author_list[$i]['books'] = $this->database->resultSet();
         }
 
         return $author_list;
