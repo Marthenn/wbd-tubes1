@@ -2,9 +2,11 @@
 
 class App {
     // atribut untuk controller, method, dan parameter default
-    protected $controller = 'Profile';
+    protected $controller = 'SignIn';
     protected $method = 'index';
     protected $params = [];
+
+    private $user_pages = ['AudioBooks', 'BookDetails', 'Profile'];
 
     public function __construct()
     {
@@ -13,11 +15,31 @@ class App {
         if($this->fileCaseInsensitive('../app/controllers', $url[0] . '.php')) {
             $url[0] = $this->fileCaseInsensitive('../app/controllers', $url[0] . '.php');
             $url[0] = explode('.', $url[0])[0];
+
             $this->controller = $url[0];
+
+            // check if not logged in and try to access other pages
+            if(!isset($_SESSION['uid']) && ($this->controller != 'signin' || $this->controller != 'signup')) {
+                $this->controller = 'SignIn';
+            }
+
+            // check if logged in and try to access signin or signup page
+            if(isset($_SESSION['uid']) && ($this->controller == 'signin' || $this->controller == 'signup')) {
+                $this->controller = 'Profile';
+            }
+
+            // check if logged in and try to access admin page (for user)
+            if(isset($_SESSION['uid']) && isset($_SESSION['privilege'])) {
+                if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] != 1){ // check if not in array of user allowed
+                    $this->controller = 'Forbidden';
+                }
+            }
+
             unset($url[0]);
         } else {
             $this->controller = 'NotFound';
         }
+
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
 
