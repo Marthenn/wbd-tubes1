@@ -10,9 +10,9 @@ class Author_model {
     public function getAuthorPage($page, $filter = null){
         $offset = ($page - 1) * 5;
         if ($filter == null){
-            $this->database->query("SELECT DISTINCT author.aid, author.name, author.description FROM book LEFT OUTER JOIN author ON book.aid = author.aid ORDER BY author.aid DESC LIMIT 5 OFFSET :offset");
+            $this->database->query("SELECT DISTINCT author.aid, author.name, author.description FROM author LEFT OUTER JOIN book ON book.aid = author.aid ORDER BY author.aid DESC LIMIT 5 OFFSET :offset");
         } else { // different query to optimize if there's no filter
-            $this->database->query("SELECT DISTINCT author.aid, author.name, author.description FROM book LEFT OUTER JOIN author ON book.aid = author.aid WHERE name LIKE :filter or book LIKE :filter ORDER BY aid DESC LIMIT 5 OFFSET :offset");
+            $this->database->query("SELECT DISTINCT author.aid, author.name, author.description FROM author LEFT OUTER JOIN book ON book.aid = author.aid WHERE name LIKE :filter or book LIKE :filter ORDER BY aid DESC LIMIT 5 OFFSET :offset");
             $filter = "%".$filter."%";
             $this->database->bind(":filter", $filter);
         }
