@@ -34,7 +34,7 @@
     <?php if (!$data['books']) : ?>
         <p class="info">There are no books yet available on webwbd!</p>
     <?php else : ?>
-        <div class="data-cards">
+        <div class="data-cards" id="data-cards">
             <?php foreach ($data['books'] as $book) : ?>
                 <div class="data-card">
                     <div class="card-content">
@@ -54,3 +54,7 @@
         </div>
     <?php endif; ?>
 </div>
+<script src="<?= BASEURL; ?>/js/audio_book_list/audio_book_list.js" defer></script>
+<script type="text/javascript" defer>
+    const PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
+</script>

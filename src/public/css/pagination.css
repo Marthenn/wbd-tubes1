@@ -10,6 +10,11 @@
     top: auto;
 }
 
+.pagination-button:disabled {  
+    opacity: 50%;
+    cursor: default;
+}
+
 .page-input {
     width: 5%;
     margin: 0 10px;
