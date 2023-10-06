@@ -30,7 +30,7 @@ class App {
 
             // check if logged in and try to access admin page (for user)
             if(isset($_SESSION['uid']) && isset($_SESSION['privilege'])) {
-                if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] != 1){ // check if not in array of user allowed
+                if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] == Privilige::User){ // check if not in array of user allowed
                     $this->controller = 'Forbidden';
                 }
             }
