@@ -5,7 +5,7 @@ foreach ($env as $key => $value) {
 }
 
 define('BASEURL', getenv('BASE_URL')); // path to public folder
-// define('BASEURL', 'http://localhost/tugas-besar-1/src/public');
+// define('BASEURL', 'http://localhost:8080/src/public');
 
 // DB
 define('DB_HOST', getenv('DB_HOST'));

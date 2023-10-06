@@ -40,3 +40,64 @@
     margin: 0 10px;
     text-align: right;
 }
+
+.sidebar-button img {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+}
+
+.logo {
+    margin-left: 15px;
+}
+
+.sidebar, .sidebaropen, .sidebar-button, .close-sidebar-button, .sidebar-user-info, .sidebar-titles {
+    display: none;
+}
+
+@media (max-width: 850px) {
+    .sidebar-button {
+        display: block;
+        margin-right: 30px;
+    }
+    .navbar-contents {
+        display: none;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        top: 50px;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+        padding: 20px;
+        transform: translateX(-100%);
+        transition: all 0.3s ease-in-out;
+        z-index: 2;
+    }
+
+    .sidebar-user-info {
+        margin: 15px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .sidebar-titles, .close-sidebar-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin: 10px 0;
+    }
+    .close-sidebar-button .close-img {
+        width: 20px;
+        height: 20px;
+        margin-top: 10px;
+    }
+}    
