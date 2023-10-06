@@ -7,6 +7,12 @@ class Account_model{
         $this->database = new Database;
     }
 
+    public function countPage(){
+        $this->database->query("SELECT COUNT(*) FROM account");
+        $count = $this->database->single();
+        return ceil($count['count'] / 5);
+    }
+
     public function login($username, $password){
         $password = md5($password);
         $this->database->query("SELECT * FROM account WHERE username = :username AND password = :password");

@@ -8,6 +8,18 @@ class Book_model {
         $this->database = new Database;
     }
 
+    public function countPage(){
+        $this->database->query("SELECT COUNT(*) FROM book");
+        $count = $this->database->single();
+        return ceil($count['count'] / 8);
+    }
+
+    public function countPageAdmin(){
+        $this->database->query("SELECT COUNT(*) FROM book");
+        $count = $this->database->single();
+        return ceil($count['count'] / 5);
+    }
+
     public function getAllCategories() {
         $this->database->query("SELECT DISTINCT name FROM category");
         return $this->database->resultSet();

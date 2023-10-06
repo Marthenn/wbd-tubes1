@@ -8,6 +8,12 @@ class Author_model {
         $this->database = new Database;
     }
 
+    public function countPage(){
+        $this->database->query("SELECT COUNT(*) FROM author");
+        $count = $this->database->single();
+        return ceil($count['count'] / 5);
+    }
+
     public function getAuthorPage($page, $filter = null){
         $offset = ($page - 1) * 5;
         if ($filter == null){
