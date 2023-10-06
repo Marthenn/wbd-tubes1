@@ -43,6 +43,28 @@ usernameInput && usernameInput.addEventListener(
     })
 )
 
+document.addEventListener('DOMContentLoaded',  async () => {
+    const formData = new FormData();
+    formData.append('uid', uid);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "/public/Profile/getProfile");
+    xhr.send(formData);
+
+    xhr.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE){
+            if (this.status === 200){
+                const data = JSON.parse(this.responseText);
+                emailInput.value = data.email;
+                usernameInput.value = data.username;
+                // TODO: profile picture
+            } else {
+                // TODO: flash error message
+            }
+        }
+    }
+})
+
 // formInput && formInput.addEventListener(
 //     'submit', async (e) => {
 //         e.preventDefault();

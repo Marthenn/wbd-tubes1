@@ -43,3 +43,8 @@
     </div>
     <div class="profile-decor"></div>
 </div>
+<script>
+    const uid = <?= $_COOKIE['uid'] ?>;
+</script>
+<script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
+<script src="<?= BASEURL; ?>/js/profile.js" defer></script>
