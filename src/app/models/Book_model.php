@@ -93,7 +93,7 @@ class Book_model {
         // TODO: @Putinabillaa implement mirip atas tapi untuk admin (filter kategori masih belum kebayang soalnya)
         $offset = ($page - 1) * 5;
         $filtered = false;
-        $query = "SELECT title, author.name as author, rating, category.name as category FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        $query = "SELECT bid, title, book.description, author.name as author, rating, category.name as category, book.duration FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
         if (isset($filter['category'])){
             $query = $query . " WHERE category.name = :category";
             $filtered = true;

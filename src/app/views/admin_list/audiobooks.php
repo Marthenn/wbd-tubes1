@@ -31,32 +31,26 @@
         </select>
         <button class="sort-button" type="submit">Sort</button>
     </div>
-    <div class="data-card">
-        <div class="card-content">
-            <p>Book_ID: 1</p>
-            <p>Title: "Book title"</p>
-            <p>Decription: "Lorem Ipsum"</p>
-            <p>Author: "Book Author"</p>
-            <p>Category: "Category"</p>
-            <p>Duration: 00:45:00</p>
-            <p>Rating: 5</p>
+    <?php if (!$data['books']) : ?>
+        <p class="info">There are no books yet available on webwbd!</p>
+    <?php else : ?>
+        <div class="data-cards">
+            <?php foreach ($data['books'] as $book) : ?>
+                <div class="data-card">
+                    <div class="card-content">
+                        <p>Book_ID: <?= $book['bid'] ?></p>
+                        <p>Title: "<?= $book["title"] ?>"</p>
+                        <p>Decription: "<?= $book['description'] ?>"</p>
+                        <p>Author: "<?= $book['author'] ?>"</p>
+                        <p>Category: "<?= $book['category'] ?>"</p>
+                        <p>Duration: <?= $book['duration']?></p>
+                        <p>Rating: <?= $book['rating'] ?></p>
+                    </div>
+                    <a href="<?= BASEURL;?>/editbook">
+                        <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
+                    </a>
+                </div>
+            <?php endforeach; ?>
         </div>
-        <a href="<?= BASEURL;?>/editbook">
-            <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
-        </a>
-    </div>
-    <div class="data-card">
-        <div class="card-content">
-            <p>Book_ID: 1</p>
-            <p>Title: "Book title"</p>
-            <p>Decription: "Lorem Ipsum"</p>
-            <p>Author: "Book Author"</p>
-            <p>Category: "Category"</p>
-            <p>Duration: 00:45:00</p>
-            <p>Rating: 5</p>
-        </div>
-        <a href="<?= BASEURL;?>/editbook">
-            <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
-        </a>
-    </div>
+    <?php endif; ?>
 </div>
