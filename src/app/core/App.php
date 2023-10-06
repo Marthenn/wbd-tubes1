@@ -21,19 +21,16 @@ class App {
             // check if not logged in and try to access other pages
             if(!isset($_COOKIE['uid']) && $this->controller != 'SignIn' && $this->controller != 'SignUp') {
                 $this->controller = 'SignIn';
-            }
-
-            // check if logged in and try to access signin or signup page
-            else if(isset($_COOKIE['uid']) && ($this->controller == 'SignIn' || $this->controller == 'SignUp')) {
-                $this->controller = 'Profile';
-            }
-
-            // check if logged in and try to access admin page (for user)
-            else if(isset($_COOKIE['uid']) && isset($_COOKIE['privilege'])) {
-                if (!in_array($this->controller, $this->user_pages) && !$_COOKIE['privilege']){ // check if not in array of user allowed
+            } else { // logged in
+                if ($this->controller == 'SignIn' || $this->controller == 'SignUp') { // check if try to access signin or signup page
+                    $this->controller = 'Profile';
+                } else if ($_COOKIE['privilege'] && $this->controller == 'AudioBooks') { // admin tried to access user version of book list
+                    $this->controller = 'Forbidden';
+                } else if (!$_COOKIE['privilege'] && !in_array($this->controller, $this->user_pages)) { // user tried to access admin page
                     $this->controller = 'Forbidden';
                 }
             }
+            
             unset($url[0]);
         } else {
             $this->controller = 'NotFound';
