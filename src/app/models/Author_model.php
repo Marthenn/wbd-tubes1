@@ -59,13 +59,13 @@ class Author_model {
          */
         // TODO: @HanifMZ this too as well please
 
-        $query = "UPDATE author SET name = :author"
+        $query = "UPDATE author SET name = :author";
         
         // Check nullity of description data input 
         if ($data['description'] != null) {
-            $query = $query . ", description = :description"
+            $query = $query . ", description = :description";
         } else {
-            $query = $query . ", description = NULL"
+            $query = $query . ", description = NULL";
         }
         
         $this->database->query($query);
