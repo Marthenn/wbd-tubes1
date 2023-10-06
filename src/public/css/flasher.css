@@ -4,6 +4,10 @@
     color:white;
 }
 
+.flash-message-text{
+    font-size: 20px;
+}
+
 .flash-button{
     display: flex;
     flex-direction: row;
