@@ -82,4 +82,14 @@ class Account_model{
             setcookie("privilege", "", time() - 3600, "/");
         }
     }
+
+    public function getUser($uid) {
+        $this->database->query("SELECT * FROM account WHERE uid = :uid");
+        $this->database->bind(":uid", $uid);
+        $res = $this->database->single();
+        if (isset($res['password'])){ // remove password from result for security i guess
+            unset($res['password']);
+        }
+        return $res;
+    }
 }
