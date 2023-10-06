@@ -17,8 +17,8 @@ class App {
             $url[0] = explode('.', $url[0])[0];
 
 //            Change this for testing purpose
-           $_SESSION['uid'] = 1;
-           $_SESSION['privilege'] = Privilige::Admin;
+        //    $_SESSION['uid'] = 1;
+        //    $_SESSION['privilege'] = Privilege::Admin;
 
             $this->controller = $url[0];
 
@@ -34,7 +34,7 @@ class App {
 
             // check if logged in and try to access admin page (for user)
             else if(isset($_SESSION['uid']) && isset($_SESSION['privilege'])) {
-                if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] == Privilige::User){ // check if not in array of user allowed
+                if (!in_array($this->controller, $this->user_pages) && $_SESSION['privilege'] == Privilege::User){ // check if not in array of user allowed
                     $this->controller = 'Forbidden';
                 }
             }
