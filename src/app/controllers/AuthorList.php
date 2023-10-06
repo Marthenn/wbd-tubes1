@@ -19,6 +19,16 @@ class AuthorList extends Controller {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
                     $authorModel = $this->model('Author_model');
+                    $maxPages = $authorModel->countPage();
+                    
+                    if ($page > $maxPages) {
+                        $page = $maxPages;
+                    }
+
+                    if ($page < 1) {
+                        $page = 1;
+                    }
+                    
                     $res = $authorModel->getAuthorPage($page);
 
                     header('Content-Type: application/json');
