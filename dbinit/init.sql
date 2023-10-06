@@ -3,30 +3,68 @@ CREATE TABLE account (
     password character varying(256) NOT NULL,
     email character varying(256) NOT NULL UNIQUE,
     username character varying(256) NOT NULL UNIQUE,
-    joined_date date NOT NULL
+    joined_date date NOT NULL,
+    is_admin boolean NOT NULL
 );
 
 CREATE TABLE author (
-    author_id SERIAL PRIMARY KEY,
+    aid SERIAL PRIMARY KEY,
     name character varying(256) NOT NULL,
     description text
 );
 
 CREATE TABLE category (
-    category_id SERIAL PRIMARY KEY,
-    category_name character varying(256) NOT NULL UNIQUE
+    cid SERIAL PRIMARY KEY,
+    name character varying(256) NOT NULL UNIQUE
 );
 
 CREATE TABLE book (
-    book_id SERIAL PRIMARY KEY,
+    bid SERIAL PRIMARY KEY,
     title text NOT NULL,
     description text,
     rating real CHECK (rating >= 0.0 AND rating <= 5.0),
-    author_id integer NOT NULL,
-    category_id integer NOT NULL,
+    aid integer NOT NULL,
+    cid integer NOT NULL,
     duration time without time zone NOT NULL,
     cover_image_directory text,
     audio_directory text NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES author(author_id) ON UPDATE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES category(category_id) ON UPDATE CASCADE
+    FOREIGN KEY (aid) REFERENCES author(aid) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (cid) REFERENCES category(cid) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+CREATE TABLE history (
+    hid serial PRIMARY KEY,
+    uid integer NOT NULL,
+    bid integer NOT NULL,
+    curr_duration time without time zone NOT NULL,
+    FOREIGN KEY (bid) REFERENCES book(bid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (uid) REFERENCES account(uid) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE FUNCTION hash_password(password text) 
+RETURNS text
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+    RETURN MD5(password);
+END;
+$$;
+
+CREATE FUNCTION hash_password_trigger_function() 
+RETURNS trigger 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        NEW.password = hash_password(NEW.password);
+    ELSIF TG_OP = 'UPDATE' THEN
+        NEW.password = hash_password(NEW.password);
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER hash_password_trigger
+BEFORE INSERT OR UPDATE ON account 
+FOR EACH ROW EXECUTE
+FUNCTION hash_password_trigger_function();
