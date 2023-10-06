@@ -46,3 +46,9 @@ button {
     cursor: pointer;
     font-size: 14px;
 }
+
+textarea, input, select {
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

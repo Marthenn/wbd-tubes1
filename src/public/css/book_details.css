@@ -8,6 +8,7 @@
     flex-direction: row;
     gap: 50px;
     align-items: center;
+    margin-bottom: 150px
 }
 
 .cover .cover-img {
@@ -43,6 +44,7 @@
     bottom: 0;
     width: 100%;
     padding: 20px 0;
+    position: fixed;
 }
 
 .progress-bar-container p {
@@ -56,4 +58,18 @@
 .progress-bar-container button {
     border: none;
     background-color: transparent;
+}
+
+@media (max-width: 450px) {
+    .cover-desc {
+        margin: 25px 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 150px;
+    }
+    .progress-bar-container input {
+        width: 50%;
+    }
 }
