@@ -5,11 +5,11 @@
     </button>
     <div class="navbar-contents">
         <div class="titles">
-            <a href="<?= BASEURL;?>/adminlist/audiobooks" class="navbar-title">Audio Book List</a>
-            <a href="<?= BASEURL;?>/adminlist/author" class="navbar-title">Author List</a>
+            <a href="<?= BASEURL;?>/audiobooklist" class="navbar-title">Audio Book List</a>
+            <a href="<?= BASEURL;?>/authorlist" class="navbar-title">Author List</a>
             <a href="<?= BASEURL;?>/addbook" class="navbar-title">Add Book</a>
-            <a href="<?= BASEURL;?>/addautho" class="navbar-title">Add Author</a>
-            <a href="<?= BASEURL;?>/adminlist/user" class="navbar-title">User List</a>
+            <a href="<?= BASEURL;?>/addauthor" class="navbar-title">Add Author</a>
+            <a href="<?= BASEURL;?>/userlist" class="navbar-title">User List</a>
         </div>
         <div class="user-info">
             <a href="<?= BASEURL;?>/profile" class="user-photo">
@@ -30,10 +30,10 @@
         <a href="<?= BASEURL;?>/profile" class="username">Username</a>
     </div>
     <div class="sidebar-titles">
-        <a href="<?= BASEURL;?>/adminlist/audiobooks" class="navbar-title">Audio Book List</a>
-        <a href="<?= BASEURL;?>/adminlist/author" class="navbar-title">Author List</a>
+        <a href="<?= BASEURL;?>/audiobooklist" class="navbar-title">Audio Book List</a>
+        <a href="<?= BASEURL;?>/authorlist" class="navbar-title">Author List</a>
         <a href="<?= BASEURL;?>/addbook" class="navbar-title">Add Book</a>
-        <a href="<?= BASEURL;?>/addautho" class="navbar-title">Add Author</a>
-        <a href="<?= BASEURL;?>/adminlist/user" class="navbar-title">User List</a>
+        <a href="<?= BASEURL;?>/addauthor" class="navbar-title">Add Author</a>
+        <a href="<?= BASEURL;?>/userlist" class="navbar-title">User List</a>
     </div>
 </div>
