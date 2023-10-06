@@ -1,7 +1,7 @@
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 const dataCards = document.getElementById("data-cards");
-
+const pageInput = document.getElementById("page-input");
 
 let currentPage = 1;
 
@@ -64,6 +64,38 @@ nextButton &&
         };
     });
 
+pageInput &&
+    pageInput.addEventListener("input", () => {
+        const inputPage = parseInt(pageInput.value);
+        console.log(inputPage)
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= PAGES
+        ) {
+            currentPage = inputPage;
+        } else {
+            currentPage = 1;
+        }
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+            "GET",
+            `/public/audiobooklist/fetch/${currentPage}`
+        );
+        xhr.send();
+        console.log(currentPage)
+        xhr.onreadystatechange = function () {
+            console.log("here")
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                console.log(this.status)
+                if (this.status === 200) {
+                    const data = JSON.parse(this.responseText);
+                    console.log(data)
+                    updateData(data);
+                } else {
+                    alert("An error occured, please try again!");
+                }
+            }
+        };
+    });
+
 const updateData = (data) => {
     let generatedHTML = "";
     data.books.map((book) => {
@@ -78,6 +110,9 @@ const updateData = (data) => {
             <p>Duration: ${book.duration}</p>
             <p>Rating: ${book.rating}</p>
         </div>
+        <a href="${BASEURL}/editbook">
+            <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
+        </a>
         </div>
         `;
     });
