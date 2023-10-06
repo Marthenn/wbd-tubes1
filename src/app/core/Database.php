@@ -10,7 +10,7 @@ class Database {
     private static $dbh; // database handler
     private static $stmt; // statement
 
-    public function __construct(){
+    public static function initialize(){
         $dsn = 'pgsql:host=' . Database::$host . ';dbname=' . Database::$dbname;
 
         // set PDO options
