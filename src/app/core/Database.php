@@ -2,15 +2,15 @@
 
 class Database {
     // get the database connection from the .env file
-    private static $host = DB_HOST;
-    private static $user = DB_USER;
-    private static $pass = DB_PASS;
-    private static $dbname = DB_NAME;
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $pass = DB_PASS;
+    private $dbname = DB_NAME;
 
-    private static $dbh; // database handler
-    private static $stmt; // statement
+    private $dbh; // database handler
+    private $stmt; // statement
 
-    public static function initialize(){
+    public function __construct(){
         $dsn = 'pgsql:host=' . Database::$host . ';dbname=' . Database::$dbname;
 
         // set PDO options
@@ -27,11 +27,11 @@ class Database {
         }
     }
 
-    public static function query($query){
+    public function query($query){
         Database::$stmt = Database::$dbh->prepare($query);
     }
 
-    public static function bind($param, $value, $type = null){
+    public function bind($param, $value, $type = null){
         if(is_null($type)){
             switch(true){
                 case is_int($value):
@@ -51,14 +51,14 @@ class Database {
         Database::$stmt->bindValue($param, $value, $type);
     }
 
-    public static function execute(){
+    public function execute(){
         Database::$stmt->execute();
     }
 
     /**
      * Return all data from the query
      **/
-    public static function resultSet(){
+    public function resultSet(){
         Database::execute();
         return Database::$stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -66,7 +66,7 @@ class Database {
     /**
      * Return a single data from the query
      **/
-    public static function single(){
+    public function single(){
         Database::execute();
         return Database::$stmt->fetch(PDO::FETCH_ASSOC);
     }
