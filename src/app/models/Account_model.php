@@ -74,9 +74,9 @@ class Account_model{
 
     public function logout(){
         if (isset($_COOKIE['uid'])){
-            unset($_COOKIE['uid']);
-            unset($_COOKIE['username']);
-            unset($_COOKIE['privilege']);
+            setcookie("uid", "", time() - 36000, "/");
+            setcookie("username", "", time() - 36000, "/");
+            setcookie("privilege", "", time() - 36000, "/");
         }
     }
 

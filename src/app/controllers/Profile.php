@@ -41,4 +41,22 @@ class Profile extends Controller{
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
+
+    public function logout(){
+        try{
+            switch ($_SERVER['REQUEST_METHOD']){
+                case 'POST':
+                    $accountModel = $this->model('Account_model');
+                    $accountModel->logout();
+                    // response 204 No Content
+                    http_response_code(204);
+                    exit;
+                    break;
+                default:
+                    throw new Exception('Invalid request method', 405);
+            }
+        } catch (Exception $e){
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
 }

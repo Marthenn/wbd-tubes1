@@ -11,7 +11,7 @@ const formInput = document.querySelector('.profile');
 let emailIsValid = false;
 let usernameIsValid = false;
 
-
+const logoutButton = document.querySelector('.sign-out');
 
 emailInput && emailInput.addEventListener(
     "keyup",
@@ -41,6 +41,24 @@ usernameInput && usernameInput.addEventListener(
             usernameIsValid = false;
         }
     })
+)
+
+logoutButton && logoutButton.addEventListener(
+    'click', async () => {
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/public/Profile/logout");
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === XMLHttpRequest.DONE){
+                if (this.status === 204){
+                    location.replace('/public/SignIn');
+                } else {
+                    // TODO: flash error
+                }
+            }
+        }
+    }
 )
 
 document.addEventListener('DOMContentLoaded',  async () => {
