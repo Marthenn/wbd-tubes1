@@ -228,7 +228,7 @@ class Book_model {
         $query = "SELECT curr_duration FROM history WHERE bid = :bid AND uid = :uid";
         $this->database->query($query);
         $this->database->bind('bid', $bid);
-        $this->database->bind('uid', $_SESSION['uid']);
+        $this->database->bind('uid', $_COOKIE['uid']);
         $curr_duration = $this->database->single()['curr_duration'];
 
         // check if no history, then curr_duration = 0
