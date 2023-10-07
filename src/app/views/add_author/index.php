@@ -1,4 +1,7 @@
 <div class="add-author-page">
+    <a href="<?= BASEURL;?>/authorlist">
+       <img class="back-arrow" src="<?= BASEURL;?>/img/back-arrow.svg" alt="back">
+    </a>
     <div class="add-author-contents">
         <div class="add-author-header">
             <h1 id="add-author">Add Author</h1>

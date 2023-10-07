@@ -1,4 +1,7 @@
 <div class="edit-book-page">
+    <a href="<?= BASEURL;?>/audiobooklist">
+       <img class="back-arrow" src="<?= BASEURL;?>/img/back-arrow.svg" alt="back">
+    </a>
     <div class="edit-book-contents">
         <div class="edit-book-header">
             <h1 id="edit-book">Edit Book</h1>

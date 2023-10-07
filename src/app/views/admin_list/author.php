@@ -19,7 +19,7 @@
                         <p>Description: <?= $author['description'] ?></p>
                         <!-- <p>Authored Books: <?= $author['bid'] ?></p> -->
                     </div>
-                    <a href="path_to_edit_author">
+                    <a href="<?= BASEURL;?>/editauthor">
                         <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
                     </a>
                 </div>

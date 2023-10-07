@@ -1,11 +1,10 @@
 .edit-book-page, .edit-author-page {
     display: grid;
-    /* grid-template-columns: 2fr 2fr; */
     margin-bottom: 100px;
 }
 
 .edit-book-contents, .edit-author-contents {
-    margin: 100px 10% 0px 10%;
+    margin: 10px 10% 0px 10%;
 }
 
 #edit-book, #edit-author {

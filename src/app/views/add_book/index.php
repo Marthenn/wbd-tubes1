@@ -1,4 +1,7 @@
 <div class="add-book-page">
+    <a href="<?= BASEURL;?>/audiobooklist">
+       <img class="back-arrow" src="<?= BASEURL;?>/img/back-arrow.svg" alt="back">
+    </a>
     <div class="add-book-contents">
         <div class="add-book-header">
             <h1 id="add-book">Add Book</h1>

@@ -1,4 +1,7 @@
 <div class="edit-author-page">
+    <a href="<?= BASEURL;?>/authorlist">
+       <img class="back-arrow" src="<?= BASEURL;?>/img/back-arrow.svg" alt="back">
+    </a>
     <div class="edit-author-contents">
         <div class="edit-author-header">
             <h1 id="edit-author">Edit Author</h1>

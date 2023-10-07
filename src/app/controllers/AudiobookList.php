@@ -16,10 +16,33 @@ class AudiobookList extends Controller {
     
     public function fetch($page = 1)
     {
-        $page = (int) $page;
-        $bookModel = $this->model('Book_model');
-        $books = $bookModel->getBookPageAdmin($page);
-        header('Content-Type: application/json');
-        echo json_encode(["books" => $books]);
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $bookModel = $this->model('Book_model');
+                    $maxPages = $bookModel->countPageAdmin();
+                    
+                    if ($page > $maxPages) {
+                        $page = $maxPages;
+                    }
+
+                    if ($page < 1) {
+                        $page = 1;
+                    }
+                    
+                    $res = $bookModel->getBookPageAdmin($page);
+
+                    header('Content-Type: application/json');
+                    http_response_code(200);
+                    echo json_encode($res);
+                    exit;
+                    break;
+                default:
+                    throw new Exception('Method Not Allowed');
+            }
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            exit;
+        }
     }
 }
