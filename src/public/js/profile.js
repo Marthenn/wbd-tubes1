@@ -13,7 +13,7 @@ const logoutButton = document.querySelector('.sign-out');
 const deleteButton = document.querySelector('.delete-account');
 const updateButton = document.querySelector('.save-changes');
 
-const imageInput = document.getElementById('image');
+const imageInput = document.querySelector('.profile-img-edit');
 
 emailInput && emailInput.addEventListener(
     "keyup",
@@ -197,7 +197,10 @@ updateButton && updateButton.addEventListener(
                 functionality : updateProfile
             }
             const right_button_param = {
-                text : 'No'
+                text : 'No',
+                functionality : () => {
+                    location.reload(); // to reset the profile picture
+                }
             }
             flash.appendChild(make_flash("Are you sure you want to update your profile?", "action", left_button_param, right_button_param));
         } else {
@@ -209,5 +212,14 @@ updateButton && updateButton.addEventListener(
             }
             flash.appendChild(make_flash("Please fix the errors!", "danger"));
         }
+    }
+)
+
+imageInput && imageInput.addEventListener(
+    'change', (e) => {
+        e.preventDefault();
+
+        const profile_img = document.querySelector('.profile-img');
+        profile_img.src = URL.createObjectURL(e.target.files[0]);
     }
 )
