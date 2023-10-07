@@ -83,7 +83,11 @@ document.addEventListener('DOMContentLoaded',  async () => {
                 const data = JSON.parse(this.responseText);
                 emailInput.value = data.email;
                 usernameInput.value = data.username;
-                // TODO: profile picture
+                const profile_img = document.querySelector('.profile-img');
+                profile_img.src = data.profile_pic_directory;
+
+                const user_photo = document.querySelector('.user-photo-img');
+                user_photo.src = data.profile_pic_directory;
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
