@@ -6,7 +6,7 @@
         <div class="add-book-header">
             <h1 id="add-book">Add Book</h1>
         </div>
-        <form class="add-book-form" action="" method="post">
+        <form class="add-book-form" action="/public/addauthor/add" method="POST" enctype="multipart/form-data">
             <div class="input-field">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" required>
@@ -43,7 +43,8 @@
                     <input type="file" name="audio-file" id="audio-file" required>
                 </div>
             </div>
-            <button class="save-changes-book" type="submit" name="save-changes-book">Save Changes</button>
+            <button class="save-changes-book" type="submit" name="save-changes-book" id="save-changes-book">Save Changes</button>
         </form>
     </div>
 </div>
+<script src="<?= BASEURL; ?>/js/add_book.js" defer></script>
