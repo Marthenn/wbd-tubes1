@@ -101,7 +101,7 @@ const updateView = (data) => {
                     <p class="rating-num"> ${book.rating}</p>
                 </div>
                 <p class="author"> ${book.author}</p>
-                <p class="duration">45 min</p> <!-- janlup tambahin ini di db -->
+                <p class="duration"> ${book.duration}</p>
             </div>
         </a>
         `;
