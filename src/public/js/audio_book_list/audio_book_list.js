@@ -37,7 +37,7 @@ prevButton &&
 
 nextButton &&
     nextButton.addEventListener("click", async () => {
-        if (currentPage === PAGES) {
+        if (currentPage === MAX_PAGES) {
             return;
         }
 
@@ -68,7 +68,7 @@ pageInput &&
     pageInput.addEventListener("input", () => {
         const inputPage = parseInt(pageInput.value);
         console.log(inputPage)
-        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= PAGES
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= MAX_PAGES
         ) {
             currentPage = inputPage;
         } else {
@@ -98,7 +98,7 @@ pageInput &&
 
 const updateData = (data) => {
     let generatedHTML = "";
-    data.books.map((book) => {
+    data.map((book) => {
         generatedHTML += `
         <div class="data-card">
         <div class="card-content">
@@ -124,7 +124,7 @@ const updateData = (data) => {
         prevButton.disabled = false;
     }
 
-    if (currentPage === PAGES) {
+    if (currentPage === MAX_PAGES) {
         nextButton.disabled = true;
     } else {
         nextButton.disabled = false;
