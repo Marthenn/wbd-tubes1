@@ -2,7 +2,7 @@ CREATE TABLE account (
     uid SERIAL PRIMARY KEY,
     password character varying(256) NOT NULL check(length(password) >= 8),
     email character varying(256) NOT NULL check(email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
-    username character varying(256) NOT NULL UNIQUE check(length(username) >= 3 AND length(username) <= 16 && username ~* '^[A-Za-z0-9][A-Za-z0-9._]*$'),
+    username character varying(16) NOT NULL UNIQUE check(length(username) >= 3 AND username ~* '^[A-Za-z0-9][A-Za-z0-9._]*$'),
     joined_date date NOT NULL,
     is_admin boolean NOT NULL,
     profile_pic_directory text
