@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="<?= BASEURL;?>/css/flasher.css">
     <script>
         const BASEURL = "<?= BASEURL;?>";
+        const STORAGEURL = "<?= STORAGEURL?>"
     </script>
 </head>
 <body>

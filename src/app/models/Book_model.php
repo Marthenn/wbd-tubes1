@@ -50,7 +50,7 @@ class Book_model {
         $filtered = false;
 
         // base select
-        $query = "SELECT title, author.name as author, rating, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        $query = "SELECT bid, title, author.name as author, rating, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
 
         if (isset($filter['category'])){
             $query = $query . " WHERE category.name = :category";
@@ -264,9 +264,10 @@ class Book_model {
 
         // check if no history, then curr_duration = 0
         if ($curr_duration == null){
-            $curr_duration = 0;
+            $curr_duration = "00:00:00";
         }
-        $data->curr_duration = $curr_duration;
+
+        $data['curr_duration'] = $curr_duration;
 
         return $data;
     }

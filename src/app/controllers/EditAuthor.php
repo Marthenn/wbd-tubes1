@@ -74,36 +74,4 @@ class EditAuthor extends Controller {
             echo json_encode($requestData);
         }
     }
-    // public function getAuthor($aid){
-    //     $aid = (int) $aid;
-    //     try{
-    //         switch ($_SERVER['REQUEST_METHOD']){
-    //             case 'GET':
-    //                 $authorModel = $this->model('Author_model');
-    //                 $res = $authorModel->getAuthor($aid);
-    //                 if (!$res){
-    //                     // response 404 Not Found
-    //                     header('Content-Type: application/json', true, 404);
-    //                     echo json_encode(['message' => 'Author not found']);
-    //                     exit;
-    //                 } else {
-    //                     // response 200 OK
-    //                     header('Content-Type: application/json', true, 200);
-    //                     echo json_encode($res);
-    //                     exit;
-    //                 }
-    //                 break;
-    //             default:
-    //                 throw new Exception('Invalid request method', 405);
-    //         }
-    //     } catch (Exception $e){
-    //         http_response_code(500);
-    //         header('Content-Type: application/json');
-    //         $requestData = [
-    //             'message' => $e->getMessage(),
-    //             'type' => 'danger'
-    //         ];
-    //         echo json_encode($requestData);
-    //     }
-    // }
 }

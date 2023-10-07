@@ -39,7 +39,7 @@
         <div class="book-card-list">
             <?php foreach ($data['books'] as $book) : ?>
                 <!-- placeholder -->
-                <a href="<?= BASEURL;?>/bookdetails" class="book-card">
+                <a href="<?= BASEURL;?>/bookdetails/<?= $book['bid']?>" class="book-card">
                     <div class="cover">
                         <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
                     </div>
