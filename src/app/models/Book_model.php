@@ -50,7 +50,7 @@ class Book_model {
         $filtered = false;
 
         // base select
-        $query = "SELECT title, author.name as author, rating, category.name as category, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        $query = "SELECT title, author.name as author, rating, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
 
         if (isset($filter['category'])){
             $query = $query . " WHERE category.name = :category";
