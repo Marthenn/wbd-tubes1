@@ -20,10 +20,8 @@ emailInput && emailInput.addEventListener(
         emailIsValid = emailRegex.test(email);
         if (emailIsValid) {
             emailError.innerHTML = "";
-            emailIsValid = true;
         } else {
             emailError.innerHTML = "Email format not valid!";
-            emailIsValid = false;
         }
     })
 )
@@ -35,10 +33,8 @@ usernameInput && usernameInput.addEventListener(
         usernameIsValid = usernameRegex.test(username);
         if (usernameIsValid) {
             usernameError.innerHTML = "";
-            usernameIsValid = true;
         } else {
             usernameError.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets and/or numbers)";
-            usernameIsValid = false;
         }
     })
 )
