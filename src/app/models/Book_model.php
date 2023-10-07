@@ -172,8 +172,8 @@ class Book_model {
 
         // finding the aid of the author
         $this->database->query("SELECT aid FROM author WHERE name = :author");
-        Database::bind('author', $data['author']);
-        $aid = Database::single()['aid'];
+        $this->database->bind('author', $data['author']);
+        $aid = $this->database->single()['aid'];
 
         // finding the cid of the category
         $this->database->query("SELECT cid FROM category WHERE name = :category");
@@ -213,6 +213,37 @@ class Book_model {
         $this->database->execute();
     }
 
+    public function addBook($data) {
+        // Finding the aid of the author
+        $this->database->query("INSERT INTO author (name) VALUES (:author) ON DUPLICATE KEY UPDATE name = :author");
+        $this->database->bind(':author', $data['author']);
+        $aid = $this->database->execute() ? $this->database->lastInsertId() : null;
+        // Finding the cid of the category
+        $this->database->query("INSERT INTO category (name) VALUES (:category) ON DUPLICATE KEY UPDATE name = :category");
+        $this->database->bind(':category', $data['category']);
+        $cid = $this->database->execute() ? $this->database->lastInsertId() : null;
+    
+        // Inserting the book record
+        $query = "INSERT INTO book (title, aid, rating, cid, description, duration) VALUES (:title, :aid, :rating, :cid, :description, :duration)";
+        $this->database->query($query);
+        $this->database->bind(':title', $data['title']);
+        $this->database->bind(':aid', $aid);
+        $this->database->bind(':rating', $data['rating']);
+        $this->database->bind(':cid', $cid);
+        $this->database->bind(':description', $data['description']);
+        $this->database->bind(':duration', $data['duration']);
+        $success = $this->database->execute();
+    
+        if (!$success) {
+            // Handle the database error here (e.g., log or display an error message)
+            $errorInfo = $this->database->errorInfo();
+            var_dump($errorInfo); // For debugging purposes
+            http_response_code(500); // Set an appropriate HTTP status code for the error
+            echo $e->getMessage();
+            exit;
+        }
+    }
+    
     public function deleteBook($bid) {
         $this->database->query("DELETE FROM book WHERE bid = :bid");
         $this->database->bind(":bid", $bid);
