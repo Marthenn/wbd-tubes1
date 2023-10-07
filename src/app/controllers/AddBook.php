@@ -13,25 +13,27 @@ class AddBook extends Controller {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'POST':
-                    if(isset($_POST['title']) && isset($_POST['author']) && isset($_POST['rating']) && isset($_POST['category']) && isset($_POST['description'])) {
-                    $data = [
-                        'title' => $_POST['title'],
-                        'author' => $_POST['author'],
-                        'rating' => $_POST['rating'],
-                        'category' => $_POST['category'],
-                        'description' => $_POST['description'],
-                        'duration' => 0,
-                        'cover_image_directory' => '',
-                        'audio_directory' => '',
-                    ];
-                    $bookModel = $this->model('Book_model');
-                    $bookModel->addBook($data);
-                    exit;
+                    if(isset($_POST['title']) && isset($_POST['author'])) {
+                        $data = [
+                            'title' => $_POST['title'],
+                            'author' => $_POST['author'],
+                            'rating' => 0,
+                            'category' => "a",
+                            'description' => "a",
+                            'duration' => 0,
+                            'cover_image_directory' => '',
+                            'audio_directory' => '',
+                        ];
+                        $bookModel = $this->model('Book_model');
+                        $bookModel->addBook($data);
+                        var_dump($data);
+                        header("Location: /public/audiobooklist");
+                        exit;
+                    }
+                    else {
+                        throw new Exception('Missing parameters');
+                    }
                     break;
-                }
-                else {
-                    throw new Exception('Missing parameters');
-                }
                 default:
                     throw new Exception('Method Not Allowed');
             }

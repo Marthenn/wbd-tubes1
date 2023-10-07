@@ -113,9 +113,6 @@ const updateData = (data) => {
                 <p>Joined Date: "${user.joined_date}"</p>
                 <p>Type: "${user.is_admin === true ? 'admin' : 'user'}"</p>
             </div>
-            <a href="${BASEURL}/editbook">
-                <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
-            </a>
             </div>
             `;
         });
