@@ -12,6 +12,7 @@ prevButton &&
         }
 
         currentPage -= 1;
+        pageInput.value = currentPage;
 
         const xhr = new XMLHttpRequest();
         xhr.open(
@@ -42,6 +43,7 @@ nextButton &&
         }
 
         currentPage += 1;
+        pageInput.value = currentPage;
 
         const xhr = new XMLHttpRequest();
         xhr.open(
@@ -68,11 +70,13 @@ pageInput &&
     pageInput.addEventListener("input", () => {
         const inputPage = parseInt(pageInput.value);
         console.log(inputPage)
-        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= MAX_PAGES
-        ) {
-            currentPage = inputPage;
-        } else {
+        if (isNaN(inputPage) || inputPage < 1) {
             currentPage = 1;
+        } else if (inputPage > MAX_PAGES) {
+            currentPage = MAX_PAGES;
+        }
+        else {
+            currentPage = inputPage;
         }
         const xhr = new XMLHttpRequest();
         xhr.open(
