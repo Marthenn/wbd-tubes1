@@ -102,7 +102,7 @@ const updateView = (data) => {
                 <p>Description: ${author.description}</p>
                 <p>Authored Books: ${authoredBooks}</p>
             </div>
-            <a href="path_to_edit_author">
+            <a href="${BASEURL}/editauthor/index/${author.aid}">
                 <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
             </a>
         </div>
