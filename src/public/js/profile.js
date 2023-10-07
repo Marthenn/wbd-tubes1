@@ -37,7 +37,7 @@ usernameInput && usernameInput.addEventListener(
             usernameError.innerHTML = "";
             usernameIsValid = true;
         } else {
-            usernameError.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets and/or numbers)";
+            usernameError.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets, numbers, and/or underscores [can't start with underscore])";
             usernameIsValid = false;
         }
     })
