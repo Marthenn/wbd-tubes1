@@ -6,12 +6,12 @@ const usernameInput = document.getElementById('username');
 const usernameError = document.getElementById('username-error-msg');
 const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_]{2,15}$/;
 
-const formInput = document.querySelector('.profile');
-
 let emailIsValid = false;
 let usernameIsValid = false;
 
 const logoutButton = document.querySelector('.sign-out');
+const deleteButton = document.querySelector('.delete-account');
+const updateButton = document.querySelector('.save-changes');
 
 emailInput && emailInput.addEventListener(
     "keyup",
@@ -59,11 +59,10 @@ logoutButton && logoutButton.addEventListener(
 
 document.addEventListener('DOMContentLoaded',  async () => {
     const formData = new FormData();
-    formData.append('uid', uid);
 
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "/public/Profile/getProfile");
-    xhr.send(formData);
+    xhr.send();
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
@@ -73,16 +72,60 @@ document.addEventListener('DOMContentLoaded',  async () => {
                 usernameInput.value = data.username;
                 // TODO: profile picture
             } else {
-                // TODO: flash error message
+                const data = JSON.parse(this.responseText);
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash(data.message, data.type));
             }
         }
     }
 })
 
-// formInput && formInput.addEventListener(
-//     'submit', async (e) => {
-//         e.preventDefault();
+const deleteAccount = async () => {
+    const formData = new FormData();
 
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/public/Profile/delete");
+    xhr.send();
 
-//     }
-// )
+    xhr.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE){
+            if (this.status === 204){
+                location.replace('/public/SignIn');
+            } else {
+                const data = JSON.parse(this.responseText);
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash(data.message, data.type));
+            }
+        }
+    }
+}
+
+deleteButton && deleteButton.addEventListener(
+    'click', (e) => {
+        e.preventDefault();
+        const flash = document.getElementById('flash-message');
+        if (flash.firstChild) {
+            for (let i = 0; i < flash.childNodes.length; i++) {
+                flash.removeChild(flash.childNodes[i]);
+            }
+        }
+        const left_button_param = {
+            text : 'Yes',
+            functionality : deleteAccount
+        }
+        const right_button_param = {
+            text : 'No'
+        }
+        flash.appendChild(make_flash("Are you sure you want to delete your account?", "danger", left_button_param, right_button_param));
+    }
+)

@@ -38,7 +38,13 @@ class Profile extends Controller{
                     throw new Exception('Invalid request method', 405);
             }
         } catch (Exception $e){
-            throw new Exception($e->getMessage(), $e->getCode());
+            http_response_code(500);
+            header('Content-Type: application/json');
+            $requestData = [
+                'message' => $e->getMessage(),
+                'type' => 'danger'
+            ];
+            echo json_encode($requestData);
         }
     }
 
@@ -56,7 +62,44 @@ class Profile extends Controller{
                     throw new Exception('Invalid request method', 405);
             }
         } catch (Exception $e){
-            throw new Exception($e->getMessage(), $e->getCode());
+            http_response_code(500);
+            header('Content-Type: application/json');
+            $requestData = [
+                'message' => $e->getMessage(),
+                'type' => 'danger'
+            ];
+            echo json_encode($requestData);
+        }
+    }
+
+    public function delete(){
+        try{
+            switch($_SERVER['REQUEST_METHOD']){
+                case 'DELETE':
+                    $accountModel = $this->model('Account_model');
+                    $accountModel->deleteUser($_COOKIE['uid']);
+                    // response 204 No Content
+                    http_response_code(204);
+                    $accountModel->logout();
+                    exit;
+                default:
+                    http_response_code(405);
+                    header('Content-Type: application/json');
+                    $responseData = [
+                        'message' => 'Invalid request method',
+                        'type' => 'danger'
+                    ];
+                    echo json_encode($responseData);
+                    exit;
+            }
+        } catch (Exception $e){
+            http_response_code(500);
+            header('Content-Type: application/json');
+            $requestData = [
+                'message' => $e->getMessage(),
+                'type' => 'danger'
+            ];
+            echo json_encode($requestData);
         }
     }
 }
