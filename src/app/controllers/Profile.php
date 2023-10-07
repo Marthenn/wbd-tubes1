@@ -110,6 +110,76 @@ class Profile extends Controller{
                     $accountModel = $this->model('Account_model');
                     $username = $_POST['username'];
                     $email = $_POST['email'];
+
+                    // upload image to storage
+                    var_dump($_FILES);
+                    if (isset($_FILES["profile-img-edit"])) {
+                        $file = $_FILES['profile-img-edit'];
+                        echo 'kontol wbd';
+                        echo $file;
+
+                        // file error handling
+                        if ($file['error'] == UPLOAD_ERR_OK){
+                            // change filename to uid
+                            $filename = $_COOKIE['uid'];
+                            $fileExt = explode('.', $file['name']);
+                            $fileExt = strtolower(end($fileExt));
+                            $filename .= '.' . $fileExt;
+
+                            // check if file is image
+                            $allowedExt = ['jpg', 'jpeg', 'png'];
+                            if (!in_array($fileExt, $allowedExt)){
+                                // response 400 Bad Request
+                                http_response_code(400);
+                                header('Content-Type: application/json');
+                                $responseData = [
+                                    'message' => 'File must be an image',
+                                    'type' => 'danger'
+                                ];
+                                echo json_encode($responseData);
+                                exit;
+                            }
+
+                            // if file is larger than 500MB
+                            if ($file['size'] > 500000){
+                                // response 400 Bad Request
+                                http_response_code(400);
+                                header('Content-Type: application/json');
+                                $responseData = [
+                                    'message' => 'File is too large',
+                                    'type' => 'danger'
+                                ];
+                                echo json_encode($responseData);
+                                exit;
+                            }
+
+                            // upload file to storage
+                            $uploadDir = '../storage/profile/';
+                            $uploadFile = $uploadDir . $filename;
+                            if (!move_uploaded_file($file['tmp_name'], $uploadFile)){
+                                // response 400 Bad Request
+                                http_response_code(400);
+                                header('Content-Type: application/json');
+                                $responseData = [
+                                    'message' => 'File error',
+                                    'type' => 'danger'
+                                ];
+                                echo json_encode($responseData);
+                                exit;
+                            }
+                        } else { // file error
+                            // response 400 Bad Request
+                            http_response_code(400);
+                            header('Content-Type: application/json');
+                            $responseData = [
+                                'message' => 'File error',
+                                'type' => 'danger'
+                            ];
+                            echo json_encode($responseData);
+                            exit;
+                        }
+                    }
+
                     $accountModel->updateUser($_COOKIE['uid'], $username, $email);
                     setcookie("uid", $_COOKIE['uid'], time() + 3600, "/");
                     setcookie("username", $username, time() + 3600, "/");

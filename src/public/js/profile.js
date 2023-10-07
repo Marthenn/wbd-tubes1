@@ -169,6 +169,7 @@ const updateProfile = async (e) => {
                 navbar_username.innerHTML = usernameInput.value;
                 flash.appendChild(make_flash("Profile updated!", "success"));
             } else {
+                alert(this.responseText)
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
                 if (flash.firstChild) {
