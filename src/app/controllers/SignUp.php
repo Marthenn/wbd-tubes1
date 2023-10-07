@@ -19,17 +19,17 @@ class SignUp extends Controller{
                     $accountModel = $this->model('Account_model');
                     $res = $accountModel->register($username, $email, $password);
                     if (!$res){
-                        Flasher::setFlash('Username already exist', 'danger');
                         // response 409 Conflict
                         http_response_code(409);
                         header('Content-Type: application/json');
-                        echo json_encode(['redirect' => BASEURL . '/SignUp']);
+                        echo json_encode(['message' => 'Username already exist']);
+                        echo json_encode(['type' => 'danger']);
                         exit;
                     } else { // move to sign in page
-                        Flasher::setFlash('Account created successfully', 'success');
                         http_response_code(201);
                         header('Content-Type: application/json');
-                        echo json_encode(['redirect' => BASEURL . '/SignUp']);
+                        echo json_encode(['message' => 'Account created successfully']);
+                        echo json_encode(['type' => 'success']);
                         exit;
                     }
                     break;

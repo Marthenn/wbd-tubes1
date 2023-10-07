@@ -18,11 +18,13 @@ class SignIn extends Controller{
                     $accountModel = $this->model('Account_model');
                     $res = $accountModel->login($username, $password);
                     if (!$res){
-                        Flasher::setFlash('Invalid username or password', 'danger');
+                        header('Content-Type: application/json');
                         // response 401 Unauthorized
                         http_response_code(401);
                         header('Content-Type: application/json');
                         echo json_encode(['redirect' => BASEURL . '/SignIn']);
+                        echo json_encode(['type' => 'danger']);
+                        echo json_encode(['message' => 'Invalid username or password']);
                         exit;
                     } else { // move to profile page
                         http_response_code(201);
@@ -30,7 +32,6 @@ class SignIn extends Controller{
                         echo json_encode(['redirect' => BASEURL . '/Profile']);
                         exit;
                     }
-                    // TODO: the $_SESSION is not persistent yet :(
                     break;
                 default:
                     throw new Exception('Invalid request method', 405);
