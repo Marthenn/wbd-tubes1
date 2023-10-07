@@ -44,5 +44,6 @@
     </div>
 </div>
 
+<script src="<?= BASEURL; ?>/js/lib/flasher.js" defer></script>
 <script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
 <script src="<?= BASEURL; ?>/js/sign_up.js" defer></script>

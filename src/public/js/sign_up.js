@@ -88,7 +88,9 @@ submit_button && submit_button.addEventListener(
             xhr.onreadystatechange = function () {
                 if (this.readyState === XMLHttpRequest.DONE){
                     const data = JSON.parse(this.responseText);
-                    location.replace(data.redirect);
+
+                    const flash_div = document.getElementById('flash-message');
+                    flash_div.append(make_flash(data.message, data.type));
                 }
             }
         }
