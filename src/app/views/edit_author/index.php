@@ -6,14 +6,14 @@
         <div class="edit-author-header">
             <h1 id="edit-author">Edit Author</h1>
         </div>
-        <form class="edit-author-form" action="/public/edit_author/update" method="PUT" enctype="multipart/form-data">
+        <form class="edit-author-form">
             <div class="input-field">
-                <label for="title">Name</label>
-                <input type="text" name="title" id="title" value="data from db" required>
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value=<?= $data['name'] ?> required>
             </div>
             <div class="input-field-description">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" required></textarea>
+                <textarea name="description" id="description" required><?= $data['description'] ?></textarea>
             </div>
             <button class="save-changes-author" type="submit" name="save-changes-author">Save Changes</button>
         </form>
