@@ -49,6 +49,9 @@ class App {
         if(!empty($url)) {
             $this->params = array_values($url);
         }
+        // setcookie("uid", 2, time() + 3600, "/");
+        // setcookie("username", "user", time() + 3600, "/");
+        // setcookie("privilege", 1, time() + 3600, "/");
 
         call_user_func_array([$this->controller, $this->method], $this->params);
     }

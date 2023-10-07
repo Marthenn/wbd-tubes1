@@ -5,7 +5,7 @@ class AudiobookList extends Controller {
         $data['title'] = 'Audiobook List';
         $this->view('templates/header', $data);
         $this->view('templates/navbar_admin');
-        $page = (int) $page; // Convert the page parameter to an integer
+        $page = (int) $page;
         $bookModel = $this->model('Book_model');
         $data['books'] = $bookModel->getBookPageAdmin($page);
         $data['pages'] = $bookModel->countPageAdmin();
@@ -14,14 +14,11 @@ class AudiobookList extends Controller {
         $this->view('templates/footer');
     }
     
-    public function fetch($page)
+    public function fetch($page = 1)
     {
-        $page = (int) $page; // Convert the page parameter to an integer
-        // Fetch the data you need for the specified page
+        $page = (int) $page;
         $bookModel = $this->model('Book_model');
         $books = $bookModel->getBookPageAdmin($page);
-        
-        // You can return JSON data here
         header('Content-Type: application/json');
         echo json_encode(["books" => $books]);
     }

@@ -1,14 +1,14 @@
-.add-book-page {
+.edit-book-page, .edit-author-page {
     display: grid;
     /* grid-template-columns: 2fr 2fr; */
     margin-bottom: 100px;
 }
 
-.add-book-contents {
+.edit-book-contents, .edit-author-contents {
     margin: 100px 10% 0px 10%;
 }
 
-#add-book {
+#edit-book, #edit-author {
     color: #1F1F1F;
     /* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     font-size: 44px;
@@ -18,7 +18,7 @@
     text-transform: capitalize;
 }
 
-.add-book-form {
+.edit-book-form, .edit-author-form {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -26,15 +26,16 @@
     width: 70%;
 }
 
-.add-book-form .input-field{
+.edit-book-form .input-field, .edit-author-form .input-field{
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
     width: 50%;
 }
 
-.add-book-form input[type='text'],
-.add-book-form input[type='number'],
+.edit-book-form input[type='text'],
+.edit-book-form input[type='number'],
+.edit-author-form input[type='text'],
 #description {
     border: 1px solid #ABABAB;
     outline: none;
@@ -62,18 +63,18 @@
     width: 70%;
 }
 
-.add-book-form .file-field {
+.edit-book-form .file-field {
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
     width: 70%;
 }
 
-.add-book-form input[type='file'] {
+.edit-book-form input[type='file'] {
     margin: 5px 0px;
 }
 
-.save-changes-book {
+.save-changes-book, .save-changes-author {
     background-color: #1F1F1F;
     border: none;
     border-radius: 25px;
@@ -83,3 +84,14 @@
     width: 50%;
     margin: 10px 0px;
 }
+
+.delete-book, .delete-author {
+    background: linear-gradient(135deg, #FF1C26, #FF575F);
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    padding: 10px;
+    width: 50%;
+    margin: 10px 0px;
+}
+

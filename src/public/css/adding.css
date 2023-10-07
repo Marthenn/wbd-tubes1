@@ -1,14 +1,14 @@
-.edit-book-page {
+.add-book-page, .add-author-page {
     display: grid;
     /* grid-template-columns: 2fr 2fr; */
     margin-bottom: 100px;
 }
 
-.edit-book-contents {
+.add-book-contents, .add-author-contents {
     margin: 100px 10% 0px 10%;
 }
 
-#edit-book {
+#add-book, #add-author {
     color: #1F1F1F;
     /* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     font-size: 44px;
@@ -18,7 +18,7 @@
     text-transform: capitalize;
 }
 
-.edit-book-form {
+.add-book-form, .add-author-form {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -26,15 +26,16 @@
     width: 70%;
 }
 
-.edit-book-form .input-field{
+.add-book-form .input-field, .add-author-form .input-field {
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
     width: 50%;
 }
 
-.edit-book-form input[type='text'],
-.edit-book-form input[type='number'],
+.add-book-form input[type='text'],
+.add-book-form input[type='number'],
+.add-author-form input[type='text'],
 #description {
     border: 1px solid #ABABAB;
     outline: none;
@@ -62,18 +63,18 @@
     width: 70%;
 }
 
-.edit-book-form .file-field {
+.add-book-form .file-field {
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
     width: 70%;
 }
 
-.edit-book-form input[type='file'] {
+.add-book-form input[type='file'] {
     margin: 5px 0px;
 }
 
-.save-changes-book {
+.save-changes-book, .save-changes-author  {
     background-color: #1F1F1F;
     border: none;
     border-radius: 25px;
@@ -83,14 +84,3 @@
     width: 50%;
     margin: 10px 0px;
 }
-
-.delete-book {
-    background: linear-gradient(135deg, #FF1C26, #FF575F);
-    border: none;
-    border-radius: 25px;
-    color: #ffffff;
-    padding: 10px;
-    width: 50%;
-    margin: 10px 0px;
-}
-
