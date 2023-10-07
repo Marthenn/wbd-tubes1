@@ -37,7 +37,7 @@ class AuthorList extends Controller {
                     exit;
                     break;
                 default:
-                    throw new Exception('Method Not Allowed');
+                    throw new Exception('Method Not Allowed', 405);
 
             }
         } catch (Exception $e) {
