@@ -33,77 +33,31 @@
         <button class="sort-button" type="submit">Sort</button>
     </div>
     <!-- card list -->
-    <div class="book-card-list">
-        <!-- placeholder -->
-        <a href="<?= BASEURL;?>/bookdetails" class="book-card">
-            <div class="cover">
-                <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
-            </div>
-            <div class="details">
-                <p class="title">Book Title</p>
-                <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
-                    <p class="rating-num">5.0</p>
-                </div>
-                <p class="author">Author</p>
-                <p class="duration">45 min</p>
-            </div>
-        </a>
-        <a href="" class="book-card">
-            <div class="cover">
-                <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
-            </div>
-            <div class="details">
-                <p class="title">Book Title</p>
-                <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
-                    <p class="rating-num">5.0</p>
-                </div>
-                <p class="author">Author</p>
-                <p class="duration">45 min</p>
-            </div>
-        </a>
-        <a href="" class="book-card">
-            <div class="cover">
-                <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
-            </div>
-            <div class="details">
-                <p class="title">Book Title</p>
-                <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="">
-                    <p class="rating-num">5.0</p>
-                </div>
-                <p class="author">Author</p>
-                <p class="duration">45 min</p>
-            </div>
-        </a>
-        <a href="" class="book-card">
-            <div class="cover">
-                <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
-            </div>
-            <div class="details">
-                <p class="title">Book Title</p>
-                <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="">
-                    <p class="rating-num">5.0</p>
-                </div>
-                <p class="author">Author</p>
-                <p class="duration">45 min</p>
-            </div>
-        </a>
-        <a href="" class="book-card">
-            <div class="cover">
-                <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
-            </div>
-            <div class="details">
-                <p class="title">Book Title</p>
-                <div class="rating">
-                    <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="">
-                    <p class="rating-num">5.0</p>
-                </div>
-                <p class="author">Author</p>
-                <p class="duration">45 min</p>
-            </div>
-        </a>
-    </div>    
+    <?php if (!$data['books']) : ?>
+        <p class='info'>There are no books yet available!</p>
+    <?php else : ?>
+        <div class="book-card-list">
+            <?php foreach ($data['books'] as $book) : ?>
+                <!-- placeholder -->
+                <a href="<?= BASEURL;?>/bookdetails" class="book-card">
+                    <div class="cover">
+                        <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
+                    </div>
+                    <div class="details">
+                        <p class="title"><?= $book['title']?></p>
+                        <div class="rating">
+                            <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
+                            <p class="rating-num"><?= $book['rating']?></p>
+                        </div>
+                        <p class="author"><?= $book['author']?></p>
+                        <p class="duration">45 min</p> <!-- janlup tambahin ini di db -->
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>    
 </div>
+<script src="<?= BASEURL; ?>/js/audio_book_user.js" defer></script>
+<script type="text/javascript" defer>
+    const MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
+</script>
