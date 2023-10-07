@@ -69,3 +69,38 @@ CREATE TRIGGER hash_password_trigger
 BEFORE INSERT OR UPDATE ON account 
 FOR EACH ROW EXECUTE
 FUNCTION hash_password_trigger_function();
+
+INSERT INTO account(password, email, username, joined_date, is_admin)
+	VALUES 
+    ('admin', 'admin@email.com', 'admin', '2022-10-10', true), -- Admin acc
+    ('user', 'user@email.com', 'user', '2022-11-11', false); -- User acc
+
+INSERT INTO author (name, description)
+SELECT 
+    'Author ' || generate_series,
+    'Description for Author ' || generate_series
+FROM generate_series(1, 5);
+
+INSERT INTO category (name)
+SELECT 
+    'Category ' || generate_series
+FROM generate_series(1, 5);
+
+INSERT INTO book (title, description, rating, aid, cid, duration, cover_image_directory, audio_directory)
+SELECT 
+    'Book ' || generate_series,
+    'Description for Book ' || generate_series,
+    random() * 5,  -- Random rating between 0 and 5
+    floor(random() * 5) + 1,  -- Random author ID between 1 and 5
+    floor(random() * 5) + 1,  -- Random category ID between 1 and 5
+    (LPAD(floor(random() * 24)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time,  -- Random duration
+    'storage/book_cover/' || generate_series || '.jpg',  -- Cover image directory
+    'storage/audio_book/' || generate_series || '.mp3'   -- Audio directory
+FROM generate_series(1, 50);
+
+INSERT INTO history (uid, bid, curr_duration)
+SELECT 
+    floor(random() * 2) + 1,  -- Random uid between 1 and 2
+    floor(random() * 50) + 1,  -- Random bid between 1 and 50
+    (LPAD(floor(random() * 24)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time  -- Random duration
+FROM generate_series(1, 20);
