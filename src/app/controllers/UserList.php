@@ -14,7 +14,7 @@ class UserList extends Controller {
         $this->view('templates/pagination', $data);
         $this->view('templates/footer');
     }
-    public function fetch($page) {
+    public function fetch($page, $filter = null) {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
@@ -29,7 +29,13 @@ class UserList extends Controller {
                         $page = 1;
                     }
                     
-                    $res = $accountModel->getUserPage($page);
+                    $userPage = $accountModel->getUserPage($page, $filter);
+
+                    $res = [
+                        'users' => $userPage,
+                        'max_pages' => $maxPages
+                    ];
+
 
                     header('Content-Type: application/json');
                     http_response_code(200);

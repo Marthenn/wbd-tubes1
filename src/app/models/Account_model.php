@@ -7,11 +7,18 @@ class Account_model{
         $this->database = new Database;
     }
 
-    public function countPage(){
-        $this->database->query("SELECT COUNT(*) FROM account");
+    public function countPage($filter = null) {
+        if ($filter == null) {
+            $this->database->query("SELECT COUNT(*) FROM account");
+        } else {
+            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username LIKE :filter or email LIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
+            $filter = "%".$filter."%";
+            $this->database->bind(":filter", $filter);
+        }
+        
         $count = $this->database->single();
         return ceil($count['count'] / 5);
-    }
+    }    
 
     public function login($username, $password){
         $password = md5($password);

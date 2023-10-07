@@ -2,10 +2,10 @@
     <h1>User List</h1>
     <div class="search">
         <div class="search-bar">
-            <input class="search-input" type="text" id="search" name="search" placeholder="Search..">
+            <input class="search-input" type="text" id="search-input-user" name="search" placeholder="Search..">
             <img class="search-logo"src="<?= BASEURL;?>/img/search.svg" alt="search">
         </div>
-        <button class="search-button" type="submit">Search</button>
+        <button class="search-button" id="search-button-user" type="submit">Search</button>
     </div>
     <?php if (!$data['users']) : ?>
         <p class="info">There are no user yet on webwbd!</p>
@@ -25,6 +25,7 @@
         </div>
     <?php endif; ?>
 </div>
+<script src="<?= BASEURL; ?>/js/user_list.js" defer></script>
 <script type="text/javascript" defer>
-    const MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
+    var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
 </script>
