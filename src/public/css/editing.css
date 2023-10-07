@@ -1,14 +1,13 @@
-.edit-book-page {
+.edit-book-page, .edit-author-page {
     display: grid;
-    /* grid-template-columns: 2fr 2fr; */
     margin-bottom: 100px;
 }
 
-.edit-book-contents {
-    margin: 100px 10% 0px 10%;
+.edit-book-contents, .edit-author-contents {
+    margin: 10px 10% 0px 10%;
 }
 
-#edit-book {
+#edit-book, #edit-author {
     color: #1F1F1F;
     /* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
     font-size: 44px;
@@ -18,7 +17,7 @@
     text-transform: capitalize;
 }
 
-.edit-book-form {
+.edit-book-form, .edit-author-form {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -26,7 +25,7 @@
     width: 70%;
 }
 
-.edit-book-form .input-field{
+.edit-book-form .input-field, .edit-author-form .input-field{
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
@@ -35,6 +34,7 @@
 
 .edit-book-form input[type='text'],
 .edit-book-form input[type='number'],
+.edit-author-form input[type='text'],
 #description {
     border: 1px solid #ABABAB;
     outline: none;
@@ -73,7 +73,7 @@
     margin: 5px 0px;
 }
 
-.save-changes-book {
+.save-changes-book, .save-changes-author {
     background-color: #1F1F1F;
     border: none;
     border-radius: 25px;
@@ -84,7 +84,7 @@
     margin: 10px 0px;
 }
 
-.delete-book {
+.delete-book, .delete-author {
     background: linear-gradient(135deg, #FF1C26, #FF575F);
     border: none;
     border-radius: 25px;
