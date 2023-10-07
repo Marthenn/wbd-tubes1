@@ -27,7 +27,7 @@ class SignIn extends Controller{
                             'type' => 'danger'
                         ];
                     } else { // move to profile page
-                        http_response_code(201);
+                        http_response_code(200);
                         header('Content-Type: application/json');
                         $responseData = [
                             'redirect' => BASEURL . '/Profile',
