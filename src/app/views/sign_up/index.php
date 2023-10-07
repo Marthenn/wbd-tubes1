@@ -2,8 +2,10 @@
     <div class="sign-up-contents">
         <img class="logo" src="<?= BASEURL;?>/img/Logo.svg" alt="logo" >
         <div class="sign-up-form">
-            <h2>Welcome!</h\2>
+            <h2>Welcome!</h2>
             <h1>Sign up to WEBWBD</h1>
+            <div id = 'flash-message'>
+            </div>
             <form action="" method="post">
                 <div class="input-field">
                     <label for="email">Email*</label>
