@@ -12,10 +12,10 @@
                 <img class="close-img" src="<?= BASEURL;?>/img/close.svg" alt="close">
             </a>
         </div>
-        <form class="profile" action="" method="post">
+        <form class="profile" method="POST" enctype="multipart/form-data">
             <div class="image-field">
                 <img class="profile-img" src="<?= BASEURL;?>/img/user-placeholder.svg" alt="profile">
-                <input class="profile-img-edit" accept="image/png, image/jpeg" type="file" id="profile-img-edit" name="profile-img"/>
+                <input class="profile-img-edit" accept="image/png, image/jpeg" type="file" id="profile-img-edit" name="profile-img-edit">
                 <label for="profile-img-edit" class="custom-file-label">Choose Image</label>
             </div>
             <div id = 'flash-message'></div>
@@ -37,7 +37,7 @@
                     <span id="username-error-msg"></span>
                 </div>
             </div>
-            <button class="save-changes" type="submit" name="save-changes" id="save-button">Save Changes</button>
+            <input class="save-changes" type="submit" name="save-changes" id="save-button" value="Save Changes">
             <button class="sign-out" type="button" name="sign-out">Sign Out</button>
             <button class="delete-account" type="submit" name="delete-account">Delete Acccount</button>
         </form>

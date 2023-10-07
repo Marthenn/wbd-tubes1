@@ -110,13 +110,12 @@ class Profile extends Controller{
                     $accountModel = $this->model('Account_model');
                     $username = $_POST['username'];
                     $email = $_POST['email'];
+                    $uploadFile = null;
 
                     // upload image to storage
-                    var_dump($_FILES);
-                    if (isset($_FILES["profile-img-edit"])) {
-                        $file = $_FILES['profile-img-edit'];
-                        echo 'kontol wbd';
-                        echo $file;
+                    if (isset($_FILES["image"])) {
+
+                        $file = $_FILES["image"];
 
                         // file error handling
                         if ($file['error'] == UPLOAD_ERR_OK){
@@ -125,20 +124,6 @@ class Profile extends Controller{
                             $fileExt = explode('.', $file['name']);
                             $fileExt = strtolower(end($fileExt));
                             $filename .= '.' . $fileExt;
-
-                            // check if file is image
-                            $allowedExt = ['jpg', 'jpeg', 'png'];
-                            if (!in_array($fileExt, $allowedExt)){
-                                // response 400 Bad Request
-                                http_response_code(400);
-                                header('Content-Type: application/json');
-                                $responseData = [
-                                    'message' => 'File must be an image',
-                                    'type' => 'danger'
-                                ];
-                                echo json_encode($responseData);
-                                exit;
-                            }
 
                             // if file is larger than 500MB
                             if ($file['size'] > 500000){
@@ -180,7 +165,7 @@ class Profile extends Controller{
                         }
                     }
 
-                    $accountModel->updateUser($_COOKIE['uid'], $username, $email);
+                    $accountModel->updateUser($_COOKIE['uid'], $username, $email, $uploadFile);
                     setcookie("uid", $_COOKIE['uid'], time() + 3600, "/");
                     setcookie("username", $username, time() + 3600, "/");
                     setcookie("privilege", $_COOKIE['privilege'], time() + 3600, "/");

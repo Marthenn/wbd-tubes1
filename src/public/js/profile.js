@@ -147,6 +147,12 @@ deleteButton && deleteButton.addEventListener(
 const updateProfile = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+
+    // if (imageInput.files.length != 0){
+        const image = imageInput.files[0];
+        formData.append('image', image);
+    // }
+
     formData.append('email', emailInput.value);
     formData.append('username', usernameInput.value);
 
@@ -168,8 +174,10 @@ const updateProfile = async (e) => {
                 const navbar_username = document.querySelector('.username');
                 navbar_username.innerHTML = usernameInput.value;
                 flash.appendChild(make_flash("Profile updated!", "success"));
+
+
             } else {
-                alert(this.responseText)
+                alert(this.responseText);
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
                 if (flash.firstChild) {
@@ -200,7 +208,7 @@ updateButton && updateButton.addEventListener(
             const right_button_param = {
                 text : 'No',
                 functionality : () => {
-                    location.reload(); // to reset the profile picture
+                    location.reload();
                 }
             }
             flash.appendChild(make_flash("Are you sure you want to update your profile?", "action", left_button_param, right_button_param));
