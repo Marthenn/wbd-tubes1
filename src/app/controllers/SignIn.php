@@ -22,22 +22,30 @@ class SignIn extends Controller{
                         // response 401 Unauthorized
                         http_response_code(401);
                         header('Content-Type: application/json');
-                        echo json_encode(['redirect' => BASEURL . '/SignIn']);
-                        echo json_encode(['type' => 'danger']);
-                        echo json_encode(['message' => 'Invalid username or password']);
-                        exit;
+                        $responseData = [
+                            'message' => 'Invalid username or password',
+                            'type' => 'danger'
+                        ];
                     } else { // move to profile page
                         http_response_code(201);
                         header('Content-Type: application/json');
-                        echo json_encode(['redirect' => BASEURL . '/Profile']);
-                        exit;
+                        $responseData = [
+                            'redirect' => BASEURL . '/Profile',
+                        ];
                     }
-                    break;
+                    echo json_encode($responseData);
+                    exit;
                 default:
                     throw new Exception('Invalid request method', 405);
             }
         } catch (Exception $e){
-            throw new Exception($e->getMessage(), $e->getCode());
+            http_response_code($e->getCode());
+            header('Content-Type: application/json');
+            $responseData = [
+                'message' => $e->getMessage(),
+                'type' => 'danger'
+            ];
+            echo json_encode($responseData);
         }
     }
 }

@@ -22,22 +22,31 @@ class SignUp extends Controller{
                         // response 409 Conflict
                         http_response_code(409);
                         header('Content-Type: application/json');
-                        echo json_encode(['message' => 'Username already exist']);
-                        echo json_encode(['type' => 'danger']);
-                        exit;
+                        $responseData = [
+                          'message' => 'Username already exist',
+                          'type' => 'danger'
+                        ];
                     } else { // move to sign in page
                         http_response_code(201);
                         header('Content-Type: application/json');
-                        echo json_encode(['message' => 'Account created successfully']);
-                        echo json_encode(['type' => 'success']);
-                        exit;
+                        $responseData = [
+                          'message' => 'Account created successfully',
+                          'type' => 'success'
+                        ];
                     }
-                    break;
+                    echo json_encode($responseData);
+                    exit;
                 default:
                     throw new Exception('Invalid request method', 405);
             }
         } catch (Exception $e){
-            throw new Exception($e->getMessage(), $e->getCode());
+            http_response_code($e->getCode());
+            header('Content-Type: application/json');
+            $responseData = [
+                'message' => $e->getMessage(),
+                'type' => 'danger'
+            ];
+            echo json_encode($responseData);
         }
     }
 }
