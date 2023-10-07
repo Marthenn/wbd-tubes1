@@ -30,11 +30,15 @@ usernameInput && usernameInput.addEventListener(
     'keyup',
     debounce(() => {
         const username = usernameInput.value;
-        usernameIsValid = usernameRegex.test(username);
-        if (usernameIsValid) {
-            usernameError.innerHTML = "";
+        usernameIsValid = (usernameRegex.test(username) && username.length >= 3 && username.length <= 16);
+        if (username.length < 3 || username.length > 16){
+            username_error.innerHTML = "Username must be between 3 and 16 characters long!";
+        } else if (username.startsWith('_')){
+            username_error.innerHTML = "Username cannot start with an underscore!";
+        }else if (!usernameRegex.test(username)){
+            username_error.innerHTML = "Username must only contain letters, numbers, and underscores!";
         } else {
-            usernameError.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets, numbers, and/or underscores [can't start with underscore])";
+            username_error.innerHTML = "";
         }
     })
 )
