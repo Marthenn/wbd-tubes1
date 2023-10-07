@@ -88,6 +88,11 @@ pageNumberInput && pageNumberInput.addEventListener(
 const updateView = (data) => {
     let updatedHTML = "";
     data.map((author) => {
+        let authoredBooks = "[";
+        author['books'].map((book) => {
+            authoredBooks += ` "${book.title}" `;
+        })
+        authoredBooks += "]";
         updatedHTML +=
         `
         <div class="data-card">
@@ -95,7 +100,7 @@ const updateView = (data) => {
                 <p>Author ID: ${author.aid}</p>
                 <p>Name: ${author.name}</p>
                 <p>Description: ${author.description}</p>
-                <!-- <p>Authored Books: <?= $author['bid'] ?></p> -->
+                <p>Authored Books: ${authoredBooks}</p>
             </div>
             <a href="path_to_edit_author">
                 <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
