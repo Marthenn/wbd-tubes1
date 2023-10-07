@@ -102,33 +102,33 @@ pageInput &&
 
 const updateData = (data) => {
     let generatedHTML = "";
-    data.map((book) => {
-        generatedHTML += `
-        <div class="data-card">
-        <div class="card-content">
-            <p>Book_ID: ${book.bid}</p>
-            <p>Title: "${book.title}"</p>
-            <p>Decription: "${book.description}"</p>
-            <p>Author: "${book.author}"</p>
-            <p>Category: "${book.category}"</p>
-            <p>Duration: ${book.duration}</p>
-            <p>Rating: ${book.rating}</p>
-        </div>
-        <a href="${BASEURL}/editbook">
-            <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
-        </a>
-        </div>
-        `;
-    });
-    dataCards.innerHTML = generatedHTML;
-
-    if (currentPage === 1) {
+    if(data.length !== 0){
+        data.map((book) => {
+            generatedHTML += `
+            <div class="data-card">
+            <div class="card-content">
+                <p>Book_ID: ${book.bid}</p>
+                <p>Title: "${book.title}"</p>
+                <p>Decription: "${book.description}"</p>
+                <p>Author: "${book.author}"</p>
+                <p>Category: "${book.category}"</p>
+                <p>Duration: ${book.duration}</p>
+                <p>Rating: ${book.rating}</p>
+            </div>
+            <a href="${BASEURL}/editbook">
+                <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
+            </a>
+            </div>
+            `;
+        });
+        dataCards.innerHTML = generatedHTML;
+    }
+    if (currentPage <= 1) {
         prevButton.disabled = true;
     } else {
         prevButton.disabled = false;
     }
-
-    if (currentPage === MAX_PAGES) {
+    if (currentPage >= MAX_PAGES) {
         nextButton.disabled = true;
     } else {
         nextButton.disabled = false;

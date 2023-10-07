@@ -110,4 +110,14 @@ const updateView = (data) => {
     });
     authorList.innerHTML = updatedHTML;
     pageNumberInput.value = currentPage;
+    if (currentPage <= 1) {
+        prevButton.disabled = true;
+    } else {
+        prevButton.disabled = false;
+    }
+    if (currentPage >= MAX_PAGES) {
+        nextButton.disabled = true;
+    } else {
+        nextButton.disabled = false;
+    }
 }
