@@ -165,6 +165,18 @@ class Profile extends Controller{
                         }
                     }
 
+                    if ($accountModel->usernameExist($username) && $username != $_COOKIE['username']){
+                        // response 400 Bad Request
+                        http_response_code(400);
+                        header('Content-Type: application/json');
+                        $responseData = [
+                            'message' => 'Username already exist',
+                            'type' => 'danger'
+                        ];
+                        echo json_encode($responseData);
+                        exit;
+                    }
+
                     $accountModel->updateUser($_COOKIE['uid'], $username, $email, $uploadFile);
                     setcookie("uid", $_COOKIE['uid'], time() + 3600, "/");
                     setcookie("username", $username, time() + 3600, "/");

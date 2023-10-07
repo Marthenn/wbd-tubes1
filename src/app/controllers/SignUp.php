@@ -17,6 +17,19 @@ class SignUp extends Controller{
                     $email = $_POST['email'];
                     $password = $_POST['password'];
                     $accountModel = $this->model('Account_model');
+
+                    if ($accountModel->usernameExist($username)){
+                        // response 409 Conflict
+                        http_response_code(409);
+                        header('Content-Type: application/json');
+                        $responseData = [
+                          'message' => 'Username already exist',
+                          'type' => 'danger'
+                        ];
+                        echo json_encode($responseData);
+                        exit;
+                    }
+
                     $res = $accountModel->register($username, $email, $password);
                     if (!$res){
                         // response 409 Conflict
