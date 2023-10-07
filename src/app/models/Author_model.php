@@ -81,4 +81,10 @@ class Author_model {
 
         $this->database->execute();
     }
+
+    public function getAuthor($aid){
+        $this->database->query("SELECT * FROM author WHERE aid = :aid");
+        $this->database->bind(":aid", $aid);
+        return $this->database->single();
+    }
 }
