@@ -47,7 +47,7 @@
                         <p class="title"><?= $book['title']?></p>
                         <div class="rating">
                             <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
-                            <p class="rating-num"><?= $book['rating']?></p>
+                            <p class="rating-num"><?= number_format($book['rating'], 2)?></p>
                         </div>
                         <p class="author"><?= $book['author']?></p>
                         <p class="duration"><?= $book['duration']?></p>

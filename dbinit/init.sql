@@ -90,7 +90,7 @@ INSERT INTO book (title, description, rating, aid, cid, duration, cover_image_di
 SELECT 
     'Book ' || generate_series,
     'Description for Book ' || generate_series,
-    (random() * 5)::numeric(5, 2),  -- Random rating between 0 and 5
+    random() * 5,  -- Random rating between 0 and 5
     floor(random() * 7) + 1,  -- Random author ID between 1 and 5
     floor(random() * 5) + 1,  -- Random category ID between 1 and 5
     (LPAD(floor(random() * 24)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time,  -- Random duration
