@@ -23,7 +23,7 @@ submit_button && submit_button.addEventListener(
 
         xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE){
-                if (this.status === 201){
+                if (this.status === 200){
                     const data = JSON.parse(this.responseText);
                     location.replace(data.redirect);
                 } else {
