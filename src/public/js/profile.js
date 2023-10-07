@@ -13,6 +13,8 @@ const logoutButton = document.querySelector('.sign-out');
 const deleteButton = document.querySelector('.delete-account');
 const updateButton = document.querySelector('.save-changes');
 
+const imageInput = document.getElementById('image');
+
 emailInput && emailInput.addEventListener(
     "keyup",
     debounce(() => {
@@ -54,7 +56,14 @@ logoutButton && logoutButton.addEventListener(
                 if (this.status === 204){
                     location.replace('/public/SignIn');
                 } else {
-                    // TODO: flash error
+                    const data = JSON.parse(this.responseText);
+                    const flash = document.getElementById('flash-message');
+                    if (flash.firstChild) {
+                        for (let i = 0; i < flash.childNodes.length; i++) {
+                            flash.removeChild(flash.childNodes[i]);
+                        }
+                    }
+                    flash.appendChild(make_flash(data.message, data.type));
                 }
             }
         }
