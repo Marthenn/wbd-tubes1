@@ -28,7 +28,13 @@ submit_button && submit_button.addEventListener(
                     location.replace(data.redirect);
                 } else {
                     const data = JSON.parse(this.responseText);
-                    location.replace(data.redirect);
+                    const flash_div = document.getElementById('flash-message');
+                    if (flash_div.firstChild){
+                        for (let i = 0; i < flash_div.childNodes.length; i++){
+                            flash_div.childNodes[i].remove();
+                        }
+                    }
+                    flash_div.appendChild(make_flash(data.message, data.type));
                 }
             }
         }
