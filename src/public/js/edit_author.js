@@ -94,28 +94,3 @@ updateButton && updateButton.addEventListener(
         flash.appendChild(make_flash("Are you sure you want to update this author?", "action", left_button_param, right_button_param));
     }
 )
-
-// document.addEventListener('DOMContentLoaded',  async () => {
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("GET", `/public/editauthor/getauthor/${aid}`);
-//     xhr.send();
-
-//     xhr.onreadystatechange = function () {
-//         if (this.readyState === XMLHttpRequest.DONE){
-//             if (this.status === 200){
-//                 const data = JSON.parse(this.responseText);
-//                 nameInput.value = data.name;
-//                 descriptionInput.value = data.description;
-//             } else {
-//                 const data = JSON.parse(this.responseText);
-//                 const flash = document.getElementById('flash-message');
-//                 if (flash.firstChild) {
-//                     for (let i = 0; i < flash.childNodes.length; i++) {
-//                         flash.removeChild(flash.childNodes[i]);
-//                     }
-//                 }
-//                 flash.appendChild(make_flash(data.message, data.type));
-//             }
-//         }
-//     }
-// })
