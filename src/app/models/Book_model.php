@@ -50,7 +50,7 @@ class Book_model {
         $filtered = false;
 
         // base select
-        $query = "SELECT title, author.name as author, rating, category.name as category, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        $query = "SELECT title, author.name as author, rating, category.name as category, duration, cover_image_directory, audio_directory FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
 
         if (isset($filter['category'])){
             $query = $query . " WHERE category.name = :category";
@@ -259,7 +259,7 @@ class Book_model {
         $query = "SELECT curr_duration FROM history WHERE bid = :bid AND uid = :uid";
         $this->database->query($query);
         $this->database->bind('bid', $bid);
-        $this->database->bind('uid', $_SESSION['uid']);
+        $this->database->bind('uid', $_COOKIE['uid']);
         $curr_duration = $this->database->single()['curr_duration'];
 
         // check if no history, then curr_duration = 0

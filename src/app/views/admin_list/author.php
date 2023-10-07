@@ -17,7 +17,15 @@
                         <p>Author ID: <?= $author['aid'] ?></p>
                         <p>Name: <?= $author['name'] ?></p>
                         <p>Description: <?= $author['description'] ?></p>
-                        <!-- <p>Authored Books: <?= $author['bid'] ?></p> -->
+                        <p>Authored Books: 
+                        <?php
+                        echo '[';
+                        foreach($author['books'] as $book) {
+                            echo ' "' . $book['title'] . '" ';
+                        }
+                        echo ']';
+                        ?>
+                        </p>
                     </div>
                     <a href="<?= BASEURL;?>/editauthor">
                         <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">

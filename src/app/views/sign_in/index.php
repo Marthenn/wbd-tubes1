@@ -4,8 +4,7 @@
         <div class="sign-in-form">
             <h2>Welcome!</h2>
             <h1>Sign in to WEBWBD</h1>
-            <div>
-                <?php Flasher::flash(); ?>
+            <div id = 'flash-message'>
             </div>
             <form action="" method="post">
                 <div class="input-field">

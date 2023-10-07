@@ -1,10 +1,10 @@
 const emailInput = document.getElementById('email');
 const emailError = document.getElementById('email-error-msg');
-const emailRegex = /^(?=.{1,256})(?=.{1,64}@.{1,255}$)(?=.{1,255}\..{1,255}$)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
+const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,256}$/i;
 
 const usernameInput = document.getElementById('username');
 const usernameError = document.getElementById('username-error-msg');
-const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_]{2,15}$/;
 
 const formInput = document.querySelector('.profile');
 
@@ -20,10 +20,8 @@ emailInput && emailInput.addEventListener(
         emailIsValid = emailRegex.test(email);
         if (emailIsValid) {
             emailError.innerHTML = "";
-            emailIsValid = true;
         } else {
             emailError.innerHTML = "Email format not valid!";
-            emailIsValid = false;
         }
     })
 )
@@ -35,10 +33,8 @@ usernameInput && usernameInput.addEventListener(
         usernameIsValid = usernameRegex.test(username);
         if (usernameIsValid) {
             usernameError.innerHTML = "";
-            usernameIsValid = true;
         } else {
-            usernameError.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets and/or numbers)";
-            usernameIsValid = false;
+            usernameError.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets, numbers, and/or underscores [can't start with underscore])";
         }
     })
 )
