@@ -27,7 +27,7 @@
                         ?>
                         </p>
                     </div>
-                    <a href="<?= BASEURL;?>/editauthor">
+                    <a href="<?= BASEURL;?>/editauthor/index/<?= $author['aid'] ?>">
                         <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
                     </a>
                 </div>

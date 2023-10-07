@@ -7,22 +7,27 @@
         </div>
         <button class="search-button" type="submit">Search</button>
     </div>
-    <div class="data-card">
-        <div class="card-content">
-            <p>User ID: 1</p>
-            <p>Username: "username" </p>
-            <p>Email: "useremail@gmail.com"</p>
-            <p>Joined Date: 13/08/2023</p>
-            <p>Type: "User"</p>
+    <?php if (!$data['users']) : ?>
+        <p class="info">There are no user yet on webwbd!</p>
+    <?php else : ?>
+        <div class="data-cards" id="data-cards">
+            <?php foreach ($data['users'] as $user) : ?>
+                <div class="data-card">
+                    <div class="card-content">
+                        <p>User_ID: <?= $user['uid'] ?></p>
+                        <p>Username: <?= $user['username'] ?></p>
+                        <p>Email: <?= $user['email'] ?></p>
+                        <p>Joined Date: <?= $user['joined_date'] ?></p>
+                        <p>Type: <?= $user['is_admin'] === true ? 'admin' : 'user' ?></p>
+                    </div>
+                    <a href="<?= BASEURL;?>/editbook">
+                        <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
+                    </a>
+                </div>
+            <?php endforeach; ?>
         </div>
-    </div>
-    <div class="data-card">
-        <div class="card-content">
-            <p>User ID: 1</p>
-            <p>Username: "username" </p>
-            <p>Email: "useremail@gmail.com"</p>
-            <p>Joined Date: 13/08/2023</p>
-            <p>Type: "User"</p>
-        </div>
-    </div>
+    <?php endif; ?>
 </div>
+<script type="text/javascript" defer>
+    const MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
+</script>
