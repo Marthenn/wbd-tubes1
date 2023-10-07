@@ -1,10 +1,10 @@
 const emailInput = document.getElementById('email');
 const emailError = document.getElementById('email-error-msg');
-const emailRegex = /^(?=.{1,256})(?=.{1,64}@.{1,255}$)(?=.{1,255}\..{1,255}$)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
+const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,256}$/i;
 
 const usernameInput = document.getElementById('username');
 const usernameError = document.getElementById('username-error-msg');
-const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_]{2,15}$/;
 
 const formInput = document.querySelector('.profile');
 
