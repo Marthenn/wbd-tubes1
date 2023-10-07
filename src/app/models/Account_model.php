@@ -96,9 +96,13 @@ class Account_model{
         return $res;
     }
 
-    public function updateUser($uid, $username, $email) {
-        // TODO: update profile picture as well
-        $this->database->query("UPDATE account SET username = :username, email = :email WHERE uid = :uid");
+    public function updateUser($uid, $username, $email, $profile_picture = null) {
+        if ($profile_picture != null){
+            $this->database->query("UPDATE account SET username = :username, email = :email, profile_pic_directory = :profile_picture WHERE uid = :uid");
+            $this->database->bind(":profile_picture", $profile_picture);
+        } else {
+            $this->database->query("UPDATE account SET username = :username, email = :email WHERE uid = :uid");
+        }
         $this->database->bind(":username", $username);
         $this->database->bind(":email", $email);
         $this->database->bind(":uid", $uid);
@@ -109,5 +113,12 @@ class Account_model{
         $this->database->query("DELETE FROM account WHERE uid = :uid");
         $this->database->bind(":uid", $uid);
         $this->database->execute();
+    }
+
+    public function usernameExist($username){
+        $this->database->query("SELECT * FROM account WHERE username = :username");
+        $this->database->bind(":username", $username);
+        $res = $this->database->single();
+        return $res != null;
     }
 }
