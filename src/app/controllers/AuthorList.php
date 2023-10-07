@@ -14,12 +14,12 @@ class AuthorList extends Controller {
         $this->view('templates/footer');
     }
 
-    public function fetch($page) {
+    public function fetch($page, $filter = null) {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
                     $authorModel = $this->model('Author_model');
-                    $maxPages = $authorModel->countPage();
+                    $maxPages = $authorModel->countPage($filter);
                     
                     if ($page > $maxPages) {
                         $page = $maxPages;
@@ -29,7 +29,12 @@ class AuthorList extends Controller {
                         $page = 1;
                     }
                     
-                    $res = $authorModel->getAuthorPage($page);
+                    $authorPage = $authorModel->getAuthorPage($page, $filter);
+
+                    $res = [
+                        'authors' => $authorPage,
+                        'max_pages' => $maxPages
+                    ];
 
                     header('Content-Type: application/json');
                     http_response_code(200);
