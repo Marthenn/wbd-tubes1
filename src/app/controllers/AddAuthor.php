@@ -26,7 +26,7 @@ class AddAuthor extends Controller {
                     throw new Exception('Method Not Allowed');
             }
         } catch (Exception $e) {
-            http_response_code($e->getCode());
+            http_response_code(500);
             exit;
         }
     }

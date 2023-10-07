@@ -41,7 +41,7 @@ class AuthorList extends Controller {
 
             }
         } catch (Exception $e) {
-            http_response_code($e->getCode());
+            http_response_code(500);
             exit;
         }
     }

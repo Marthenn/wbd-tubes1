@@ -40,7 +40,7 @@ class SignUp extends Controller{
                     throw new Exception('Invalid request method', 405);
             }
         } catch (Exception $e){
-            http_response_code($e->getCode());
+            http_response_code(500;
             header('Content-Type: application/json');
             $responseData = [
                 'message' => $e->getMessage(),

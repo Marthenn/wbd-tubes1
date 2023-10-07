@@ -38,7 +38,7 @@ class AudioBooks extends Controller {
                     throw new Exception('Method Not Allowed', 405);       
             }
         } catch (Exception $e) {
-            http_response_code($e->getCode());
+            http_response_code(500);
             exit;
         }
     }
