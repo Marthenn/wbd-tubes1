@@ -23,10 +23,14 @@ username_input && username_input.addEventListener(
     debounce(() => {
         const username = username_input.value;
         usernameIsValid = (usernameRegex.test(username) && username.length >= 3 && username.length <= 16);
-        if (usernameIsValid) {
-            username_error.innerHTML = "";
+        if (username.length < 3 || username.length > 16){
+            username_error.innerHTML = "Username must be between 3 and 16 characters long!";
+        } else if (username.startsWith('_')){
+            username_error.innerHTML = "Username cannot start with an underscore!";
+        }else if (!usernameRegex.test(username)){
+            username_error.innerHTML = "Username must only contain letters, numbers, and underscores!";
         } else {
-            username_error.innerHTML = "Username format not valid! (Must be 3-16 characters long that only contains alphabets, numbers, and/or underscores [can't start with underscore])";
+            username_error.innerHTML = "";
         }
     }
 ))
@@ -48,11 +52,18 @@ password_input && password_input.addEventListener(
     'keyup',
     debounce(() => {
         const password = password_input.value;
+        const confirm_password = confirm_password_input.value;
         passwordIsValid = password.length >= 8;
         if (passwordIsValid) {
             password_error.innerHTML = "";
         } else {
             password_error.innerHTML = "Password must be at least 8 characters long!";
+        }
+        confirmPasswordIsValid = password === confirm_password;
+        if (confirmPasswordIsValid) {
+            confirm_password_error.innerHTML = "";
+        } else {
+            confirm_password_error.innerHTML = "Passwords do not match!";
         }
     }
 ))
@@ -90,9 +101,22 @@ submit_button && submit_button.addEventListener(
                     const data = JSON.parse(this.responseText);
 
                     const flash_div = document.getElementById('flash-message');
+                    if (flash_div.firstChild){
+                        for (let i = 0; i < flash_div.childNodes.length; i++){
+                            flash_div.childNodes[i].remove();
+                        }
+                    }
                     flash_div.append(make_flash(data.message, data.type));
                 }
             }
+        } else {
+            const flash_div = document.getElementById('flash-message');
+            if (flash_div.firstChild){
+                for (let i = 0; i < flash_div.childNodes.length; i++){
+                    flash_div.childNodes[i].remove();
+                }
+            }
+            flash_div.append(make_flash('Please fill out all fields correctly!', 'warning'));
         }
     }
 )
