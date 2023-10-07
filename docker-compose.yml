@@ -15,6 +15,7 @@ services:
       - ./.env:/var/www/html/.env
     depends_on:
       - db
+    command: ["./run.sh", "apache2-foreground"]
     networks:
       app-env:
   
