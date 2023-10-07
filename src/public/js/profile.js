@@ -6,8 +6,8 @@ const usernameInput = document.getElementById('username');
 const usernameError = document.getElementById('username-error-msg');
 const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_]{2,15}$/;
 
-let emailIsValid = false;
-let usernameIsValid = false;
+let emailIsValid = true;
+let usernameIsValid = true;
 
 const logoutButton = document.querySelector('.sign-out');
 const deleteButton = document.querySelector('.delete-account');
@@ -85,11 +85,12 @@ document.addEventListener('DOMContentLoaded',  async () => {
     }
 })
 
-const deleteAccount = async () => {
+const deleteAccount = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
 
     const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "/public/Profile/delete");
+    xhr.open("POST", "/public/Profile/delete");
     xhr.send();
 
     xhr.onreadystatechange = function () {
@@ -127,5 +128,73 @@ deleteButton && deleteButton.addEventListener(
             text : 'No'
         }
         flash.appendChild(make_flash("Are you sure you want to delete your account?", "danger", left_button_param, right_button_param));
+    }
+)
+
+const updateProfile = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('email', emailInput.value);
+    formData.append('username', usernameInput.value);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/public/Profile/update");
+    xhr.send(formData);
+
+    xhr.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE){
+            if (this.status === 204){
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+
+                // update navbar username
+                const navbar_username = document.querySelector('.username');
+                navbar_username.innerHTML = usernameInput.value;
+                flash.appendChild(make_flash("Profile updated!", "success"));
+            } else {
+                const data = JSON.parse(this.responseText);
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash(data.message, data.type));
+            }
+        }
+    }
+}
+
+updateButton && updateButton.addEventListener(
+    'click', (e) => {
+        e.preventDefault();
+        if (emailIsValid && usernameIsValid){
+            const flash = document.getElementById('flash-message');
+            if (flash.firstChild) {
+                for (let i = 0; i < flash.childNodes.length; i++) {
+                    flash.removeChild(flash.childNodes[i]);
+                }
+            }
+            const left_button_param = {
+                text : 'Yes',
+                functionality : updateProfile
+            }
+            const right_button_param = {
+                text : 'No'
+            }
+            flash.appendChild(make_flash("Are you sure you want to update your profile?", "action", left_button_param, right_button_param));
+        } else {
+            const flash = document.getElementById('flash-message');
+            if (flash.firstChild) {
+                for (let i = 0; i < flash.childNodes.length; i++) {
+                    flash.removeChild(flash.childNodes[i]);
+                }
+            }
+            flash.appendChild(make_flash("Please fix the errors!", "danger"));
+        }
     }
 )

@@ -1,4 +1,4 @@
-const make_flash = (message, type = 'info', right_button = {text : 'OK'}, left_button = null) => {
+const make_flash = (message, type = 'info', left_button = null, right_button = {text : 'OK'}) => {
     const flash = document.createElement('div');
     flash.classList.add('flash-message');
     flash.classList.add('flash');

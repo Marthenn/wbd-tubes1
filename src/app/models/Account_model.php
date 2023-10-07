@@ -73,11 +73,9 @@ class Account_model{
     }
 
     public function logout(){
-        if (isset($_COOKIE['uid'])){
-            setcookie("uid", "", time() - 36000, "/");
-            setcookie("username", "", time() - 36000, "/");
-            setcookie("privilege", "", time() - 36000, "/");
-        }
+        setcookie("uid", "", time() - 36000, "/");
+        setcookie("username", "", time() - 36000, "/");
+        setcookie("privilege", "", time() - 36000, "/");
     }
 
     public function getUser($uid) {
@@ -89,5 +87,20 @@ class Account_model{
         }
         unset($res['uid']);
         return $res;
+    }
+
+    public function updateUser($uid, $username, $email) {
+        // TODO: update profile picture as well
+        $this->database->query("UPDATE account SET username = :username, email = :email WHERE uid = :uid");
+        $this->database->bind(":username", $username);
+        $this->database->bind(":email", $email);
+        $this->database->bind(":uid", $uid);
+        $this->database->execute();
+    }
+
+    public function deleteUser($uid){
+        $this->database->query("DELETE FROM account WHERE uid = :uid");
+        $this->database->bind(":uid", $uid);
+        $this->database->execute();
     }
 }
