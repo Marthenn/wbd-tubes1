@@ -13,6 +13,8 @@ const logoutButton = document.querySelector('.sign-out');
 const deleteButton = document.querySelector('.delete-account');
 const updateButton = document.querySelector('.save-changes');
 
+const imageInput = document.querySelector('.profile-img-edit');
+
 emailInput && emailInput.addEventListener(
     "keyup",
     debounce(() => {
@@ -54,7 +56,14 @@ logoutButton && logoutButton.addEventListener(
                 if (this.status === 204){
                     location.replace('/public/SignIn');
                 } else {
-                    // TODO: flash error
+                    const data = JSON.parse(this.responseText);
+                    const flash = document.getElementById('flash-message');
+                    if (flash.firstChild) {
+                        for (let i = 0; i < flash.childNodes.length; i++) {
+                            flash.removeChild(flash.childNodes[i]);
+                        }
+                    }
+                    flash.appendChild(make_flash(data.message, data.type));
                 }
             }
         }
@@ -160,6 +169,7 @@ const updateProfile = async (e) => {
                 navbar_username.innerHTML = usernameInput.value;
                 flash.appendChild(make_flash("Profile updated!", "success"));
             } else {
+                alert(this.responseText)
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
                 if (flash.firstChild) {
@@ -188,7 +198,10 @@ updateButton && updateButton.addEventListener(
                 functionality : updateProfile
             }
             const right_button_param = {
-                text : 'No'
+                text : 'No',
+                functionality : () => {
+                    location.reload(); // to reset the profile picture
+                }
             }
             flash.appendChild(make_flash("Are you sure you want to update your profile?", "action", left_button_param, right_button_param));
         } else {
@@ -200,5 +213,14 @@ updateButton && updateButton.addEventListener(
             }
             flash.appendChild(make_flash("Please fix the errors!", "danger"));
         }
+    }
+)
+
+imageInput && imageInput.addEventListener(
+    'change', (e) => {
+        e.preventDefault();
+
+        const profile_img = document.querySelector('.profile-img');
+        profile_img.src = URL.createObjectURL(e.target.files[0]);
     }
 )

@@ -15,7 +15,7 @@
         <form class="profile" action="" method="post">
             <div class="image-field">
                 <img class="profile-img" src="<?= BASEURL;?>/img/user-placeholder.svg" alt="profile">
-                <input class="profile-img-edit" accept="image/png, image/jpeg" type="file" id="profile-img-edit" name="profile-img-edit" name="edit-button"/>
+                <input class="profile-img-edit" accept="image/png, image/jpeg" type="file" id="profile-img-edit" name="profile-img"/>
                 <label for="profile-img-edit" class="custom-file-label">Choose Image</label>
             </div>
             <div id = 'flash-message'></div>
