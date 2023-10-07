@@ -1,12 +1,48 @@
 <?php
 
 class UserList extends Controller {
-    public function index()
+    public function index($page = 1)
     {
         $data['title'] = 'User List';
         $this->view('templates/header', $data);
         $this->view('templates/navbar_admin');
-        $this->view('admin_list/user');
+        $page = (int) $page;
+        $userModel = $this->model('Account_model');
+        $data['users'] = $userModel->getUserPage($page);
+        $data['pages'] = $userModel->countPage();
+        $this->view('admin_list/user', $data);
+        $this->view('templates/pagination', $data);
         $this->view('templates/footer');
+    }
+    public function fetch($page) {
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $accountModel = $this->model('Account_model');
+                    $maxPages = $accountModel->countPage();
+                    
+                    if ($page > $maxPages) {
+                        $page = $maxPages;
+                    }
+
+                    if ($page < 1) {
+                        $page = 1;
+                    }
+                    
+                    $res = $accountModel->getUserPage($page);
+
+                    header('Content-Type: application/json');
+                    http_response_code(200);
+                    echo json_encode($res);
+                    exit;
+                    break;
+                default:
+                    throw new Exception('Method Not Allowed', 405);
+
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+            exit;
+        }
     }
 }
