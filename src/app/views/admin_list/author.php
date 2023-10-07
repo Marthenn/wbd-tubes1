@@ -2,10 +2,10 @@
     <h1>Author List</h1>
     <div class="search">
         <div class="search-bar">
-            <input class="search-input" type="text" id="search" name="search" placeholder="Search..">
+            <input class="search-input" type="text" id="search-input-author" name="search" placeholder="Search..">
             <img class="search-logo"src="<?= BASEURL;?>/img/search.svg" alt="">
         </div>
-        <button class="search-button" type="submit">Search</button>
+        <button class="search-button" id="search-button-author" type="submit">Search</button>
     </div>
     <?php if (!$data['authors']) : ?>
         <p class="info">There are no authors yet available on webwbd!</p>
@@ -37,5 +37,5 @@
 </div>
 <script src="<?= BASEURL; ?>/js/admin/author_list.js" defer></script>
 <script type="text/javascript" defer>
-    const MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
+    var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
 </script>

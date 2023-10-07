@@ -8,11 +8,18 @@ class Author_model {
         $this->database = new Database;
     }
 
-    public function countPage(){
-        $this->database->query("SELECT COUNT(*) FROM author");
+    public function countPage($filter = null) {
+        if ($filter == null) {
+            $this->database->query("SELECT COUNT(*) FROM author");
+        } else {
+            $this->database->query("SELECT COUNT(DISTINCT author.aid) FROM author LEFT OUTER JOIN book ON book.aid = author.aid WHERE name LIKE :filter OR title LIKE :filter");
+            $filter = "%" . $filter . "%";
+            $this->database->bind(":filter", $filter);
+        }
+        
         $count = $this->database->single();
         return ceil($count['count'] / 5);
-    }
+    }    
 
     public function getAuthorPage($page, $filter = null){
         $offset = ($page - 1) * 5;
