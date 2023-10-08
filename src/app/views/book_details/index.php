@@ -13,8 +13,6 @@
                 <?php endif; ?>
             </div>
             <div class="description">
-                <p><?= $data['cover_image_directory']?></p>
-                <p><?= $data['audio_directory']?></p>
                 <p class="description-title">Description</p>
                 <p class="description-text"><?= $data['description']?></p>
                 <p class="description-title">Author</p>
