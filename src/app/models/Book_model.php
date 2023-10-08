@@ -356,11 +356,11 @@ class Book_model {
         $this->database->query($query);
         $this->database->bind('bid', $bid);
         $this->database->bind('uid', $_COOKIE['uid']);
-        $curr_duration = $this->database->single()['curr_duration'];
 
-        // check if no history, then curr_duration = 0
-        if ($curr_duration == null){
+        if (!$this->database->single()){ //full duration
             $curr_duration = "00:00:00";
+        } else {
+            $curr_duration = $this->database->single()['curr_duration'];
         }
 
         $data['curr_duration'] = $curr_duration;
