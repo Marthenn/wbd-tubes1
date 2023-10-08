@@ -48,11 +48,11 @@
     height: 100px;
 }
 
-.input-field-rating {
+.edit-book-form .input-field-rating {
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
-    width: 5%;
+    width: 10%;
 }
 
 .input-field-description {
@@ -98,4 +98,7 @@
     .edit-book-form, .edit-author-form {
         width: 100%;
     }
+}
+#cover-filename, #audio-filename {
+    font-size: 13px;
 }
