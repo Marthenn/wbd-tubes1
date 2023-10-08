@@ -2,135 +2,165 @@ const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 const dataCards = document.getElementById("data-cards");
 const pageInput = document.getElementById("page-input");
+const searchButton = document.getElementById('search-button-book-admin');
+const filterButton1 = document.getElementById('filter-button-book-admin-1');
+const filterButton2 = document.getElementById('filter-button-book-admin-2');
+const sortButton = document.getElementById('sort-button-book-admin');
+const paginationText = document.querySelector('.pagination p span');
+const searchInput = document.getElementById('search-input-book-admin');
+const durationFilter = document.getElementById('filter-duration');
+const categoryFilter = document.getElementById('filter-category');
+const sortInput = document.getElementById('sort-value');
 
 let currentPage = 1;
 
-prevButton &&
-    prevButton.addEventListener("click", async () => {
-        if (currentPage === 1) {
-            return;
+function fetchData(url) {
+    const xhr = new XMLHttpRequest();
+    
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+            const data = JSON.parse(xhr.responseText);
+            MAX_PAGES = data.max_pages;
+            paginationText.textContent = MAX_PAGES;
+            updateView(data.books);
+        } else {
+            alert("An error occurred, please try again!");
         }
+    };
+    
+    xhr.onerror = () => {
+        alert("Error request");
+    };
 
-        currentPage -= 1;
-        pageInput.value = currentPage;
+    xhr.open('GET', url);
+    xhr.send();
+}
 
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-            "GET",
-            `/public/audiobooklist/fetch/${currentPage}`
-        );
-        console.log(currentPage)
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            console.log("here")
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log(this.status)
-                if (this.status === 200) {
-                    const data = JSON.parse(this.responseText);
-                    console.log(data)
-                    updateData(data);
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        };
-    });
+filterButton1 && filterButton1.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    const url = buildUrl();
+    fetchData(url);
+});
 
-nextButton &&
-    nextButton.addEventListener("click", async () => {
-        if (currentPage === MAX_PAGES) {
-            return;
-        }
+filterButton2 && filterButton2.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    const url = buildUrl();
+    fetchData(url);
+});
 
-        currentPage += 1;
-        pageInput.value = currentPage;
+sortButton && sortButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    const url = buildUrl();
+    fetchData(url);
+});
 
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-            "GET",
-            `/public/audiobooklist/fetch/${currentPage}`
-        );
-        console.log(currentPage)
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (this.status === 200) {
-                    console.log(this.responseText)
-                    const data = JSON.parse(this.responseText);
-                    console.log(data)
-                    updateData(data);
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        };
-    });
+searchButton && searchButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    const url = buildUrl();
+    fetchData(url);
+});
 
-pageInput &&
-    pageInput.addEventListener("input", () => {
-        const inputPage = parseInt(pageInput.value);
-        console.log(inputPage)
-        if (isNaN(inputPage) || inputPage < 1) {
-            currentPage = 1;
-        } else if (inputPage > MAX_PAGES) {
-            currentPage = MAX_PAGES;
-        }
-        else {
-            currentPage = inputPage;
-        }
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-            "GET",
-            `/public/audiobooklist/fetch/${currentPage}`
-        );
-        xhr.send();
-        console.log(currentPage)
-        xhr.onreadystatechange = function () {
-            console.log("here")
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log(this.status)
-                if (this.status === 200) {
-                    const data = JSON.parse(this.responseText);
-                    console.log(data)
-                    updateData(data);
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        };
-    });
+prevButton && prevButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentPage === 1) {
+        return;
+    }
+    currentPage -= 1;
+    const url = buildUrl();
+    fetchData(url);
+});
 
-const updateData = (data) => {
+nextButton && nextButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentPage === MAX_PAGES) {
+        return;
+    }
+    currentPage += 1;
+    const url = buildUrl();
+    fetchData(url);
+});
+
+pageInput && pageInput.addEventListener('change', (e) => {
+    e.preventDefault();
+    pageNumber = parseInt(pageInput.value);
+    if (isNaN(pageNumber) || pageNumber < 1) {
+        currentPage = 1;
+    } else if (pageNumber > MAX_PAGES) {
+        currentPage = MAX_PAGES;
+    } else {
+        currentPage = pageNumber;
+    }
+    const url = buildUrl();
+    fetchData(url);
+});
+
+function buildUrl() {
+    const encodedSearch = encodeURIComponent(searchInput.value);
+    const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value);
+    const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value);
+    const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value);
+
+    const queryParams = [];
+
+    if (encodedSearch !== "") {
+        queryParams.push(`&search=${encodedSearch}`);
+    }
+
+    if (encodedDuration !== "") {
+        queryParams.push(`&duration=${encodedDuration}`);
+    }
+
+    if (encodedCategory !== "") {
+        queryParams.push(`&category=${encodedCategory}`);
+    }
+
+    if (encodedSort !== "") {
+        queryParams.push(`&sort=${encodedSort}`);
+    }
+
+    const queryString = queryParams.join('/');
+
+    return `/public/audiobooklist/fetch/${currentPage}/${queryString}`;
+}
+
+const updateView = (data) => {
     let generatedHTML = "";
-    if(data.length !== 0){
-        data.map((book) => {
-            generatedHTML += `
-            <div class="data-card">
+    data.map((book) => {
+        generatedHTML += `
+        <div class="data-card">
             <div class="card-content">
-                <p>Book_ID: ${book.bid}</p>
-                <p>Title: "${book.title}"</p>
-                <p>Decription: "${book.description}"</p>
-                <p>Author: "${book.author}"</p>
-                <p>Category: "${book.category}"</p>
+                <p>Book ID: ${book.bid}</p>
+                <p>Title: ${book.title}</p>
+                <p>Description: ${book.description}</p>
+                <p>Author: ${book.author}</p>
+                <p>Category: ${book.category}</p>
                 <p>Duration: ${book.duration}</p>
                 <p>Rating: ${book.rating}</p>
             </div>
-            <a href="${BASEURL}/editbook">
+            <a href="${BASEURL}/editbook/index/${book.bid}">
                 <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
             </a>
-            </div>
-            `;
-        });
-        dataCards.innerHTML = generatedHTML;
-    }
+        </div>
+        `;
+    });
+    dataCards.innerHTML = generatedHTML;
+    pageInput.value = currentPage;
+    console.log(currentPage)
+    console.log(MAX_PAGES)
     if (currentPage <= 1) {
         prevButton.disabled = true;
     } else {
         prevButton.disabled = false;
     }
     if (currentPage >= MAX_PAGES) {
+        console.log("here")
         nextButton.disabled = true;
     } else {
         nextButton.disabled = false;
     }
-};
+}
