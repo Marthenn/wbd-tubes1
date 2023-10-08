@@ -84,10 +84,9 @@ document.addEventListener('DOMContentLoaded',  async () => {
                 emailInput.value = data.email;
                 usernameInput.value = data.username;
                 const profile_img = document.querySelector('.profile-img');
-                profile_img.src = data.profile_pic_directory;
-
-                const user_photo = document.querySelector('.user-photo-img');
-                user_photo.src = data.profile_pic_directory;
+                if (data.profile_pic_directory !=  null){
+                    profile_img.src = data.profile_pic_directory;
+                }
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
@@ -176,7 +175,14 @@ const updateProfile = async (e) => {
 
                 // update navbar username
                 const navbar_username = document.querySelector('.username');
+                const sidebar_username = document.querySelectorAll('.username')[1];
                 navbar_username.innerHTML = usernameInput.value;
+                sidebar_username.innerHTML = usernameInput.value;
+                const navbar_img = document.querySelector('.user-photo-img');
+                const sidebar_img = document.querySelectorAll('.user-photo-img')[1];
+                const img_src = document.querySelector('.profile-img').src;
+                navbar_img.src = img_src;
+                sidebar_img.src = img_src;
                 flash.appendChild(make_flash("Profile updated!", "success"));
 
 

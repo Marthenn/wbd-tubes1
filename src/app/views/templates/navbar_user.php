@@ -29,3 +29,5 @@
         <a href="<?= BASEURL;?>/audiobooks" class="navbar-title">Audio Books</a>
     </div>
 </div>
+
+<script src="<?= BASEURL;?>/js/navbar.js"></script>
