@@ -119,7 +119,7 @@ pageInput && pageInput.addEventListener('change', (e) => {
 });
 
 function buildUrl() {
-    const encodedSearch = encodeURIComponent(searchInput.value);
+    const encodedSearch = encodeURIComponent(searchInput.value.replace(/ /g, '+').toLowerCase());
     const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value);
     const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value);
     const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value);

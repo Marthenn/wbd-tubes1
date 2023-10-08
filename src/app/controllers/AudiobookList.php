@@ -20,7 +20,6 @@ class AudiobookList extends Controller {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
-                    
                     $search = isset($_GET['search']) ? $_GET['search'] : null;
                     $duration = isset($_GET['duration']) ? $_GET['duration'] : null;
                     $category = isset($_GET['category']) ? $_GET['category'] : null;

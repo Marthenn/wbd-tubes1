@@ -11,7 +11,7 @@ class Account_model{
         if ($filter == null) {
             $this->database->query("SELECT COUNT(*) FROM account");
         } else {
-            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username LIKE :filter or email LIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
+            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username ILIKE :filter or email ILIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
             $filter = "%".$filter."%";
             $this->database->bind(":filter", $filter);
         }
@@ -71,7 +71,7 @@ class Account_model{
         if ($filter == null) {
             $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account ORDER BY uid ASC LIMIT 5 OFFSET :offset");
         } else { // different query to optimize the filter
-            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username LIKE :filter or email LIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
+            $this->database->query("SELECT uid, username, email, joined_date, is_admin FROM account WHERE username ILIKE :filter or email ILIKE :filter ORDER BY uid ASC LIMIT 5 OFFSET :offset");
             $filter = "%".$filter."%";
             $this->database->bind(":filter", $filter);
         }
