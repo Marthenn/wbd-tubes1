@@ -61,10 +61,6 @@
     padding: 10px;
 }
 
-.custom-file-label:hover {
-    opacity: 50%;
-}
-
 .profile-img {
     width: 200px;
     height: 200px;
@@ -114,6 +110,10 @@
     margin-top: 3px;
 }
 
+.custom-file-label:active {
+    opacity: 50%;
+} 
+
 @media (max-width: 850px) {
     .profile-page {
         grid-template-columns: 1fr;
@@ -121,4 +121,10 @@
     .profile-decor {
         display: none;
     }
+}
+
+@media (hover:hover) {
+    .custom-file-label:hover {
+        opacity: 50%;
+    }    
 }

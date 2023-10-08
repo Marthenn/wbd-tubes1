@@ -16,7 +16,7 @@
                 <p class="description-title">Category</p>
                 <p class="description-text"><?= $data['category']?></p>
                 <p class="description-title">Duration</p>
-                <p class="description-text"><?= $data['duration']?></p>
+                <p class="description-text"><?= convertTimeToMinutes($data['duration'])?> min</p>
                 <p class="description-title">Rating</p>
                 <div class="rating">
                     <img class="rating-star"src="<?= BASEURL;?>/img/star.svg" alt="star">
@@ -36,3 +36,11 @@
     </div>
 </div>
 <script src="<?= BASEURL; ?>/js/audio_player.js" defer></script>
+<?php
+function convertTimeToMinutes($time) {
+    list($hours, $minutes, $seconds) = explode(':', $time);
+    $totalMinutes = ($hours * 60) + $minutes;
+
+    return $totalMinutes;
+}
+?>

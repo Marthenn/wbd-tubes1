@@ -14,7 +14,7 @@ class AuthorList extends Controller {
         $this->view('templates/footer');
     }
 
-    public function fetch($page, $filter = null) {
+    public function fetch($page = 1, $filter = null) {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':

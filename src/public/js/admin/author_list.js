@@ -6,182 +6,96 @@ const searchInput = document.getElementById('search-input-author');
 const searchButton = document.getElementById('search-button-author');
 const paginationText = document.querySelector('.pagination p span');
 
-console.log(pageNumberInput);
 let currentPage = 1;
 
-searchButton && searchButton.addEventListener(
-    'click', async (e) => {
-        e.preventDefault();
-        console.log(currentPage)
-        currentPage = 1;
-        let url
-        console.log(searchInput.value);
-        if(searchInput.value === "") {
-            url = `/public/authorlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/authorlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log(this.status)
-                if (this.status === 200) {
-                    console.log(this.responseText)
-                    const data = JSON.parse(this.responseText);
-                    MAX_PAGES = data.max_pages;
-                    paginationText.textContent = MAX_PAGES;
-                    updateView(data.authors);
-                    console.log(MAX_PAGES)
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        }
-    }
-)
+function fetchAndUpdateData(url) {
+    const xhr = new XMLHttpRequest();
 
-
-prevButton && prevButton.addEventListener(
-    'click', async (e) => {
-        e.preventDefault();
-        let url
-        if (currentPage === 1) {
-            return;
-        }
-        currentPage -= 1;
-        console.log(currentPage)
-        if(searchInput.value === "") {
-            url = `/public/authorlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/authorlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-    
-        const xhr = new XMLHttpRequest();
-        
-        xhr.onload = () => {
+    xhr.onload = () => {
+        if (xhr.status === 200) {
             const data = JSON.parse(xhr.responseText);
             MAX_PAGES = data.max_pages;
             paginationText.textContent = MAX_PAGES;
             updateView(data.authors);
+        } else {
+            alert("An error occurred, please try again!");
         }
+    };
 
-        xhr.onerror = () => {
-            alert("Error request");
-        }
+    xhr.onerror = () => {
+        alert("Error request");
+    };
 
-        xhr.open('GET', url);
-        xhr.send();
+    xhr.open('GET', url);
+    xhr.send();
+}
+
+function buildUrl() {
+    const queryParameters = [];
+    if (searchInput.value !== "") {
+        queryParameters.push(`search=${encodeURIComponent(searchInput.value)}`);
     }
-)
+    return `/public/authorlist/fetch/${currentPage}${queryParameters.length > 0 ? `/${queryParameters.join('/')}` : ''}`;
+}
 
-nextButton && nextButton.addEventListener(
-    'click', async (e) => {
-        e.preventDefault();
-        let url
-        if (currentPage === MAX_PAGES) {
-            return;
-        }
-        currentPage += 1;
-        console.log(currentPage)
-        if(searchInput.value === "") {
-            url = `/public/authorlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/authorlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-        
-        const xhr = new XMLHttpRequest();
-        
-        xhr.onload = () => {
-            const data = JSON.parse(xhr.responseText);
-            MAX_PAGES = data.max_pages;
-            paginationText.textContent = MAX_PAGES;
-            updateView(data.authors);
-        }
-        xhr.onerror = () => {
-            alert("Error request");
-        }
-        xhr.open('GET', url);
-        xhr.send();
-    }
-)
+searchButton && searchButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    const url = buildUrl();
+    fetchAndUpdateData(url);
+});
 
-pageNumberInput && pageNumberInput.addEventListener(
-    'change', async (e) => {
-        e.preventDefault();
-        console.log(currentPage)
-        let url
-        pageNumber = parseInt(pageNumberInput.value)
-        if (isNaN(pageNumber) || pageNumber < 1) {
-            currentPage = 1;
-        } else if (pageNumber > MAX_PAGES) {
-            currentPage = MAX_PAGES;
-        }
-        else {
-            currentPage = pageNumber;
-        }
-        if(searchInput.value === "") {
-            url = `/public/authorlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/authorlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-        const xhr = new XMLHttpRequest();
-        
-        xhr.onload = () => {
-            const data = JSON.parse(xhr.responseText);
-            MAX_PAGES = data.max_pages;
-            paginationText.textContent = MAX_PAGES;
-            updateView(data.authors);
-        }
-        xhr.onerror = () => {
-            alert("Error request");
-        }
-        xhr.open('GET', `/public/authorlist/fetch/${currentPage}`);
-        xhr.send();
+prevButton && prevButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentPage === 1) {
+        return;
     }
-)
+    currentPage -= 1;
+    const url = buildUrl();
+    fetchAndUpdateData(url);
+});
+
+nextButton && nextButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentPage === MAX_PAGES) {
+        return;
+    }
+    currentPage += 1;
+    const url = buildUrl();
+    fetchAndUpdateData(url);
+});
+
+pageNumberInput && pageNumberInput.addEventListener('change', (e) => {
+    e.preventDefault();
+    const newPage = parseInt(pageNumberInput.value);
+    if (!isNaN(newPage) && newPage >= 1 && newPage <= MAX_PAGES) {
+        currentPage = newPage;
+    }
+    const url = buildUrl();
+    fetchAndUpdateData(url);
+});
 
 const updateView = (data) => {
     let updatedHTML = "";
-    data.map((author) => {
-        let authoredBooks = "[";
-        author['books'].map((book) => {
-            authoredBooks += ` "${book.title}" `;
-        })
-        authoredBooks += "]";
-        updatedHTML +=
-        `
+    data.forEach((author) => {
+        const authoredBooks = author.books.map(book => `"${book.title}"`).join(', ');
+        updatedHTML += `
         <div class="data-card">
             <div class="card-content">
                 <p>Author ID: ${author.aid}</p>
-                <p>Name: ${author.name}</p>
-                <p>Description: ${author.description}</p>
-                <p>Authored Books: ${authoredBooks}</p>
+                <p>Name: "${author.name}"</p>
+                <p>Description: "${author.description}"</p>
+                <p>Authored Books: [${authoredBooks}]</p>
             </div>
             <a href="${BASEURL}/editauthor/index/${author.aid}">
                 <img class="edit" src="${BASEURL}/img/edit.svg" alt="edit">
             </a>
-        </div>
-        `;
+        </div>`;
     });
+
     authorList.innerHTML = updatedHTML;
     pageNumberInput.value = currentPage;
-    console.log(currentPage)
-    console.log(MAX_PAGES)
-    if (currentPage <= 1) {
-        prevButton.disabled = true;
-    } else {
-        prevButton.disabled = false;
-    }
-    if (currentPage >= MAX_PAGES) {
-        console.log("here")
-        nextButton.disabled = true;
-    } else {
-        nextButton.disabled = false;
-    }
-}
+
+    prevButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= MAX_PAGES;
+};

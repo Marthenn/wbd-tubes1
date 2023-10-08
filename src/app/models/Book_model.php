@@ -8,17 +8,115 @@ class Book_model {
         $this->database = new Database;
     }
 
-    public function countPage(){
-        $this->database->query("SELECT COUNT(*) FROM book");
-        $count = $this->database->single();
-        return ceil($count['count'] / 8);
+    public function countPage($filter = null) {
+        if ($filter == null) {
+            $this->database->query("SELECT COUNT(*) FROM book");
+            $count = $this->database->single();
+            return ceil($count['count'] / 8);
+        }
+        else {
+            try {
+                $filtered = false;
+                $query = "SELECT COUNT(*) FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        
+                if (isset($filter['category'])) {
+                    $query .= " WHERE category.name = :category";
+                    $filtered = true;
+                }
+                if (isset($filter['duration'])) {
+                    if ($filtered) {
+                        $query .= " AND duration BETWEEN :duration_min AND :duration_max";
+                    } else {
+                        $query .= " WHERE duration BETWEEN :duration_min AND :duration_max";
+                        $filtered = true;
+                    }
+                }
+                if (isset($filter['search'])) {
+                    if ($filtered) {
+                        $query .= " AND (title LIKE :search OR author.name LIKE :search)";
+                    } else {
+                        $query .= " WHERE (title LIKE :search OR author.name LIKE :search)";
+                        $filtered = true;
+                    }
+                }
+        
+                $this->database->query($query);
+        
+                if (isset($filter['category'])) {
+                    $this->database->bind(':category', $filter['category']);
+                }
+                if (isset($filter['duration'])) {
+                    $this->database->bind(':duration_min', $filter['duration'][0]);
+                    $this->database->bind(':duration_max', $filter['duration'][1]);
+                }
+                if (isset($filter['search'])) {
+                    $this->database->bind(':search', '%' . $filter['search'] . '%');
+                }
+        
+                $count = $this->database->single();
+                return ceil($count['count'] / 8);
+                
+            } catch (Exception $e) {
+                return 0;
+            }
+        }
+    }   
+
+
+    public function countPageAdmin($filter = null) {
+        if ($filter == null) {
+            $this->database->query("SELECT COUNT(*) FROM book");
+            $count = $this->database->single();
+            return ceil($count['count'] / 5);
+        }
+        else {
+            try {
+                $filtered = false;
+                $query = "SELECT COUNT(*) FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        
+                if (isset($filter['category'])) {
+                    $query .= " WHERE category.name = :category";
+                    $filtered = true;
+                }
+                if (isset($filter['duration'])) {
+                    if ($filtered) {
+                        $query .= " AND duration BETWEEN :duration_min AND :duration_max";
+                    } else {
+                        $query .= " WHERE duration BETWEEN :duration_min AND :duration_max";
+                        $filtered = true;
+                    }
+                }
+                if (isset($filter['search'])) {
+                    if ($filtered) {
+                        $query .= " AND (title LIKE :search OR author.name LIKE :search)";
+                    } else {
+                        $query .= " WHERE (title LIKE :search OR author.name LIKE :search)";
+                        $filtered = true;
+                    }
+                }
+        
+                $this->database->query($query);
+        
+                if (isset($filter['category'])) {
+                    $this->database->bind(':category', $filter['category']);
+                }
+                if (isset($filter['duration'])) {
+                    $this->database->bind(':duration_min', $filter['duration'][0]);
+                    $this->database->bind(':duration_max', $filter['duration'][1]);
+                }
+                if (isset($filter['search'])) {
+                    $this->database->bind(':search', '%' . $filter['search'] . '%');
+                }
+        
+                $count = $this->database->single();
+                return ceil($count['count'] / 5);
+                
+            } catch (Exception $e) {
+                return 0;
+            }
+        }
     }
 
-    public function countPageAdmin(){
-        $this->database->query("SELECT COUNT(*) FROM book");
-        $count = $this->database->single();
-        return ceil($count['count'] / 5);
-    }
 
     public function getAllCategories() {
         $this->database->query("SELECT DISTINCT name FROM category");
@@ -141,14 +239,14 @@ class Book_model {
 
         $this->database->query($query);
         if (isset($filter['category'])){
-            $this->database->bind('category', $filter['category']);
+            $this->database->bind(':category', $filter['category']);
         }
         if (isset($filter['duration'])){
-            $this->database->bind('duration_min', $filter['duration'][0]);
-            $this->database->bind('duration_max', $filter['duration'][1]);
+            $this->database->bind(':duration_min', $filter['duration'][0]);
+            $this->database->bind(':duration_max', $filter['duration'][1]);
         }
         if (isset($filter['search'])){
-            $this->database->bind('search', '%' . $filter['search'] . '%');
+            $this->database->bind(':search', '%' . $filter['search'] . '%');
         }
         $this->database->bind('offset', $offset);
         return $this->database->resultSet();
@@ -237,9 +335,7 @@ class Book_model {
         if (!$success) {
             // Handle the database error here (e.g., log or display an error message)
             $errorInfo = $this->database->errorInfo();
-            var_dump($errorInfo); // For debugging purposes
             http_response_code(500); // Set an appropriate HTTP status code for the error
-            echo $e->getMessage();
             exit;
         }
     }

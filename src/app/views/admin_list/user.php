@@ -14,9 +14,9 @@
             <?php foreach ($data['users'] as $user) : ?>
                 <div class="data-card">
                     <div class="card-content">
-                        <p>User_ID: <?= $user['uid'] ?></p>
-                        <p>Username: <?= $user['username'] ?></p>
-                        <p>Email: <?= $user['email'] ?></p>
+                        <p>User_ID: "<?= $user['uid'] ?>"</p>
+                        <p>Username: "<?= $user['username'] ?>"</p>
+                        <p>Email: "<?= $user['email'] ?>"</p>
                         <p>Joined Date: <?= $user['joined_date'] ?></p>
                         <p>Type: <?= $user['is_admin'] === true ? 'admin' : 'user' ?></p>
                     </div>

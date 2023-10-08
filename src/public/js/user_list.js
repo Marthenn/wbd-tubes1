@@ -8,131 +8,71 @@ const searchInput = document.getElementById('search-input-user');
 
 let currentPage = 1;
 
-searchButton && searchButton.addEventListener(
-    'click', async (e) => {
-        e.preventDefault();
-        console.log("here")
-        console.log(currentPage)
-        currentPage = 1;
-        let url
-        console.log(searchInput.value);
-        if(searchInput.value === "") {
-            url = `/public/userlist/fetch/${currentPage}`;
+function fetchData(url) {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            MAX_PAGES = data.max_pages;
+            paginationText.textContent = MAX_PAGES;
+            updateData(data.users);
+        } else {
+            alert("An error occurred, please try again!");
         }
-        else {
-            url = `/public/userlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log(this.status)
-                if (this.status === 200) {
-                    console.log(this.responseText)
-                    const data = JSON.parse(this.responseText);
-                    MAX_PAGES = data.max_pages;
-                    paginationText.textContent = MAX_PAGES;
-                    updateData(data.users);
-                    console.log(MAX_PAGES)
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        }
+    };
+
+    xhr.onerror = () => {
+        alert("Error request");
+    };
+
+    xhr.open('GET', url);
+    xhr.send();
+}
+
+function buildUrl() {
+    const queryParameters = [];
+    if (searchInput.value !== "") {
+        queryParameters.push(`search=${encodeURIComponent(searchInput.value)}`);
     }
-)
+    return `/public/userlist/fetch/${currentPage}${queryParameters.length > 0 ? `/${queryParameters.join('/')}` : ''}`;
+}
+
+searchButton && searchButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    currentPage = 1;
+    const url = buildUrl();
+    fetchData(url);
+});
 
 prevButton &&
     prevButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        let url
-
         if (currentPage === 1) {
             return;
         }
-
         currentPage -= 1;
         pageInput.value = currentPage;
-
-        if(searchInput.value === "") {
-            url = `/public/userlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/userlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-            "GET", url
-        );
-        console.log(currentPage)
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            console.log("here")
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log(this.status)
-                if (this.status === 200) {
-                    const data = JSON.parse(this.responseText);
-                    console.log(data)
-                    MAX_PAGES = data.max_pages;
-                    paginationText.textContent = MAX_PAGES;
-                    updateData(data.users);
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        };
+        const url = buildUrl();
+        fetchData(url);
     });
 
 nextButton &&
     nextButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        let url
-
         if (currentPage === MAX_PAGES) {
             return;
         }
-
         currentPage += 1;
         pageInput.value = currentPage;
-
-        if(searchInput.value === "") {
-            url = `/public/userlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/userlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-            "GET", url
-        );
-        console.log(currentPage)
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (this.status === 200) {
-                    console.log(this.responseText)
-                    const data = JSON.parse(this.responseText);
-                    console.log(data)
-                    MAX_PAGES = data.max_pages;
-                    paginationText.textContent = MAX_PAGES;
-                    updateData(data.users);
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        };
+        const url = buildUrl();
+        fetchData(url);
     });
 
 pageInput &&
     pageInput.addEventListener("input", (e) => {
         e.preventDefault();
-        let url
         const inputPage = parseInt(pageInput.value);
-
-        console.log(inputPage)
         if (isNaN(inputPage) || inputPage < 1) {
             currentPage = 1;
         } else if (inputPage > MAX_PAGES) {
@@ -141,41 +81,13 @@ pageInput &&
         else {
             currentPage = inputPage;
         }
-
-        if(searchInput.value === "") {
-            url = `/public/userlist/fetch/${currentPage}`;
-        }
-        else {
-            url = `/public/userlist/fetch/${currentPage}/${searchInput.value}`;
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open(
-            "GET",
-            `/public/userlist/fetch/${currentPage}`
-        );
-        xhr.send();
-        console.log(currentPage)
-        xhr.onreadystatechange = function () {
-            console.log("here")
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.log(this.status)
-                if (this.status === 200) {
-                    const data = JSON.parse(this.responseText);
-                    console.log(data)
-                    MAX_PAGES = data.max_pages;
-                    paginationText.textContent = MAX_PAGES;
-                    updateData(data.users);
-                } else {
-                    alert("An error occured, please try again!");
-                }
-            }
-        };
+        const url = buildUrl();
+        fetchData(url);
     });
 
 const updateData = (data) => {
     let generatedHTML = "";
-    data.map((user) => {
+    data.forEach((user) => {
         generatedHTML += `
         <div class="data-card">
         <div class="card-content">
@@ -188,15 +100,7 @@ const updateData = (data) => {
         </div>
         `;
     });
-        dataCards.innerHTML = generatedHTML;
-    if (currentPage <= 1) {
-        prevButton.disabled = true;
-    } else {
-        prevButton.disabled = false;
-    }
-    if (currentPage >= MAX_PAGES) {
-        nextButton.disabled = true;
-    } else {
-        nextButton.disabled = false;
-    }
+    dataCards.innerHTML = generatedHTML;
+    prevButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= MAX_PAGES;
 };
