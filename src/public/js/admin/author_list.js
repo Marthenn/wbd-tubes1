@@ -18,12 +18,24 @@ function fetchData(url) {
             paginationText.textContent = MAX_PAGES;
             updateView(data.authors);
         } else {
-            alert("An error occurred, please try again!");
+            const flash = document.getElementById('flash-message');
+            if (flash.firstChild) {
+                for (let i = 0; i < flash.childNodes.length; i++) {
+                    flash.removeChild(flash.childNodes[i]);
+                }
+            }
+            flash.appendChild(make_flash("An error occurred, please try again!", "danger"));
         }
     };
 
     xhr.onerror = () => {
-        alert("Error request");
+        const flash = document.getElementById('flash-message');
+        if (flash.firstChild) {
+            for (let i = 0; i < flash.childNodes.length; i++) {
+                flash.removeChild(flash.childNodes[i]);
+            }
+        }
+        flash.appendChild(make_flash("Error Request!", "danger"));
     };
 
     xhr.open('GET', url);

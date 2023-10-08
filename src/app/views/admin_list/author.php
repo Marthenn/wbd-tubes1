@@ -7,6 +7,7 @@
         </div>
         <button class="search-button" id="search-button-author" type="submit">Search</button>
     </div>
+    <div id = 'flash-message'></div>
     <?php if (!$data['authors']) : ?>
         <p class="info">There are no authors yet available on webwbd!</p>
     <?php else : ?>
@@ -36,6 +37,7 @@
     <?php endif; ?>
 </div>
 <script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
+<script src="<?= BASEURL; ?>/js/lib/flasher.js" defer></script>
 <script src="<?= BASEURL; ?>/js/admin/author_list.js" defer></script>
 <script type="text/javascript" defer>
     var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");

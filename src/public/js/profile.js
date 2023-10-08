@@ -187,7 +187,6 @@ const updateProfile = async (e) => {
 
 
             } else {
-                alert(this.responseText);
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
                 if (flash.firstChild) {

@@ -9,7 +9,6 @@ class AudiobookList extends Controller {
         $bookModel = $this->model('Book_model');
         $data['books'] = $bookModel->getBookPageAdmin($page);
         $data['pages'] = $bookModel->countPageAdmin();
-        var_dump($data['pages']);
         $data['categories'] = $bookModel->getAllCategories();
         $this->view('admin_list/audiobooks', $data);
         $this->view('templates/pagination', $data);
