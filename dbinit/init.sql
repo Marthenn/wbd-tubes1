@@ -23,7 +23,7 @@ CREATE TABLE book (
     bid SERIAL PRIMARY KEY,
     title text NOT NULL,
     description text,
-    rating real CHECK (rating >= 0.0 AND rating <= 5.0),
+    rating real CHECK (rating >= 0.0 AND rating <= 5.0) NOT NULL,
     aid integer NOT NULL,
     cid integer NOT NULL,
     duration time without time zone NOT NULL,
@@ -96,14 +96,14 @@ SELECT
     random() * 5,  -- Random rating between 0 and 5
     floor(random() * 7) + 1,  -- Random author ID between 1 and 5
     floor(random() * 5) + 1,  -- Random category ID between 1 and 5
-    (LPAD(floor(random() * 24)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time,  -- Random duration
-    'storage/book_cover/' || generate_series || '.jpg',  -- Cover image directory
-    'storage/audio_book/' || generate_series || '.mp3'   -- Audio directory
+    (LPAD(floor(random() * 2)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time,  -- Random duration
+    'storage/cover/' || generate_series || '.jpg',  -- Cover image directory
+    'storage/audio/' || generate_series || '.mp3'   -- Audio directory
 FROM generate_series(1, 50);
 
 INSERT INTO history (uid, bid, curr_duration)
 SELECT 
     floor(random() * 2) + 1,  -- Random uid between 1 and 2
     floor(random() * 50) + 1,  -- Random bid between 1 and 50
-    (LPAD(floor(random() * 24)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time  -- Random duration
+    (LPAD(floor(random() * 2)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time  -- Random duration
 FROM generate_series(1, 20);
