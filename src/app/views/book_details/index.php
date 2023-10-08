@@ -6,9 +6,15 @@
         <h1><?= $data['title']?></h1>
         <div class="cover-desc">
             <div class="cover">
-                <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
+                <?php if (!$data['cover_image_directory']) : ?>
+                    <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
+                <?php else : ?>
+                    <img class="cover-img" src="<?= $data['cover_image_directory']?>" alt="logo">
+                <?php endif; ?>
             </div>
             <div class="description">
+                <p><?= $data['cover_image_directory']?></p>
+                <p><?= $data['audio_directory']?></p>
                 <p class="description-title">Description</p>
                 <p class="description-text"><?= $data['description']?></p>
                 <p class="description-title">Author</p>
@@ -26,7 +32,7 @@
         </div>
     </div>
     <div class="progress-bar-container">
-        <audio id="audio-player" src="<?= STORAGEURL;?>/audio/<?= $data['title'] ?>.mp3"></audio> 
+        <audio id="audio-player" src="<?= $data['audio_directory']?>"></audio> 
         <button id="play-pause-button" type="button" name="play-pause-button">
             <img id="play-pause-img" src="<?= BASEURL;?>/img/play-button.svg" alt="play"  data-play-src="<?= BASEURL;?>/img/play-button.svg" data-pause-src="<?= BASEURL;?>/img/pause-button.svg" width="50">
         </button>
