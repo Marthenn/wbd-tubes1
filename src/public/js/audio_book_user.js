@@ -131,6 +131,11 @@ function buildUrl() {
 const updateView = (data) => {
     let updatedHTML = "";
     data.map((book) => {
+        const durationParts = book.duration.split(':');
+        const hoursInMinutes = parseInt(durationParts[0]) * 60;
+        const minutes = parseInt(durationParts[1]);
+        const totalMinutes = hoursInMinutes + minutes;
+
         updatedHTML +=
         `
         <a href="${BASEURL}/bookdetails/${book.bid}" class="book-card">
@@ -144,7 +149,7 @@ const updateView = (data) => {
                     <p class="rating-num"> ${parseFloat(book.rating).toFixed(2)}</p>
                 </div>
                 <p class="author"> ${book.author}</p>
-                <p class="duration"> ${book.duration}</p>
+                <p class="duration"> ${totalMinutes} min</p>
             </div>
         </a>
         `;

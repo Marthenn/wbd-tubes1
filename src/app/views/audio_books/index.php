@@ -51,7 +51,7 @@
                             <p class="rating-num"><?= number_format($book['rating'], 2)?></p>
                         </div>
                         <p class="author"><?= $book['author']?></p>
-                        <p class="duration"><?= $book['duration']?></p>
+                        <p class="duration"><?= convertTimeToMinutes($book['duration'])?> min</p>
                     </div>
                 </a>
             <?php endforeach; ?>
@@ -62,3 +62,11 @@
 <script type="text/javascript" defer>
     var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
 </script>
+<?php
+function convertTimeToMinutes($time) {
+    list($hours, $minutes, $seconds) = explode(':', $time);
+    $totalMinutes = ($hours * 60) + $minutes;
+
+    return $totalMinutes;
+}
+?>
