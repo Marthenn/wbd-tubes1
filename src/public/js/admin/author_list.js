@@ -8,7 +8,7 @@ const paginationText = document.querySelector('.pagination p span');
 
 let currentPage = 1;
 
-function fetchAndUpdateData(url) {
+function fetchData(url) {
     const xhr = new XMLHttpRequest();
 
     xhr.onload = () => {
@@ -33,16 +33,25 @@ function fetchAndUpdateData(url) {
 function buildUrl() {
     const queryParameters = [];
     if (searchInput.value !== "") {
-        queryParameters.push(`search=${encodeURIComponent(searchInput.value)}`);
+        queryParameters.push(`${encodeURIComponent(searchInput.value)}`);
     }
     return `/public/authorlist/fetch/${currentPage}${queryParameters.length > 0 ? `/${queryParameters.join('/')}` : ''}`;
 }
+
+searchInput && searchInput.addEventListener(
+    "keyup",
+    debounce(() => {
+        const url = buildUrl();
+        console.log(url);
+        fetchData(url);
+    })
+)
 
 searchButton && searchButton.addEventListener('click', (e) => {
     e.preventDefault();
     currentPage = 1;
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 prevButton && prevButton.addEventListener('click', (e) => {
@@ -52,7 +61,7 @@ prevButton && prevButton.addEventListener('click', (e) => {
     }
     currentPage -= 1;
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 nextButton && nextButton.addEventListener('click', (e) => {
@@ -62,7 +71,7 @@ nextButton && nextButton.addEventListener('click', (e) => {
     }
     currentPage += 1;
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 pageNumberInput && pageNumberInput.addEventListener('change', (e) => {
@@ -72,7 +81,7 @@ pageNumberInput && pageNumberInput.addEventListener('change', (e) => {
         currentPage = newPage;
     }
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 const updateView = (data) => {

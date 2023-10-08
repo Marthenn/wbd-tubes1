@@ -37,6 +37,14 @@ function fetchData(url) {
     xhr.send();
 }
 
+searchInput && searchInput.addEventListener(
+    "keyup",
+    debounce(() => {
+        const url = buildUrl();
+        fetchData(url);
+    })
+)
+
 filterButton1 && filterButton1.addEventListener('click', (e) => {
     e.preventDefault();
     currentPage = 1;

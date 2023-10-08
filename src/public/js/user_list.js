@@ -33,10 +33,18 @@ function fetchData(url) {
 function buildUrl() {
     const queryParameters = [];
     if (searchInput.value !== "") {
-        queryParameters.push(`search=${encodeURIComponent(searchInput.value)}`);
+        queryParameters.push(`${encodeURIComponent(searchInput.value)}`);
     }
     return `/public/userlist/fetch/${currentPage}${queryParameters.length > 0 ? `/${queryParameters.join('/')}` : ''}`;
 }
+
+searchInput && searchInput.addEventListener(
+    "keyup",
+    debounce(() => {
+        const url = buildUrl();
+        fetchData(url);
+    })
+)
 
 searchButton && searchButton.addEventListener('click', (e) => {
     e.preventDefault();

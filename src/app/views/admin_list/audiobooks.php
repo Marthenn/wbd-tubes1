@@ -58,6 +58,7 @@
         </div>
     <?php endif; ?>
 </div>
+<script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
 <script src="<?= BASEURL; ?>/js/audio_book_list.js" defer></script>
 <script type="text/javascript" defer>
     var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
