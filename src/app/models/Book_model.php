@@ -11,6 +11,8 @@ class Book_model {
     public function countPage($filter = null) {
         if ($filter == null) {
             $this->database->query("SELECT COUNT(*) FROM book");
+            $count = $this->database->single();
+            return ceil($count['count'] / 8);
         } else {
             try {
                 $filtered = false;
@@ -60,6 +62,8 @@ class Book_model {
     public function countPageAdmin($filter = null) {
         if ($filter == null) {
             $this->database->query("SELECT COUNT(*) FROM book");
+            $count = $this->database->single();
+            return ceil($count['count'] / 5);
         }
         else {
             try {
@@ -101,8 +105,8 @@ class Book_model {
                 }
         
                 $count = $this->database->single();
-                
                 return ceil($count['count'] / 5);
+                
             } catch (Exception $e) {
                 return 0;
             }
