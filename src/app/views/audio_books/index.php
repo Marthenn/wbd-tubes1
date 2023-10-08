@@ -43,7 +43,11 @@
             <?php foreach ($data['books'] as $book) : ?>
                 <a href="<?= BASEURL;?>/bookdetails/<?= $book['bid']?>" class="book-card">
                     <div class="cover">
-                        <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
+                        <?php if (!$book['cover_image_directory']) : ?>
+                            <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
+                        <?php else : ?>
+                            <img class="cover-img" src="<?= $book['cover_image_directory']?>" alt="logo">
+                        <?php endif; ?>
                     </div>
                     <div class="details">
                         <p class="title"><?= $book['title']?></p>
