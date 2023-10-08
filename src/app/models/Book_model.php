@@ -263,6 +263,7 @@ class Book_model {
          * 5. Description
          * 6. Cover Image Directory (nullable)
          * 7. Audio Directory (nullable)
+         * 8. Duration (nullable)
          *
          * If cover image and audio directory is null, then it will not be updated
          * If cover image directory value is delete_please, then it will be deleted
@@ -288,7 +289,7 @@ class Book_model {
             }
         }
         if ($data['audio_directory'] != null){
-            $query = $query . ", audio_directory = :audio_directory";
+            $query = $query . ", audio_directory = :audio_directory, duration = :duration";
         }
         $query = $query . " WHERE bid = :bid";
 
@@ -305,6 +306,7 @@ class Book_model {
         }
         if ($data['audio_directory'] != null){
             $this->database->bind('audio_directory', $data['audio_directory']);
+            $this->database->bind('duration', $data['duration']);
         }
         $this->database->bind('bid', $data['bid']);
 

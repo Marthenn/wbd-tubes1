@@ -4,11 +4,22 @@ class EditBook extends Controller {
     public function index($bid) {
         $bookModel = $this->model('Book_model');
         $book = $bookModel->getBookByID($bid);
+        $book['totalSeconds'] = $this->getTotalSeconds($book['duration']);
+        $book['currentTotalSeconds'] = $this->getTotalSeconds($book['curr_duration']);
         $data['title'] = 'Edit Book';
         $this->view('templates/header', $data);
         $this->view('templates/navbar_admin');
         $this->view('edit_book/index', $book);
         $this->view('templates/footer');
+    }
+
+    private function getTotalSeconds($time)
+    {
+        list($hours, $minutes, $seconds) = explode(':', $time);
+        $hours = (int)$hours;
+        $minutes = (int)$minutes;
+        $seconds = (int)$seconds;
+        return $hours * 3600 + $minutes * 60 + $seconds;
     }
 
     public function delete() {
@@ -51,10 +62,12 @@ class EditBook extends Controller {
                     $author = $_POST['author'];
                     $rating = $_POST['rating']; // check float or not
                     $category = $_POST['category'];
-                    $currBook = $bookModel->getBookByID($bid);
-                    // var_dump($currBook);
-                    $fileCoverDir = $currBook['cover_image_directory'];
-                    $fileAudioDir = $currBook['audio_directory'];
+                    $currentBook = $bookModel->getBookByID($bid);
+                    $fileCoverDir = null;
+                    $fileAudioDir = null;
+                    $duration = null;
+                    $description = null;
+
                     if (!$bookModel->isAuthorExist($author)) {
                         // response 400 Bad Request
                         http_response_code(400);
@@ -78,9 +91,7 @@ class EditBook extends Controller {
                         echo json_encode($responseData);
                         exit;   
                     }
-                    
-                    
-                    $description;
+                                        
                     if (isset($_POST['description'])) {
                         $description = $_POST['description'];
                     } else {
@@ -144,9 +155,9 @@ class EditBook extends Controller {
 
                     // Check cover image file existence
                     if (isset($_FILES["audio"])) {
-                        // echo "MASUK WOY";
+
+                        $duration = $_POST['duration'];
                         $fileAudio = $_FILES["audio"];
-                        var_dump($fileAudio['size']);
 
                         // file error handling
                         if ($fileAudio['error'] == UPLOAD_ERR_OK){
@@ -157,7 +168,7 @@ class EditBook extends Controller {
                             $filename .= '.' . $fileExt;
 
                             // if file is larger than 500MB
-                            if ($fileAudio['size'] > 50000000){
+                            if ($fileAudio['size'] > 500000000){
                                 // response 400 Bad Request
                                 http_response_code(400);
                                 header('Content-Type: application/json');
@@ -206,11 +217,30 @@ class EditBook extends Controller {
                         'category' => $category,
                         'description' => $description,
                         'cover_image_directory' => $fileCoverDir,
-                        'audio_directory' => $fileAudioDir
+                        'audio_directory' => $fileAudioDir,
+                        'duration' => $duration
                     ];
 
+                    // var_dump($updateData);
+
                     $bookModel->editBook($updateData);
-                    http_response_code(204);
+                    http_response_code(200);
+                    header('Content-Type: application/json');
+
+                    // If null, change to current directory
+                    if (!$fileAudioDir) {
+                        $fileAudioDir = $currentBook['audio-directory'];
+                    }
+
+                    if (!$fileCoverDir) {
+                        $fileCoverDir = $currentBook['cover-image-directory'];
+                    }
+
+                    $responseData = [
+                        'audioPath' => $fileAudioDir,
+                        'coverPath' => $fileCoverDir
+                    ];
+                    echo json_encode($responseData);
                     exit;
                     break;
                 default:
@@ -220,6 +250,7 @@ class EditBook extends Controller {
                         'message' => 'Invalid request method',
                         'type' => 'danger'
                     ];
+                    echo json_encode($responseData);
             }
         } catch (Exception $e){
             http_response_code(500);
