@@ -1,2 +1,10 @@
 .idea/
 .env
+.DS_Store
+src/storage/audio/*.mp3
+src/storage/cover/*.jpg
+src/storage/cover/*.jpeg
+src/storage/cover/*.png
+src/storage/profile/*.jpg
+src/storage/profile/*.jpeg
+src/storage/profile/*.png

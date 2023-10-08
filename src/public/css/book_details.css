@@ -1,0 +1,75 @@
+.books-details-content{
+    margin: 20px 10%;
+}
+
+.cover-desc {
+    margin: 30px 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 150px
+}
+
+.cover .cover-img {
+    border-radius: 35px;
+    width: 235px;
+    height: 300px;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.description .rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.description .description-title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.back-arrow {
+    margin: 120px 50px 20px 50px;
+}
+
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0;
+    background: linear-gradient(135deg, #6B41FB, #FD9ECA, #FAD026);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    position: fixed;
+}
+
+.progress-bar-container p {
+    color: #ffffff;
+}
+
+.progress-bar-container input {
+    outline: none;
+    width: 70%;
+}
+.progress-bar-container button {
+    border: none;
+    background-color: transparent;
+}
+
+@media (max-width: 450px) {
+    .cover-desc {
+        margin: 25px 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 150px;
+    }
+    .progress-bar-container input {
+        width: 50%;
+    }
+}

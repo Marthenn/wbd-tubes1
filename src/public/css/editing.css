@@ -1,0 +1,109 @@
+.edit-book-page, .edit-author-page {
+    display: grid;
+    margin-bottom: 100px;
+}
+
+.edit-book-contents, .edit-author-contents {
+    margin: 10px 10% 0px 10%;
+}
+
+#edit-book, #edit-author {
+    color: #1F1F1F;
+    /* text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+.edit-book-form, .edit-author-form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.edit-book-form .input-field, .edit-author-form .input-field{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    width: 50%;
+}
+
+.edit-book-form input[type='text'],
+.edit-book-form input[type='number'],
+.edit-author-form input[type='text'],
+#description {
+    border: 1px solid #ABABAB;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+#description {
+    height: 100px;
+}
+
+.edit-book-form .input-field-rating {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    width: 10%;
+}
+
+.input-field-description {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    width: 70%;
+}
+
+.edit-book-form .file-field {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    width: 70%;
+}
+
+.edit-book-form input[type='file'] {
+    margin: 5px 0px;
+}
+
+.save-changes-book, .save-changes-author {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    width: 50%;
+    margin: 10px 0px;
+}
+
+.delete-book, .delete-author {
+    background: linear-gradient(135deg, #FF1C26, #FF575F);
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    padding: 10px;
+    width: 50%;
+    margin: 10px 0px;
+}
+
+@media (max-width: 850px) {
+    .edit-book-form, .edit-author-form {
+        width: 100%;
+    }
+}
+
+#cover-filename, #audio-filename {
+    font-size: 13px;
+}
+
+#required-input {
+    color: red;
+}

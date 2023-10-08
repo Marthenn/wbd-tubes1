@@ -1,0 +1,80 @@
+.flash-message{
+    text-align: left;
+    display: flex;
+    color: #fff;
+}
+
+.flash-message-text{
+    font-size: 16px;
+}
+
+.flash-button{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: #fff;;
+}
+
+.flash-button button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.flash-danger{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #FF1C26, #FF575F);
+}
+
+.flash-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #F6A604, #FBDF32);
+}
+
+.flash-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #0B07F7, #AB68FE);
+}
+
+.flash-action{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #0B07F7, #AB68FE);
+}
+
+.flash-success{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #00BC71, #3DD598);
+}
+

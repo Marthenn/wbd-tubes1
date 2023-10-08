@@ -1,0 +1,54 @@
+.sign-in-page, .sign-up-page {
+    background-image: url(../img/bg-wave.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    height:100vh;
+}
+
+.sign-in-contents, .sign-up-contents {
+    margin: 20px;
+}
+
+.sign-in-form, .sign-up-form {
+    background-color: #ffffff;
+    border-radius: 35px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 25%;
+    margin: 5%;
+}
+
+.sign-in-form .input-field, .sign-up-form .input-field{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.sign-in-form .input-field input, .sign-up-form .input-field input{
+    border: 1px solid #ABABAB;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    margin: 10px 0px;
+}
+
+.sign-in-form .submit-button button, .sign-up-form .submit-button button{
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    margin: 20px 0px;
+}
+
+
+@media (max-width: 850px) {
+    .sign-in-form, .sign-up-form {
+        width: 68%;
+        margin: 5%;
+    }
+}

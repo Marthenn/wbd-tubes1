@@ -1,0 +1,130 @@
+.profile-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.profile-contents {
+    margin: 100px 10% 0px 10%;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.close-link {
+    margin-left: auto;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.profile .input-field {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    width: 70%;
+}
+
+.profile .input-field input{
+    border: 1px solid #ABABAB;
+    outline: none;
+    padding: 5px;
+    font-size: 16px;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.profile .image-field {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    width: 100%;
+    align-items: center;
+}
+
+.profile .image-field .profile-img-edit {
+    display: none;
+}
+
+.custom-file-label {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.profile-decor {
+    background-image: url(../img/side-wave.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0;
+    height:100vh;
+    margin-top: 75px;
+    width: 100%;
+}
+
+.save-changes {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px;
+    width: 70%;
+    margin: 10px 0px;
+}
+
+.delete-account, .sign-out {
+    background: linear-gradient(135deg, #FF1C26, #FF575F);
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    padding: 10px;
+    width: 70%;
+    margin: 10px 0px;
+}
+
+.inside-input-field {
+    display: flex;
+    flex-direction: row;
+}
+
+.error-msg {
+    color: red;
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+.custom-file-label:active {
+    opacity: 50%;
+} 
+
+@media (max-width: 850px) {
+    .profile-page {
+        grid-template-columns: 1fr;
+    }
+    .profile-decor {
+        display: none;
+    }
+}
+
+@media (hover:hover) {
+    .custom-file-label:hover {
+        opacity: 50%;
+    }    
+}

@@ -1,6 +1,54 @@
-version: '3.3'
+version: '3.8'
+volumes:
+  data_16:
+
 services:
   web:
     image: tubes-1:latest
     ports:
-      - 8008:80
+      - 80:80
+    hostname: web-tubes-1
+    env_file:
+      - ./.env
+    volumes:
+      - ./src:/var/www/html
+      - ./.env:/var/www/html/.env
+    depends_on:
+      - db
+    command: ["./run.sh", "apache2-foreground"]
+    networks:
+      app-env:
+  
+  db:
+    image: postgres:16
+    restart: always
+    container_name: postgres 
+    environment:
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=audiobookdb
+    hostname: db-tubes-1
+    ports:
+      - "5432:5432"
+    volumes:
+      - data_16:/var/lib/postgresql/data
+      - ./dbinit/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      app-env:
+      interface:
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
+    ports:
+      - "5050:5050"
+    networks:
+      interface:
+
+networks:
+  app-env:
+  interface:

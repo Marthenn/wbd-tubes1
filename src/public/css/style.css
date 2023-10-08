@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffffff;
+}
+
+p {
+    margin: 0;
+    font-size: 16px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1f1f1f;
+}
+
+h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #1f1f1f;
+}
+
+a {
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    font-size: 14px;
+    color: #1f1f1f;
+}
+
+a:active, button:active{
+    opacity: 50%;
+}
+
+button {
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    color: #1f1f1f;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+textarea, input, select {
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media (hover: hover) {
+    a:hover, button:hover{
+        opacity: 50%;
+    }
+}
