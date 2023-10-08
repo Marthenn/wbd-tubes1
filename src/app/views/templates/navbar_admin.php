@@ -37,3 +37,5 @@
         <a href="<?= BASEURL;?>/userlist" class="navbar-title">User List</a>
     </div>
 </div>
+
+<script src="<?= BASEURL;?>/js/navbar.js"></script>

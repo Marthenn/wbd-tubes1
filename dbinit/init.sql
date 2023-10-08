@@ -59,6 +59,9 @@ BEGIN
     IF TG_OP = 'INSERT' THEN
         NEW.password = hash_password(NEW.password);
     ELSIF TG_OP = 'UPDATE' THEN
+        IF NEW.password = OLD.password THEN
+            RETURN NEW;
+        END IF;
         NEW.password = hash_password(NEW.password);
     END IF;
     RETURN NEW;
