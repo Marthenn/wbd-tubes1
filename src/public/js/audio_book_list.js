@@ -25,17 +25,37 @@ function fetchData(url) {
             paginationText.textContent = MAX_PAGES;
             updateView(data.books);
         } else {
-            alert("An error occurred, please try again!");
+            const flash = document.getElementById('flash-message');
+            if (flash.firstChild) {
+                for (let i = 0; i < flash.childNodes.length; i++) {
+                    flash.removeChild(flash.childNodes[i]);
+                }
+            }
+            flash.appendChild(make_flash("An error occurred, please try again!", "danger"));
         }
     };
     
     xhr.onerror = () => {
-        alert("Error request");
+        const flash = document.getElementById('flash-message');
+        if (flash.firstChild) {
+            for (let i = 0; i < flash.childNodes.length; i++) {
+                flash.removeChild(flash.childNodes[i]);
+            }
+        }
+        flash.appendChild(make_flash("Error Request!", "danger"));
     };
 
     xhr.open('GET', url);
     xhr.send();
 }
+
+searchInput && searchInput.addEventListener(
+    "keyup",
+    debounce(() => {
+        const url = buildUrl();
+        fetchData(url);
+    })
+)
 
 filterButton1 && filterButton1.addEventListener('click', (e) => {
     e.preventDefault();
@@ -100,7 +120,7 @@ pageInput && pageInput.addEventListener('change', (e) => {
 });
 
 function buildUrl() {
-    const encodedSearch = encodeURIComponent(searchInput.value);
+    const encodedSearch = encodeURIComponent(searchInput.value.replace(/ /g, '+').toLowerCase());
     const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value);
     const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value);
     const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value);

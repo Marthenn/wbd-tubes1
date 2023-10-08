@@ -8,7 +8,7 @@ const paginationText = document.querySelector('.pagination p span');
 
 let currentPage = 1;
 
-function fetchAndUpdateData(url) {
+function fetchData(url) {
     const xhr = new XMLHttpRequest();
 
     xhr.onload = () => {
@@ -18,12 +18,24 @@ function fetchAndUpdateData(url) {
             paginationText.textContent = MAX_PAGES;
             updateView(data.authors);
         } else {
-            alert("An error occurred, please try again!");
+            const flash = document.getElementById('flash-message');
+            if (flash.firstChild) {
+                for (let i = 0; i < flash.childNodes.length; i++) {
+                    flash.removeChild(flash.childNodes[i]);
+                }
+            }
+            flash.appendChild(make_flash("An error occurred, please try again!", "danger"));
         }
     };
 
     xhr.onerror = () => {
-        alert("Error request");
+        const flash = document.getElementById('flash-message');
+        if (flash.firstChild) {
+            for (let i = 0; i < flash.childNodes.length; i++) {
+                flash.removeChild(flash.childNodes[i]);
+            }
+        }
+        flash.appendChild(make_flash("Error Request!", "danger"));
     };
 
     xhr.open('GET', url);
@@ -33,16 +45,25 @@ function fetchAndUpdateData(url) {
 function buildUrl() {
     const queryParameters = [];
     if (searchInput.value !== "") {
-        queryParameters.push(`search=${encodeURIComponent(searchInput.value)}`);
+        queryParameters.push(`${encodeURIComponent(searchInput.value.replace(/ /g, '+'))}`);
     }
     return `/public/authorlist/fetch/${currentPage}${queryParameters.length > 0 ? `/${queryParameters.join('/')}` : ''}`;
 }
+
+searchInput && searchInput.addEventListener(
+    "keyup",
+    debounce(() => {
+        const url = buildUrl();
+        console.log(url);
+        fetchData(url);
+    })
+)
 
 searchButton && searchButton.addEventListener('click', (e) => {
     e.preventDefault();
     currentPage = 1;
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 prevButton && prevButton.addEventListener('click', (e) => {
@@ -52,7 +73,7 @@ prevButton && prevButton.addEventListener('click', (e) => {
     }
     currentPage -= 1;
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 nextButton && nextButton.addEventListener('click', (e) => {
@@ -62,7 +83,7 @@ nextButton && nextButton.addEventListener('click', (e) => {
     }
     currentPage += 1;
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 pageNumberInput && pageNumberInput.addEventListener('change', (e) => {
@@ -72,7 +93,7 @@ pageNumberInput && pageNumberInput.addEventListener('change', (e) => {
         currentPage = newPage;
     }
     const url = buildUrl();
-    fetchAndUpdateData(url);
+    fetchData(url);
 });
 
 const updateView = (data) => {

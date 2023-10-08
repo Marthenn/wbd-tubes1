@@ -9,7 +9,6 @@ class AudiobookList extends Controller {
         $bookModel = $this->model('Book_model');
         $data['books'] = $bookModel->getBookPageAdmin($page);
         $data['pages'] = $bookModel->countPageAdmin();
-        var_dump($data['pages']);
         $data['categories'] = $bookModel->getAllCategories();
         $this->view('admin_list/audiobooks', $data);
         $this->view('templates/pagination', $data);
@@ -21,7 +20,6 @@ class AudiobookList extends Controller {
         try {
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
-                    
                     $search = isset($_GET['search']) ? $_GET['search'] : null;
                     $duration = isset($_GET['duration']) ? $_GET['duration'] : null;
                     $category = isset($_GET['category']) ? $_GET['category'] : null;

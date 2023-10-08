@@ -33,9 +33,9 @@ class Book_model {
                 }
                 if (isset($filter['search'])) {
                     if ($filtered) {
-                        $query .= " AND (title LIKE :search OR author.name LIKE :search)";
+                        $query .= " AND (title ILIKE :search OR author.name ILIKE :search)";
                     } else {
-                        $query .= " WHERE (title LIKE :search OR author.name LIKE :search)";
+                        $query .= " WHERE (title ILIKE :search OR author.name ILIKE :search)";
                         $filtered = true;
                     }
                 }
@@ -88,9 +88,9 @@ class Book_model {
                 }
                 if (isset($filter['search'])) {
                     if ($filtered) {
-                        $query .= " AND (title LIKE :search OR author.name LIKE :search)";
+                        $query .= " AND (title ILIKE :search OR author.name ILIKE :search)";
                     } else {
-                        $query .= " WHERE (title LIKE :search OR author.name LIKE :search)";
+                        $query .= " WHERE (title ILIKE :search OR author.name ILIKE :search)";
                         $filtered = true;
                     }
                 }
@@ -164,9 +164,9 @@ class Book_model {
         }
         if (isset($filter['search'])){
             if ($filtered){
-                $query = $query . " AND (title LIKE :search OR author.name LIKE :search)";
+                $query = $query . " AND (title ILIKE :search OR author.name ILIKE :search)";
             } else {
-                $query = $query . " WHERE (title LIKE :search OR author.name LIKE :search)";
+                $query = $query . " WHERE (title ILIKE :search OR author.name ILIKE :search)";
             }
             $filtered = true;
         }
@@ -217,9 +217,9 @@ class Book_model {
         }
         if (isset($filter['search'])){
             if ($filtered){
-                $query = $query . " AND (title LIKE :search OR author.name LIKE :search)";
+                $query = $query . " AND (title ILIKE :search OR author.name ILIKE :search)";
             } else {
-                $query = $query . " WHERE (title LIKE :search OR author.name LIKE :search)";
+                $query = $query . " WHERE (title ILIKE :search OR author.name ILIKE :search)";
             }
             $filtered = true;
         }

@@ -35,6 +35,7 @@
         </select>
         <button class="sort-button" type="submit" id="sort-button-book-admin">Sort</button>
     </div>
+    <div id = 'flash-message'></div>
     <?php if (!$data['books']) : ?>
         <p class="info">There are no books yet available on webwbd!</p>
     <?php else : ?>
@@ -58,6 +59,8 @@
         </div>
     <?php endif; ?>
 </div>
+<script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
+<script src="<?= BASEURL; ?>/js/lib/flasher.js" defer></script>
 <script src="<?= BASEURL; ?>/js/audio_book_list.js" defer></script>
 <script type="text/javascript" defer>
     var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
