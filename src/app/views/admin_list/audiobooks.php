@@ -51,7 +51,7 @@
                         <p>Duration: <?= $book['duration']?></p>
                         <p>Rating: <?= $book['rating'] ?></p>
                     </div>
-                    <a href="<?= BASEURL;?>/editbook">
+                    <a href="<?= BASEURL;?>/editbook/index/<?= $book['bid']?>">
                         <img class="edit" src="<?= BASEURL;?>/img/edit.svg" alt="edit">
                     </a>
                 </div>

@@ -367,4 +367,20 @@ class Book_model {
 
         return $data;
     }
+
+    public function isAuthorExist($author) {
+        $query = "SELECT b.bid FROM book b, author a WHERE b.aid = a.aid AND a.name = :author";
+        $this->database->query($query);
+        $this->database->bind(':author', $author);
+        $result = $this->database->resultSet();
+        return $result ? true : false;
+    }
+
+    public function isCategoryExist($category) {
+        $query = "SELECT b.bid FROM book b, category c WHERE b.cid = c.cid AND c.name = :category";
+        $this->database->query($query);
+        $this->database->bind(':category', $category);
+        $result = $this->database->resultSet();
+        return $result ? true : false;
+    }
 }
