@@ -85,10 +85,6 @@
     margin: 10px 0px;
 }
 
-.delete-author, .delete-book {
-    width: 35%;
-}
-
 @media (max-width: 850px) {
     .add-book-form, .add-author-form {
         width: 100%;
