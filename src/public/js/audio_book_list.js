@@ -135,10 +135,10 @@ const updateView = (data) => {
         <div class="data-card">
             <div class="card-content">
                 <p>Book ID: ${book.bid}</p>
-                <p>Title: ${book.title}</p>
-                <p>Description: ${book.description}</p>
-                <p>Author: ${book.author}</p>
-                <p>Category: ${book.category}</p>
+                <p>Title: "${book.title}"</p>
+                <p>Description: "${book.description}"</p>
+                <p>Author: "${book.author}"</p>
+                <p>Category: "${book.category}"</p>
                 <p>Duration: ${book.duration}</p>
                 <p>Rating: ${book.rating}</p>
             </div>

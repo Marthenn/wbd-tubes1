@@ -14,9 +14,9 @@
             <?php foreach ($data['authors'] as $author) : ?>
                 <div class="data-card">
                     <div class="card-content">
-                        <p>Author ID: <?= $author['aid'] ?></p>
-                        <p>Name: <?= $author['name'] ?></p>
-                        <p>Description: <?= $author['description'] ?></p>
+                        <p>Author ID: "<?= $author['aid'] ?>"</p>
+                        <p>Name: "<?= $author['name'] ?>"</p>
+                        <p>Description: "<?= $author['description'] ?>"</p>
                         <p>Authored Books: 
                         <?php
                         echo '[';
