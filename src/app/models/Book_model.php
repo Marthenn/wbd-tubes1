@@ -13,50 +13,54 @@ class Book_model {
             $this->database->query("SELECT COUNT(*) FROM book");
             $count = $this->database->single();
             return ceil($count['count'] / 8);
-        } else {
+        }
+        else {
             try {
                 $filtered = false;
-                $query = "SELECT bid, title, book.description, author.name as author, rating, category.name as category, book.duration FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
-                if (isset($filter['category'])){
-                    $query = $query . " WHERE category.name = :category";
+                $query = "SELECT COUNT(*) FROM book JOIN author ON book.aid = author.aid JOIN category ON book.cid = category.cid";
+        
+                if (isset($filter['category'])) {
+                    $query .= " WHERE category.name = :category";
                     $filtered = true;
                 }
-                if (isset($filter['duration'])){
-                    if ($filtered){
-                        $query = $query . " AND duration BETWEEN :duration_min AND :duration_max";
+                if (isset($filter['duration'])) {
+                    if ($filtered) {
+                        $query .= " AND duration BETWEEN :duration_min AND :duration_max";
                     } else {
-                        $query = $query . " WHERE duration BETWEEN :duration_min AND :duration_max";
+                        $query .= " WHERE duration BETWEEN :duration_min AND :duration_max";
+                        $filtered = true;
                     }
-                    $filtered = true;
                 }
-                if (isset($filter['search'])){
-                    if ($filtered){
-                        $query = $query . " AND (title LIKE :search OR author.name LIKE :search)";
+                if (isset($filter['search'])) {
+                    if ($filtered) {
+                        $query .= " AND (title LIKE :search OR author.name LIKE :search)";
                     } else {
-                        $query = $query . " WHERE (title LIKE :search OR author.name LIKE :search)";
+                        $query .= " WHERE (title LIKE :search OR author.name LIKE :search)";
+                        $filtered = true;
                     }
-                    $filtered = true;
                 }
-                
+        
                 $this->database->query($query);
-                if (isset($filter['category'])){
-                    $this->database->bind('category', $filter['category']);
+        
+                if (isset($filter['category'])) {
+                    $this->database->bind(':category', $filter['category']);
                 }
-                if (isset($filter['duration'])&& isset($filter['duration'][0]) && isset($filter['duration'][1])){
-                    $this->database->bind('duration_min', $filter['duration'][0]);
-                    $this->database->bind('duration_max', $filter['duration'][1]);
+                if (isset($filter['duration'])) {
+                    $this->database->bind(':duration_min', $filter['duration'][0]);
+                    $this->database->bind(':duration_max', $filter['duration'][1]);
                 }
-                if (isset($filter['search'])){
-                    $this->database->bind('search', '%' . $filter['search'] . '%');
+                if (isset($filter['search'])) {
+                    $this->database->bind(':search', '%' . $filter['search'] . '%');
                 }
+        
                 $count = $this->database->single();
                 return ceil($count['count'] / 8);
-            }
-            catch (Exception $e) {
+                
+            } catch (Exception $e) {
                 return 0;
             }
         }
-    }    
+    }   
 
 
     public function countPageAdmin($filter = null) {
