@@ -1,20 +1,64 @@
-## Panduan Pengerjaan
-Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
-1. Buatlah grup pada Gitlab dengan format "IF3110-2023-01-XX", dengan XX adalah nomor kelompok (untuk K1 dan K2) atau kode kelompok (untuk K3).
-2. Tambahkan anggota tim pada grup anda.
-3. **Fork** pada repository ini dengan organisasi yang telah dibuat.
-4. Ubah hak akses repository hasil Fork anda menjadi **private**.
-5. Hal-hal yang harus diperhatikan.
-    * Silakan commit pada repository anda (hasil fork)
-    * Lakukan beberapa commit dengan pesan yang bermakna, contoh: “add register form”, “fix logout bug”, jangan seperti “final”, “benerin dikit”, “fix bug”.
-    * Disarankan untuk tidak melakukan commit dengan perubahan yang besar karena akan mempengaruhi penilaian (contoh: hanya melakukan satu commit kemudian dikumpulkan).
-    * Commit dari setiap anggota tim akan mempengaruhi penilaian.
-    * Jadi, setiap anggota tim harus melakukan commit yang berpengaruh terhadap proses pembuatan aplikasi.
-    * Sebagai panduan bisa mengikuti [semantic commit](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716).
-6. Buatlah file README yang berisi:
-    * Deskripsi aplikasi web
-    * Daftar requirement
-    * Cara instalasi
-    * Cara menjalankan server
-    * Screenshot tampilan aplikasi (tidak perlu semua kasus, minimal 1 per halaman), dan 
-    * Penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian pembagian tugas).
+# WEBWBD
+> Disusun untuk memenuhi Tugas Milestone 1 - Monolithic PHP & Vanilla Web Application IF3110 Pengembangan Aplikasi Berbasis Web
+
+## Daftar Isi
+- [Deskripsi Aplikasi _WEB_](#deskripsi-aplikasi-web)
+- [Daftar _Requirement_](#daftar-requirement)
+- [Cara Instalasi](#cara-instalasi)
+- [Cara Menjalankan _Server_](#cara-menjalankan-server)
+- [Screenshot Tampilan Aplikasi](#screenshot-tampilan-aplikasi)
+- [Pembagian Tugas](#pembagian-tugas)
+
+## Deskripsi Aplikasi _WEB_
+**WEBWBD** merupakan sebuah web perpustakaan audio book sederhana. Pengguna dapat mendengarkan audio book dari berbagai penulis dengan mudah di web ini. Web ini dibuat menggunakan Vanilla PHP, HTML, CSS, dan JS. Web menggunakan Apache web server untuk dijalankan dan basisdata yang dihosting pada postgresql.
+
+## Daftar _Requirement_
+1. Docker
+
+## Cara Instalasi
+1. Clone repository ini dengan command `git clone https://gitlab.informatika.org/if3110-2023-01-31/tugas-besar-1.git`
+
+## Cara Menjalankan _Server_
+1. Buka terminal pada root directory repository
+2. Bila belum memiliki docker image, maka build dengan perintah `docker build -t tubes-1:latest .`
+3. Bila belum terdapat file `.env` pada directory, maka buatlah file `.env` yang sesuai dengan file `.env.example`
+4. Jalankan docker container dengan perintah `docker compose up`
+5. Aplikasi web dapat diakses pada URL `https://localhost/public/`
+6. Jalankan perintah `docker compose down` bila ingin menghentikan container docker
+
+## Screenshot Tampilan Aplikasi
+TODO: TAMBAHKAN SS WEB dan SS LIGHTHOUSE
+
+## Pembagian Tugas
+
+### _Client Side_
+- Add Author: 13521088, 13521144, 13521157
+- Add Book: 13521088, 13521144, 13521157
+- Admin Books List: 13521088, 13521144, 13521157
+- Admin Authors List: 13521088, 13521144, 13521157
+- Admin Users List: 13521088, 13521144, 13521157
+- Audio Books List: 13521088, 13521144, 13521157
+- Book Details: 113521088, 13521144, 13521157
+- Edit Author: 13521088, 13521144, 13521157
+- Edit Book: 13521088, 13521144, 13521157
+- Forbidden: 13521088, 13521144, 13521157
+- Not Found: 13521088, 13521144, 13521157
+- Profile: 13521088, 13521144, 13521157
+- Sign In: 13521088, 13521144, 13521157
+- Sign Up: 13521088, 13521144, 13521157
+
+### _Server Side_
+- Add Author: 13521088, 13521144, 13521157
+- Add Book: 13521088, 13521144, 13521157
+- Admin Books List: 13521088, 13521144, 13521157
+- Admin Authors List: 13521088, 13521144, 13521157
+- Admin Users List: 13521088, 13521144, 13521157
+- Audio Books List: 13521088, 13521144, 13521157
+- Book Details: 13521088, 13521144, 13521157
+- Edit Author: 13521088, 13521144, 13521157
+- Edit Book: 13521088, 13521144, 13521157
+- Forbidden: - (tidak ada request ke server)
+- Not Found: - (tidak ada request ke server)
+- Profile: 13521088, 13521144, 13521157
+- Sign In: 13521088, 13521144, 13521157
+- Sign Up: 13521088, 13521144, 13521157
