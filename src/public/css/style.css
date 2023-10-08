@@ -32,7 +32,8 @@ a {
     font-size: 14px;
     color: #1f1f1f;
 }
-a:hover, button:hover{
+
+a:active, button:active{
     opacity: 50%;
 }
 
@@ -51,4 +52,10 @@ textarea, input, select {
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+@media (hover: hover) {
+    a:hover, button:hover{
+        opacity: 50%;
+    }
 }
