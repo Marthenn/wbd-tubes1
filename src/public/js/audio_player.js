@@ -41,7 +41,7 @@ progressBar && progressBar.addEventListener(
 
 audio && audio.addEventListener(
     'timeupdate', async (e) => {
-    currentTime.innerHTML = changeStartTime(progressBar.value);
+    currentTime.innerHTML = getFormattedTime(progressBar.value);
     if (!isHold) {
         progressBar.value = audio.currentTime;
     }
