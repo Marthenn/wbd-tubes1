@@ -94,3 +94,8 @@
     margin: 10px 0px;
 }
 
+@media (max-width: 850px) {
+    .edit-book-form, .edit-author-form {
+        width: 100%;
+    }
+}
