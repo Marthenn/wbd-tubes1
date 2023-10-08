@@ -14,7 +14,7 @@
                 <option value="" disabled>No Category Available</option>
             <?php else : ?>
                 <?php foreach ($data['categories'] as $category) : ?>
-                    <option value=<?= $category['name'] ?>><?= $category['name'] ?></option>
+                    <option value="<?= $category['name'] ?>"><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             <?php endif; ?>
         </select>
@@ -43,11 +43,11 @@
             <?php foreach ($data['books'] as $book) : ?>
                 <a href="<?= BASEURL;?>/bookdetails/<?= $book['bid']?>" class="book-card">
                     <div class="cover">
-                        <?php if (!$book['cover_image_directory']) : ?>
-                            <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="logo">
-                        <?php else : ?>
-                            <img class="cover-img" src="<?= $book['cover_image_directory']?>" alt="logo">
-                        <?php endif; ?>
+                    <?php if (!$book['cover_image_directory']) : ?>
+                        <img class="cover-img" src="<?= BASEURL;?>/img/cover-placeholder.png" alt="cover">
+                    <?php else : ?>
+                        <img class="cover-img" src="<?= $book['cover_image_directory']?>" alt="cover">
+                    <?php endif; ?>
                     </div>
                     <div class="details">
                         <p class="title"><?= $book['title']?></p>

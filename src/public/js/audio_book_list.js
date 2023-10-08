@@ -61,6 +61,7 @@ filterButton1 && filterButton1.addEventListener('click', (e) => {
     e.preventDefault();
     currentPage = 1;
     const url = buildUrl();
+    console.log(url);
     fetchData(url);
 });
 
@@ -120,11 +121,12 @@ pageInput && pageInput.addEventListener('change', (e) => {
 });
 
 function buildUrl() {
-    const encodedSearch = encodeURIComponent(searchInput.value.replace(/ /g, '+').toLowerCase());
-    const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value);
-    const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value);
-    const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value);
-
+    const encodedSearch = encodeURIComponent(searchInput.value.replace(/ /g, '+'));
+    const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value.replace(/ /g, '+'));
+    const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value.replace(/ /g, '+'));
+    const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value.replace(/ /g, '+'));
+    console.log(categoryFilter.options);
+    console.log(categoryFilter.options[categoryFilter.selectedIndex].value);
     const queryParams = [];
 
     if (encodedSearch !== "") {

@@ -14,7 +14,7 @@
                 <option value="" disabled>No Category Available</option>
             <?php else : ?>
                 <?php foreach ($data['categories'] as $category) : ?>
-                    <option value=<?= $category['name'] ?>><?= $category['name'] ?></option>
+                    <option value="<?= $category['name'] ?>"><?= $category['name'] ?></option>
                 <?php endforeach; ?>
             <?php endif; ?>
         </select>
