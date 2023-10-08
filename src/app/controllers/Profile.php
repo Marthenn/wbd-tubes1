@@ -126,7 +126,7 @@ class Profile extends Controller{
                             $filename .= '.' . $fileExt;
 
                             // if file is larger than 500MB
-                            if ($file['size'] > 500000){
+                            if ($file['size'] > 500000000){
                                 // response 400 Bad Request
                                 http_response_code(400);
                                 header('Content-Type: application/json');
