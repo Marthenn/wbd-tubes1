@@ -11,7 +11,6 @@ const deleteAuthor = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
-            console.log(this.status)
             if (this.status === 204){
                 location.replace('/public/authorlist');
             } else {
@@ -58,9 +57,14 @@ const updateAuthor = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
-            console.log(this.status)
             if (this.status === 204){
-                location.replace('/public/authorlist');
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash("Book updated!", "success"));
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
