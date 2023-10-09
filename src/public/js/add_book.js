@@ -8,7 +8,7 @@ const coverInput = document.querySelector('#cover-image');
 const audioInput = document.querySelector('#audio-file');
 const coverFilename = document.querySelector('#cover-filename');
 const audioFilename = document.querySelector('#audio-filename');
-const addBookForm = document.querySelector('#add-book-form');
+const addBookForm = document.getElementById('add-book-form');
 
 const redirectToBooklist = () => {
     location.replace('/public/audiobooklist');
@@ -26,51 +26,61 @@ const disableAllInputs = () => {
 addButton && addButton.addEventListener(
     'click', (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        const cover = coverInput.files[0];
-        const audio = audioInput.files[0];
-        formData.append('title', titleInput.value);
-        formData.append('author', authorInput.value);
-        formData.append('rating', ratingInput.value);
-        formData.append('category', categoryInput.value);
-        formData.append('description', descInput.value);
-        formData.append('cover', cover);
-        formData.append('audio', audio);
-        formData.append('duration', getFormattedTime(audioDuration));
-        
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", `/public/addbook/add`);
-        xhr.send(formData);
+        if (addBookForm.checkValidity()) {
+            const formData = new FormData();
+            const cover = coverInput.files[0];
+            const audio = audioInput.files[0];
+            formData.append('title', titleInput.value);
+            formData.append('author', authorInput.value);
+            formData.append('rating', ratingInput.value);
+            formData.append('category', categoryInput.value);
+            formData.append('description', descInput.value);
+            formData.append('cover', cover);
+            formData.append('audio', audio);
+            formData.append('duration', getFormattedTime(audioDuration));
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", `/public/addbook/add`);
+            xhr.send(formData);
 
-        xhr.onreadystatechange = function () {
-            if (this.readyState === XMLHttpRequest.DONE){
-                if (this.status === 200){
-                    console.log(this.responseText);
-                    disableAllInputs();
-                    const right_button_param = {
-                        text : 'Go Back',
-                        functionality : redirectToBooklist
-                    }
-                    const flash = document.getElementById('flash-message');
-                    if (flash.firstChild) {
-                        for (let i = 0; i < flash.childNodes.length; i++) {
-                            flash.removeChild(flash.childNodes[i]);
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE){
+                    if (this.status === 200){
+                        console.log(this.responseText);
+                        disableAllInputs();
+                        const right_button_param = {
+                            text : 'Go Back',
+                            functionality : redirectToBooklist
                         }
-                    }
-                    flash.appendChild(make_flash("Book has been added!", "success", null, right_button_param));
-                } else {
-                    const data = JSON.parse(this.responseText);
-                    const flash = document.getElementById('flash-message');
-                    if (flash.firstChild) {
-                        for (let i = 0; i < flash.childNodes.length; i++) {
-                            flash.removeChild(flash.childNodes[i]);
+                        const flash = document.getElementById('flash-message');
+                        if (flash.firstChild) {
+                            for (let i = 0; i < flash.childNodes.length; i++) {
+                                flash.removeChild(flash.childNodes[i]);
+                            }
                         }
+                        flash.appendChild(make_flash("Book has been added!", "success", null, right_button_param));
+                    } else {
+                        const data = JSON.parse(this.responseText);
+                        const flash = document.getElementById('flash-message');
+                        if (flash.firstChild) {
+                            for (let i = 0; i < flash.childNodes.length; i++) {
+                                flash.removeChild(flash.childNodes[i]);
+                            }
+                        }
+                        flash.appendChild(make_flash(data.message, data.type));
                     }
-                    flash.appendChild(make_flash(data.message, data.type));
                 }
             }
-        }
+        } else {
+            const flash = document.getElementById('flash-message');
+            if (flash.firstChild) {
+                for (let i = 0; i < flash.childNodes.length; i++) {
+                    flash.removeChild(flash.childNodes[i]);
+                }
+            }
+            flash.appendChild(make_flash("Please input the required data", "danger"));
     }
+}
 )
 
 audioInput && audioInput.addEventListener(
