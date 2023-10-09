@@ -35,7 +35,7 @@
             <img id="play-pause-img" src="<?= BASEURL;?>/img/play-button.svg" alt="play"  data-play-src="<?= BASEURL;?>/img/play-button.svg" data-pause-src="<?= BASEURL;?>/img/pause-button.svg" width="50">
         </button>
         <p id="curr-duration"><?= $data['curr_duration']?></p>
-        <input class="progress-bar" type="range" name="progress-bar" id="progress-bar" step="0.01" value="<?= $data['currentTotalSeconds']?>" min="0" max="<?= $data['totalSeconds']?>">
+        <input aria-label="progress-bar" class="progress-bar" type="range" name="progress-bar" id="progress-bar" step="0.01" value="<?= $data['currentTotalSeconds']?>" min="0" max="<?= $data['totalSeconds']?>">
         <p id="final-duration"><?= $data['duration']?></p>
     </div>
 </div>
