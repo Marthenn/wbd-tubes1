@@ -1,6 +1,9 @@
 const playPauseButton = document.getElementById('play-pause-button');
 const playPauseImg = document.getElementById('play-pause-img');
+const playSrc = playPauseImg.getAttribute('data-play-src');
+const pauseSrc = playPauseImg.getAttribute('data-pause-src');
 
+const audio = document.querySelector('#audio-player');
 const progressBar = document.querySelector("#progress-bar");
 const currentTime = document.querySelector("#curr-duration");
 const finalTime = document.querySelector("#final-duration")
@@ -8,13 +11,31 @@ const finalTime = document.querySelector("#final-duration")
 let isPlaying = false;
 let isHold = false;
 
+audio.currentTime = currentSeconds;
 // change later
-let audio = new Audio('/storage/audio/2.mp3');
+
+const updateHistory = async (e) => {
+    console.log("masuk history");
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+
+    formData.append('curr_duration', getFormattedTime(parseFloat(progressBar.value)));
+    
+    xhr.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE){
+            if (this.status !== 204){
+                console.log('History failed to update');
+            }
+        }
+    }
+    xhr.open('POST', `/public/bookdetails/updatetime/${bid}`);
+    xhr.send(formData);
+}
 
 progressBar && progressBar.addEventListener(
     'input', async (e) => {
         e.preventDefault();
-        currentTime.innerHTML = changeStartTime(progressBar.value);
+        currentTime.innerHTML = getFormattedTime(progressBar.value);
     }
 )
 
@@ -37,21 +58,27 @@ progressBar && progressBar.addEventListener(
     }
 )
 
-audio && audio.addEventListener('timeupdate', () => {
-    currentTime.innerHTML = changeStartTime(progressBar.value);
+audio && audio.addEventListener(
+    'timeupdate', async (e) => {
+    currentTime.innerHTML = getFormattedTime(progressBar.value);
     if (!isHold) {
         progressBar.value = audio.currentTime;
     }
 });
 
+audio && audio.addEventListener(
+    'ended', async (e) => {
+    playPauseImg.src = playSrc;
+    playPauseImg.alt = 'play';
+    isPlaying = !isPlaying;
+});
+
 playPauseButton && playPauseButton.addEventListener(
     'click', async (e) => {
-        const playSrc = playPauseImg.getAttribute('data-play-src');
-        const pauseSrc = playPauseImg.getAttribute('data-pause-src');
-    
         if (isPlaying) {
             playPauseImg.src = playSrc;
             playPauseImg.alt = 'play';
+            updateHistory();
         } else {
             playPauseImg.src = pauseSrc;
             playPauseImg.alt = 'pause';
@@ -61,7 +88,7 @@ playPauseButton && playPauseButton.addEventListener(
     }
 );
 
-const changeStartTime = (seconds) => {
+const getFormattedTime = (seconds) => {
     let hours = Math.floor(seconds / 3600);
     let minutes = Math.floor((seconds % 3600) / 60);
     let remainingSeconds = seconds % 60;
@@ -72,3 +99,5 @@ const changeStartTime = (seconds) => {
 
     return hours + ":" + minutes + ":" + remainingSeconds;
 }
+
+window.addEventListener('beforeunload', updateHistory);

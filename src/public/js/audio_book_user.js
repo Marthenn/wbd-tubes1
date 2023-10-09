@@ -19,7 +19,6 @@ function fetchData(url) {
     
     xhr.onload = () => {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
             const data = JSON.parse(xhr.responseText);
             MAX_PAGES = data.max_pages;
             paginationText.textContent = MAX_PAGES;
@@ -119,10 +118,10 @@ pageInput && pageInput.addEventListener('change', (e) => {
 });
 
 function buildUrl() {
-    const encodedSearch = encodeURIComponent(searchInput.value.replace(/ /g, '+').toLowerCase());
-    const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value);
-    const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value);
-    const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value);
+    const encodedSearch = encodeURIComponent(searchInput.value.replace(/ /g, '+'));
+    const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value.replace(/ /g, '+'));
+    const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value.replace(/ /g, '+'));
+    const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value.replace(/ /g, '+'));
 
     const queryParams = [];
 
@@ -155,11 +154,18 @@ const updateView = (data) => {
         const minutes = parseInt(durationParts[1]);
         const totalMinutes = hoursInMinutes + minutes;
 
+        let coverImageSrc = "";
+        if (book.cover_image_directory) {
+            coverImageSrc = book.cover_image_directory;
+        } else {
+            coverImageSrc = `${BASEURL}/img/cover-placeholder.png`;
+        }
+
         updatedHTML +=
         `
         <a href="${BASEURL}/bookdetails/${book.bid}" class="book-card">
             <div class="cover">
-                <img class="cover-img" src="${BASEURL}/img/cover-placeholder.png" alt="logo">
+                <img class="cover-img" src="${coverImageSrc}" alt="cover">
             </div>
             <div class="details">
                 <p class="title"> ${book.title}</p>

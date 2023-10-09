@@ -263,6 +263,7 @@ class Book_model {
          * 5. Description
          * 6. Cover Image Directory (nullable)
          * 7. Audio Directory (nullable)
+         * 8. Duration (nullable)
          *
          * If cover image and audio directory is null, then it will not be updated
          * If cover image directory value is delete_please, then it will be deleted
@@ -288,7 +289,7 @@ class Book_model {
             }
         }
         if ($data['audio_directory'] != null){
-            $query = $query . ", audio_directory = :audio_directory";
+            $query = $query . ", audio_directory = :audio_directory, duration = :duration";
         }
         $query = $query . " WHERE bid = :bid";
 
@@ -305,24 +306,66 @@ class Book_model {
         }
         if ($data['audio_directory'] != null){
             $this->database->bind('audio_directory', $data['audio_directory']);
+            $this->database->bind('duration', $data['duration']);
         }
         $this->database->bind('bid', $data['bid']);
 
         $this->database->execute();
     }
 
+    public function isAuthorExist($author) {
+        $query = "SELECT COUNT(*) FROM author WHERE name = :author";
+        $this->database->query($query);
+        $this->database->bind(':author', $author);
+        $count = $this->database->single()['count'];
+        return $count > 0;
+    }
+    
+    public function isCategoryExist($category) {
+        $query = "SELECT COUNT(*) FROM category WHERE name = :category";
+        $this->database->query($query);
+        $this->database->bind(':category', $category);
+        $count = $this->database->single()['count'];
+        return $count > 0;
+    }
+
     public function addBook($data) {
         // Finding the aid of the author
-        $this->database->query("INSERT INTO author (name) VALUES (:author) ON DUPLICATE KEY UPDATE name = :author");
-        $this->database->bind(':author', $data['author']);
-        $aid = $this->database->execute() ? $this->database->lastInsertId() : null;
+        
+        $aid = null;
+        if ($this->isAuthorExist($data['author'])) {
+            $this->database->query("SELECT aid FROM author WHERE name = :author");
+            $this->database->bind('author', $data['author']);
+            $aid = $this->database->single()['aid'];
+        } else {
+            $this->database->query("INSERT INTO author (name) VALUES (:author) RETURNING aid;");
+            $this->database->bind(':author', $data['author']);
+            $aid = $this->database->single()['aid'];
+        }
+    
         // Finding the cid of the category
-        $this->database->query("INSERT INTO category (name) VALUES (:category) ON DUPLICATE KEY UPDATE name = :category");
-        $this->database->bind(':category', $data['category']);
-        $cid = $this->database->execute() ? $this->database->lastInsertId() : null;
+        $cid = null;
+        if ($this->isCategoryExist($data['category'])) {
+            $this->database->query("SELECT cid FROM category WHERE name = :category");
+            $this->database->bind(':category', $data['category']);
+            $cid = $this->database->single()['cid'];
+        } else {
+            $this->database->query("INSERT INTO category (name) VALUES (:category) RETURNING cid;");
+            $this->database->bind(':category', $data['category']);
+            $cid = $this->database->single()['cid'];
+        }
     
         // Inserting the book record
-        $query = "INSERT INTO book (title, aid, rating, cid, description, duration) VALUES (:title, :aid, :rating, :cid, :description, :duration)";
+        $query = "INSERT INTO book (title, aid, rating, cid, description, duration, audio_directory) VALUES (:title, :aid, :rating, :cid, :description, :duration, :audio_directory)";
+        if ($data['cover_image_directory'] != null){
+            if ($data['cover_image_directory'] == 'delete_please'){
+                $query = $query . ", cover_image_directory = NULL";
+            } else {
+                $query = $query . ", cover_image_directory = :cover_image_directory";
+                $this->database->bind('cover_image_directory', $data['cover_image_directory']);
+            }
+        }
+
         $this->database->query($query);
         $this->database->bind(':title', $data['title']);
         $this->database->bind(':aid', $aid);
@@ -330,14 +373,9 @@ class Book_model {
         $this->database->bind(':cid', $cid);
         $this->database->bind(':description', $data['description']);
         $this->database->bind(':duration', $data['duration']);
-        $success = $this->database->execute();
-    
-        if (!$success) {
-            // Handle the database error here (e.g., log or display an error message)
-            $errorInfo = $this->database->errorInfo();
-            http_response_code(500); // Set an appropriate HTTP status code for the error
-            exit;
-        }
+        $this->database->bind(':audio_directory', $data['audio_directory']);
+
+        $this->database->execute();
     }
     
     public function deleteBook($bid) {
@@ -366,5 +404,27 @@ class Book_model {
         $data['curr_duration'] = $curr_duration;
 
         return $data;
+    }
+
+    public function addHistory($data) {
+        $query = "SELECT hid FROM history WHERE uid = :uid AND bid = :bid";
+        $this->database->query($query);
+        $this->database->bind(':uid', $data['uid']);
+        $this->database->bind(':bid', $data['bid']);
+        if (!$this->database->single()) { // if history not found, insert new history
+            $queryInsert = "INSERT INTO history (uid, bid, curr_duration) VALUES (:uid, :bid, :curr_duration)";
+            $this->database->query($queryInsert);
+            $this->database->bind(':uid', $data['uid']);
+            $this->database->bind(':bid', $data['bid']);
+            $this->database->bind(':curr_duration', $data['curr_duration']);
+            $this->database->execute();
+        } else { // if history was found, update history
+            $hid = $this->database->single()['hid'];
+            $queryUpdate = "UPDATE history SET curr_duration = :curr_duration WHERE hid = :hid";
+            $this->database->query($queryUpdate);
+            $this->database->bind(':hid', $hid);
+            $this->database->bind(':curr_duration', $data['curr_duration']);
+            $this->database->execute();
+        }
     }
 }
