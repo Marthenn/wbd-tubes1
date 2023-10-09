@@ -19,7 +19,6 @@ function fetchData(url) {
     
     xhr.onload = () => {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
             const data = JSON.parse(xhr.responseText);
             MAX_PAGES = data.max_pages;
             paginationText.textContent = MAX_PAGES;
@@ -156,7 +155,6 @@ const updateView = (data) => {
         const totalMinutes = hoursInMinutes + minutes;
 
         let coverImageSrc = "";
-        console.log(book);
         if (book.cover_image_directory) {
             coverImageSrc = book.cover_image_directory;
         } else {

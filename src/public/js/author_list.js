@@ -54,7 +54,6 @@ searchInput && searchInput.addEventListener(
     "keyup",
     debounce(() => {
         const url = buildUrl();
-        console.log(url);
         fetchData(url);
     })
 )

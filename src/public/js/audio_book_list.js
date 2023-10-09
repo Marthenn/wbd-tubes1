@@ -19,7 +19,6 @@ function fetchData(url) {
     
     xhr.onload = () => {
         if (xhr.status === 200) {
-            console.log(xhr.responseText);
             const data = JSON.parse(xhr.responseText);
             MAX_PAGES = data.max_pages;
             paginationText.textContent = MAX_PAGES;
@@ -61,7 +60,6 @@ filterButton1 && filterButton1.addEventListener('click', (e) => {
     e.preventDefault();
     currentPage = 1;
     const url = buildUrl();
-    console.log(url);
     fetchData(url);
 });
 
@@ -125,8 +123,6 @@ function buildUrl() {
     const encodedDuration = encodeURIComponent(durationFilter.options[durationFilter.selectedIndex].value.replace(/ /g, '+'));
     const encodedCategory = encodeURIComponent(categoryFilter.options[categoryFilter.selectedIndex].value.replace(/ /g, '+'));
     const encodedSort = encodeURIComponent(sortInput.options[sortInput.selectedIndex].value.replace(/ /g, '+'));
-    console.log(categoryFilter.options);
-    console.log(categoryFilter.options[categoryFilter.selectedIndex].value);
     const queryParams = [];
 
     if (encodedSearch !== "") {
@@ -172,15 +168,12 @@ const updateView = (data) => {
     });
     dataCards.innerHTML = generatedHTML;
     pageInput.value = currentPage;
-    console.log(currentPage)
-    console.log(MAX_PAGES)
     if (currentPage <= 1) {
         prevButton.disabled = true;
     } else {
         prevButton.disabled = false;
     }
     if (currentPage >= MAX_PAGES) {
-        console.log("here")
         nextButton.disabled = true;
     } else {
         nextButton.disabled = false;
