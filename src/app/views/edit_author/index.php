@@ -6,9 +6,9 @@
         <div class="edit-author-header">
             <h1 id="edit-author">Edit Author</h1>
         </div>
-        <form class="edit-author-form">
+        <form class="edit-author-form" id="edit-author-form">
             <div class="input-field">
-                <label for="name">Name</label>
+                <label for="name">Name<span id="required-input">*</span></label>
                 <input type="text" name="name" id="name" value=<?= $data['name'] ?> required>
             </div>
             <div class="input-field-description">
@@ -18,6 +18,7 @@
             <button class="save-changes-author" type="submit" name="save-changes-author">Save Changes</button>
             <button class="delete-author" type="submit" name="delete-author">Delete Author</button>
         </form>
+        <span id="required-input">*Required</span>
         <div id = 'flash-message'></div>
     </div>
 </div>
