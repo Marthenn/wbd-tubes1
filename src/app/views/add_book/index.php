@@ -6,7 +6,7 @@
         <div class="add-book-header">
             <h1 id="add-book">Add Book</h1>
         </div>
-        <form class="add-book-form" action="/public/addbook/add" method="POST" enctype="multipart/form-data">
+        <form class="add-book-form" name="add-book-form" action="/public/addbook/add" method="POST" enctype="multipart/form-data">
             <div class="input-field">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" required>
@@ -45,6 +45,8 @@
             </div>
             <button class="save-changes-book" type="submit" name="save-changes-book" id="save-changes-book">Save Changes</button>
         </form>
+        <div id = 'flash-message'></div>
     </div>
 </div>
+<script src="<?= BASEURL; ?>/js/lib/flasher.js" defer></script>
 <script src="<?= BASEURL; ?>/js/add_book.js" defer></script>
