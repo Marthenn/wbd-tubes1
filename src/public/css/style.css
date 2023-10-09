@@ -33,7 +33,7 @@ a {
     color: #1f1f1f;
 }
 
-a:active, button:active{
+a:active, button:active, button:disabled, input:disabled, textarea:disabled{
     opacity: 50%;
 }
 

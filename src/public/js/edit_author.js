@@ -79,7 +79,7 @@ const updateAuthor = async (e) => {
                         flash.removeChild(flash.childNodes[i]);
                     }
                 }
-                flash.appendChild(make_flash("Book updated!", "success"));
+                flash.appendChild(make_flash("Author updated!", "success"));
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
