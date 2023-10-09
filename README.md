@@ -29,11 +29,11 @@
 2. Pindah ke directory src dengan cara `cd src`
 3. Beri permission shell script run.sh dengan command `sudo chmod 777 run.sh`
 4. Pindah kembali ke root directory repository dengan command `cd ..`
-2. Bila belum memiliki docker image, maka build dengan perintah `docker build -t tubes-1:latest .`
-3. Bila belum terdapat file `.env` pada directory, maka buatlah file `.env` yang sesuai dengan file `.env.example`
-4. Jalankan docker container dengan perintah `docker compose up`
-5. Aplikasi web dapat diakses pada URL `https://localhost/public/`
-6. Jalankan perintah `docker compose down` bila ingin menghentikan container docker.
+5. Bila belum memiliki docker image, maka build dengan perintah `docker build -t tubes-1:latest .`
+6. Bila belum terdapat file `.env` pada directory, maka buatlah file `.env` yang sesuai dengan file `.env.example`
+7. Jalankan docker container dengan perintah `docker compose up`
+8. Aplikasi web dapat diakses pada URL `https://localhost/public/`
+9. Jalankan perintah `docker compose down` bila ingin menghentikan container docker.
 
 ## Screenshot Tampilan Aplikasi
 
@@ -84,6 +84,31 @@
 ### User List
 
 ![User List](./img/userlist.png)
+
+### Lighthouse
+![Lighthouse 1](./img/l1.png)
+
+![Lighthouse 2](./img/l2.png)
+
+![Lighthouse 3](./img/l3.png)
+
+![Lighthouse 4](./img/l4.png)
+
+![Lighthouse 5](./img/l5.png)
+
+![Lighthouse 6](./img/l6.png)
+
+![Lighthouse 7](./img/l7.png)
+
+![Lighthouse 8](./img/l8.png)
+
+![Lighthouse 9](./img/l9.png)
+
+![Lighthouse 10](./img/l10.png)
+
+![Lighthouse 11](./img/l11.png)
+
+![Lighthouse 12](./img/l12.png)
 
 ## Pembagian Tugas
 
