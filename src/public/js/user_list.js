@@ -45,7 +45,7 @@ function fetchData(url) {
 function buildUrl() {
     const queryParameters = [];
     if (searchInput.value !== "") {
-        queryParameters.push(`${encodeURIComponent(searchInput.value.replace(/ /g, '+').toLowerCase())}`);
+        queryParameters.push(`${encodeURIComponent(searchInput.value.replace(/ /g, '+'))}`);
     }
     return `/public/userlist/fetch/${currentPage}${queryParameters.length > 0 ? `/${queryParameters.join('/')}` : ''}`;
 }
