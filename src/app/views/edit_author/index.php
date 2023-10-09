@@ -16,8 +16,8 @@
                 <textarea name="description" id="description" required><?= $data['description'] ?></textarea>
             </div>
             <button class="save-changes-author" type="submit" name="save-changes-author">Save Changes</button>
+            <button class="delete-author" type="submit" name="delete-author">Delete Author</button>
         </form>
-        <button class="delete-author" type="submit" name="delete-author">Delete Author</button>
         <div id = 'flash-message'></div>
     </div>
 </div>
