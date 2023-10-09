@@ -11,7 +11,26 @@ const finalTime = document.querySelector("#final-duration")
 let isPlaying = false;
 let isHold = false;
 
+audio.currentTime = currentSeconds;
 // change later
+
+const updateHistory = async (e) => {
+    console.log("masuk history");
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+
+    formData.append('curr_duration', getFormattedTime(parseFloat(progressBar.value)));
+    
+    xhr.onreadystatechange = function () {
+        if (this.readyState === XMLHttpRequest.DONE){
+            if (this.status !== 204){
+                console.log('History failed to update');
+            }
+        }
+    }
+    xhr.open('POST', `/public/bookdetails/updatetime/${bid}`);
+    xhr.send(formData);
+}
 
 progressBar && progressBar.addEventListener(
     'input', async (e) => {
@@ -59,6 +78,7 @@ playPauseButton && playPauseButton.addEventListener(
         if (isPlaying) {
             playPauseImg.src = playSrc;
             playPauseImg.alt = 'play';
+            updateHistory();
         } else {
             playPauseImg.src = pauseSrc;
             playPauseImg.alt = 'pause';
@@ -79,3 +99,5 @@ const getFormattedTime = (seconds) => {
 
     return hours + ":" + minutes + ":" + remainingSeconds;
 }
+
+window.addEventListener('beforeunload', updateHistory);

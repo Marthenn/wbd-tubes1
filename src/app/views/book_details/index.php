@@ -40,6 +40,10 @@
     </div>
 </div>
 <script src="<?= BASEURL; ?>/js/audio_player.js" defer></script>
+<script type="text/javascript" defer>
+    const bid = parseInt("<?= $data['bid']?>");
+    let currentSeconds = parseFloat("<?= $data['currentTotalSeconds']?>")
+</script>
 <?php
 function convertTimeToMinutes($time) {
     list($hours, $minutes, $seconds) = explode(':', $time);
