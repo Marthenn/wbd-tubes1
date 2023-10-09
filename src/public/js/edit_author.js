@@ -2,6 +2,7 @@ const deleteButton = document.querySelector('.delete-author');
 const updateButton = document.querySelector('.save-changes-author');
 const nameInput = document.getElementById('name');
 const descriptionInput = document.getElementById('description');
+const editAuthorForm = document.getElementById('edit-author-form');
 
 const redirectToAuthorList = () => {
     location.replace('/public/authorlist');
@@ -43,22 +44,33 @@ const deleteAuthor = async (e) => {
 }
 
 deleteButton && deleteButton.addEventListener(
-    'click', (e) => {
-        e.preventDefault();
-        const flash = document.getElementById('flash-message');
-        if (flash.firstChild) {
-            for (let i = 0; i < flash.childNodes.length; i++) {
-                flash.removeChild(flash.childNodes[i]);
+        'click', (e) => {
+            e.preventDefault();
+            if (editAuthorForm.checkValidity()) {
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                const left_button_param = {
+                    text : 'Yes',
+                    functionality : deleteAuthor
+                }
+                const right_button_param = {
+                    text : 'No'
+                }
+                flash.appendChild(make_flash("Are you sure you want to delete this author?", "danger", left_button_param, right_button_param));
             }
-        }
-        const left_button_param = {
-            text : 'Yes',
-            functionality : deleteAuthor
-        }
-        const right_button_param = {
-            text : 'No'
-        }
-        flash.appendChild(make_flash("Are you sure you want to delete this author?", "danger", left_button_param, right_button_param));
+            else {
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash("Please input the required data", "danger"));
+            }
     }
 )
 
