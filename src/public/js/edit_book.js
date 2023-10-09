@@ -23,7 +23,6 @@ const deleteBook = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE) {
-            console.log(this.status);
             if (this.status === 204) {
                 location.replace('/public/audiobooklist');
                 alert(`Book with id ${bid} has been deleted`);
@@ -61,7 +60,6 @@ const updateBook = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
-            console.log(this.status);
             if (this.status === 200){
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');

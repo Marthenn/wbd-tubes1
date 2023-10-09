@@ -15,7 +15,7 @@
                 <label for="author">Author</label>
                 <input type="text" name="author" id="author" required>
             </div>
-            <!-- <div class="input-field-rating">
+            <div class="input-field-rating">
                 <label for="rating">Rating</label>
                 <input type="number" name="rating" id="rating" min="0" max="5" step="0.1" required>
             </div>
@@ -42,7 +42,7 @@
                 <div>
                     <input type="file" name="audio-file" id="audio-file" required>
                 </div>
-            </div> -->
+            </div>
             <button class="save-changes-book" type="submit" name="save-changes-book" id="save-changes-book">Save Changes</button>
         </form>
     </div>
