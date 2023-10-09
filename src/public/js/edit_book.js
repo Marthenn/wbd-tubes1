@@ -11,6 +11,20 @@ const coverFilename = document.querySelector('#cover-filename');
 const audioFilename = document.querySelector('#audio-filename');
 const editBookForm = document.querySelector('#edit-book-form');
 
+const redirectToBooklist = () => {
+    location.replace('/public/audiobooklist');
+}
+
+const disableAllInputs = () => {
+    const allInputs = document.querySelectorAll('input');
+    allInputs.forEach((button) => {
+        button.disabled = true;
+    });
+    updateButton.disabled = true;
+    deleteButton.disabled = true;
+    descInput.disabled = true;
+}
+
 const deleteBook = async (e) => {
     e.preventDefault();
     const xhr = new XMLHttpRequest();
@@ -23,10 +37,19 @@ const deleteBook = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE) {
-            console.log(this.status);
             if (this.status === 204) {
-                location.replace('/public/audiobooklist');
-                alert(`Book with id ${bid} has been deleted`);
+                disableAllInputs();
+                const right_button_param = {
+                    text : 'Go Back',
+                    functionality : redirectToBooklist
+                }
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash("Book has been deleted!", "success", null, right_button_param));
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
@@ -61,7 +84,6 @@ const updateBook = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
-            console.log(this.status);
             if (this.status === 200){
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');

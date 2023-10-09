@@ -229,11 +229,11 @@ class EditBook extends Controller {
 
                     // If null, change to current directory
                     if (!$fileAudioDir) {
-                        $fileAudioDir = $currentBook['audio-directory'];
+                        $fileAudioDir = $currentBook['audio_directory'];
                     }
 
                     if (!$fileCoverDir) {
-                        $fileCoverDir = $currentBook['cover-image-directory'];
+                        $fileCoverDir = $currentBook['cover_image_directory'];
                     }
 
                     $responseData = [

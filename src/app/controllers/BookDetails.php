@@ -18,6 +18,40 @@ class BookDetails extends Controller{
         $this->view('templates/footer');
     }
 
+    public function updatetime($bid) {
+        try {
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'POST':
+                    $bookModel = $this->model('Book_model');
+                    $newHistory = [
+                        'uid' => $_COOKIE['uid'],
+                        'bid' => $bid,
+                        'curr_duration' => $_POST['curr_duration']
+                    ];
+                    $bookModel->addHistory($newHistory);
+                    http_response_code(204);
+                    exit;
+                default:
+                    http_response_code(405);
+                    header('Content-Type: application/json');
+                    $responseData = [
+                        'message' => 'Invalid request method',
+                        'type' => 'danger'
+                    ];
+                    echo json_encode($responseData);
+                    exit;
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+            header('Content-Type: application/json');
+            $requestData = [
+                'message' => $e->getMessage(),
+                'type' => 'danger'
+            ];
+            echo json_encode($requestData);
+        }
+    }
+
     private function getTotalSeconds($time)
     {
         list($hours, $minutes, $seconds) = explode(':', $time);

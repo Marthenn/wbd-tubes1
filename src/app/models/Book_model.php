@@ -385,4 +385,26 @@ class Book_model {
         $result = $this->database->resultSet();
         return $result ? true : false;
     }
+
+    public function addHistory($data) {
+        $query = "SELECT hid FROM history WHERE uid = :uid AND bid = :bid";
+        $this->database->query($query);
+        $this->database->bind(':uid', $data['uid']);
+        $this->database->bind(':bid', $data['bid']);
+        if (!$this->database->single()) { // if history not found, insert new history
+            $queryInsert = "INSERT INTO history (uid, bid, curr_duration) VALUES (:uid, :bid, :curr_duration)";
+            $this->database->query($queryInsert);
+            $this->database->bind(':uid', $data['uid']);
+            $this->database->bind(':bid', $data['bid']);
+            $this->database->bind(':curr_duration', $data['curr_duration']);
+            $this->database->execute();
+        } else { // if history was found, update history
+            $hid = $this->database->single()['hid'];
+            $queryUpdate = "UPDATE history SET curr_duration = :curr_duration WHERE hid = :hid";
+            $this->database->query($queryUpdate);
+            $this->database->bind(':hid', $hid);
+            $this->database->bind(':curr_duration', $data['curr_duration']);
+            $this->database->execute();
+        }
+    }
 }

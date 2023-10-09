@@ -3,6 +3,10 @@ const updateButton = document.querySelector('.save-changes-author');
 const nameInput = document.getElementById('name');
 const descriptionInput = document.getElementById('description');
 
+const redirectToAuthorList = () => {
+    location.replace('/public/authorlist');
+}
+
 const deleteAuthor = async (e) => {
     e.preventDefault();
     const xhr = new XMLHttpRequest();
@@ -11,9 +15,19 @@ const deleteAuthor = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
-            console.log(this.status)
             if (this.status === 204){
-                location.replace('/public/authorlist');
+                disableAllInputs();
+                const right_button_param = {
+                    text : 'Go Back',
+                    functionality : redirectToAuthorList
+                }
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash("Author has been deleted!", "success", null, right_button_param));
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
@@ -58,9 +72,14 @@ const updateAuthor = async (e) => {
 
     xhr.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE){
-            console.log(this.status)
             if (this.status === 204){
-                location.replace('/public/authorlist');
+                const flash = document.getElementById('flash-message');
+                if (flash.firstChild) {
+                    for (let i = 0; i < flash.childNodes.length; i++) {
+                        flash.removeChild(flash.childNodes[i]);
+                    }
+                }
+                flash.appendChild(make_flash("Author updated!", "success"));
             } else {
                 const data = JSON.parse(this.responseText);
                 const flash = document.getElementById('flash-message');
@@ -94,3 +113,13 @@ updateButton && updateButton.addEventListener(
         flash.appendChild(make_flash("Are you sure you want to update this author?", "action", left_button_param, right_button_param));
     }
 )
+
+const disableAllInputs = () => {
+    const allInputs = document.querySelectorAll('input');
+    allInputs.forEach((button) => {
+        button.disabled = true;
+    });
+    deleteButton.disabled = true;
+    updateButton.disabled = true;
+    descriptionInput.disabled = true;
+}

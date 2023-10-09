@@ -52,7 +52,7 @@ class EditAuthor extends Controller {
                 case 'POST':
                     $authorModel = $this->model('Author_model');
                     $authorModel->deleteAuthor($aid);
-                    header('Location: /public/authorlist', true, 204);
+                    http_response_code(204);
                     exit;
                 default:
                     http_response_code(405);

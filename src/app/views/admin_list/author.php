@@ -38,7 +38,7 @@
 </div>
 <script src="<?= BASEURL; ?>/js/lib/debounce.js" defer></script>
 <script src="<?= BASEURL; ?>/js/lib/flasher.js" defer></script>
-<script src="<?= BASEURL; ?>/js/admin/author_list.js" defer></script>
+<script src="<?= BASEURL; ?>/js/author_list.js" defer></script>
 <script type="text/javascript" defer>
     var MAX_PAGES = parseInt("<?= $data['pages'] ?? 0 ?>");
 </script>

@@ -97,8 +97,8 @@ SELECT
     floor(random() * 7) + 1,  -- Random author ID between 1 and 5
     floor(random() * 5) + 1,  -- Random category ID between 1 and 5
     (LPAD(floor(random() * 2)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0') || ':' || LPAD(floor(random() * 60)::text, 2, '0'))::time,  -- Random duration
-    'storage/cover/' || generate_series || '.jpg',  -- Cover image directory
-    'storage/audio/' || generate_series || '.mp3'   -- Audio directory
+    '',  -- Cover image directory
+    '/storage/audio/' || generate_series || '.mp3'   -- Audio directory
 FROM generate_series(1, 50);
 
 INSERT INTO history (uid, bid, curr_duration)
